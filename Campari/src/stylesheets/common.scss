@@ -1,0 +1,372 @@
+//@import "./base.scss";
+@import "./vd";
+
+.shaking,
+.shaking{
+    -webkit-animation-name: shake;
+    -moz-animation-name: shake;
+    -o-animation-name: shake;
+    animation-name: shake;
+    animation-duration: 500ms;
+
+    border:1px solid #ff0000;
+    -webkit-box-shadow: inset 1px 1px 1px #ff0000;
+    -moz-box-shadow: inset 1px 1px 1px #ff0000;
+    box-shadow: 0px 0px 11px #ff0000;
+}
+.products2 .iscroll-wrapper {
+    width:100%;
+}
+
+header.products-header {
+    width:100%;
+    overflow: hidden;
+    &>a {
+        width:50%;
+        float: left;
+        padding: 12px;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: $font-size;
+        color: #000;
+        border-bottom: 1px solid #e0e0e0;
+        position: relative;
+        span{
+            font-size: $font-size - .3rem;
+        }
+        &:first-child {
+            &::after {
+                content: '|';
+                position: absolute;
+                right:-2px;
+                color: #e0e0e0;
+            }
+        }
+    }
+    &.active {
+        a.btn-1 {
+            color: $red-btn-color;
+            border-bottom:none;
+            &::after {
+                display: none;
+            }
+        }
+        a.btn-2 {
+            border-left:1px solid #e0e0e0;
+        }
+    }
+    &.active2 {
+        a.btn-2 {
+            color: $red-btn-color;
+        }
+    }
+}
+
+.c-btn {
+    display: block;
+    width: 34.6%;
+    position: absolute;
+    right: 0.3%;
+    top:24px;
+
+}
+.categories-layer {
+    position: absolute;
+    left:0;
+    top:24px;
+    width:100%;
+    z-index: 99;
+    .c-btn-hide {
+        height:7.7%;
+        top:0;
+        right:5.3%;
+        width:31.1%;
+    }
+    ul {
+        position: absolute;
+        bottom:0;
+        width:100%;
+        height:100%;
+        li {
+            width:33.3%;
+            height:33%;
+            float: left;
+            a{
+                width:100%;
+                height:100%;
+                display: block;
+            }
+            .active {
+                border-bottom:2px solid $home-red-color;
+                box-shadow: 0 4px 10px -2px $home-border;
+            }
+        }
+        li:nth-child(n + 4) {
+            height:33.4%;
+        }
+    }
+    &::before {
+        @include shadow(100%, 10px, 0 4px 6px 0px rgba(0, 0, 0, 0.2))
+    }
+}
+.categories-layer-2 {
+    position: absolute;
+    top:44px;
+    width:50%;
+    right:0;
+    background-color: #fff;
+    z-index: 90;
+    li {
+        border-bottom:1px solid #e0e0e0;
+        &:last-child {
+            border-bottom:2px solid $home-red-color;
+        }
+        a {
+            padding: 12px;
+            display: block;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            font-size: 0.9rem;
+            text-align: center;
+            color: #000;
+            &.active {
+                color: $home-red-color;
+            }
+        }
+    }
+    &::after{
+        @include shadow(100%, 10px, 0 4px 6px 0px rgba(0, 0, 0, 0.2));
+
+    }
+    &::before {
+        @include shadow(10px, 100%, -3px 1px 2px 0px rgba(0, 0, 0, 0.2));
+    }
+}
+//条件筛选浮层动画
+.fade-enter,
+.fade2-enter {
+    opacity:0;
+    transform:scale(1, 0);
+}
+.fade-enter-active,
+.fade2-enter-active {
+    transform-origin: 50% 0;
+    transition: all .2s ease;
+}
+.fade-leave,
+.fade2-leave {
+    opacity:1;
+    transform:scale(1, 1);
+}
+.fade-leave-active {
+    opacity:0;
+    //transform:scale(1, 0);
+    transition: opacity .5s linear;
+}
+.fade2-leave-active {
+    transform-origin:50% -10%;
+    opacity:0;
+    transform:scale(1, 0);
+    transition: all .2s ease;
+}
+
+.style-group {
+    overflow: hidden;
+    width:100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    .title {
+        width:50%;
+        float: left;
+        text-align: left;
+        span {
+            font:{
+                size: $font-size + .3rem;
+                weight: 700;
+            }
+            display: inline-block;
+            width:100%;
+        }
+        em {
+            color: $gray-price-color;
+            width:100%;
+            font: {
+                size: $font-size - .2rem;
+                style: normal;
+            }
+        }
+    }
+    .menu {
+        width:50%;
+        float: right;
+        a {
+            float: right;
+            width: 120px;
+            color: $gray-price-color;
+            padding:5px;
+            display: block;
+            text-align: right;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            font:{
+                size: $font-size;
+            }
+            em {
+                font:{
+                    size: $font-size - .2rem;
+                    style: normal;
+                }
+            }
+            i {
+                font:{
+                    size:$font-size + .2rem;
+                    style: normal;
+                }
+            }
+            &.spec {
+                border:1px solid #e21836;
+            }
+        }
+
+    }
+}
+
+//加载更多按钮
+.load-more {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 55px;
+    text-align: center;
+    background: $f6-bg-color;
+    box-sizing: border-box;
+    color: $gray-price-color;
+    font-size: $font-size - 0.2rem;
+    display: block;
+}
+
+//商品详情页子模块title
+h3.with-after {
+    width:100%;
+    text-align: center;
+    font-size: $font-size + 0.1rem;
+    padding:15px;
+    box-sizing: border-box;
+    position: relative;
+    &::after {
+        content: " ";
+        position: absolute;
+        width:8%;
+        height: 3px;
+        background-color: $home-border;
+        bottom:0;
+        left:0;
+        right:0;
+        margin:0 auto;
+    }
+}
+
+//|————————————————————|
+//|xxx              >  |
+//|————————————————————|
+.component-1 {
+    overflow: hidden;
+    position: relative;
+    $padding: 15px;
+
+    border-top:1px solid $f6-border-color;
+    margin-bottom:10px;
+    background-color: #fff;
+    li{
+        position: relative;
+        font-size: 1rem;
+        border-bottom:1px solid $f6-border-color;
+        display: block;
+        overflow: hidden;
+        a{
+            width:100%;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            color: #000;
+            display: block;
+            padding: $padding;
+            float: left;
+        }
+        span {
+            float: right;
+        }
+    }
+}
+
+
+//toasted notifications
+#toasted-container {
+    min-width:80%;
+    left:10%;
+    bottom:50%;
+}
+
+//forget && safe form
+form.f-s {
+    width:100%;
+    margin-top:15px;
+    overflow: hidden;
+    p {
+        width:100%;
+        padding:10px 20px;
+        color: #000;
+        border-bottom:1px solid $home-border;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        background-color: #fff;
+        font-size:$font-size;
+        position: relative;
+        span {
+            float: right;
+            color: $gray-price-color;
+            font-size: inherit;
+        }
+    }
+    p.spi {
+        padding: 17px 20px;
+    }
+    p.spii {
+        border: none;
+        color: $gray-price-color;
+    }
+    .input-group {
+        background-color: #fff;
+        border-top:1px solid $home-border;
+    }
+    .input-p {
+        span {
+            color: $gray-price-color;
+            float: right;
+        }
+        input {
+            padding:10px;
+            border:none;
+            margin-left: 5px;
+        }
+        input::-webkit-input-placeholder {
+            font-size:$font-size;
+        }
+        .clear {
+            @include clear;
+        }
+    }
+    &>a {
+        @include common-btn;
+        width: 90%;
+        margin: 35px auto;
+        position: relative;
+        border-radius: 0;
+    }
+}
+.f-s.f-n input {
+    width:70%;
+}

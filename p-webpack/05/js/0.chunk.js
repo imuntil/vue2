@@ -1,0 +1,1 @@
+webpackJsonp([0],[,function(o,n,c){c(0);o.exports=function(o){console.log(o)}}]);
