@@ -21,7 +21,7 @@
                    id="code">
           </p>
           <!--<a href="javascript:void(0);" class="v-code">发送验证码</a>-->
-          <v-code v-on:onRun="fetchCode"
+          <v-code @onRun="fetchCode"
                   :can="!errors.has('phone') && phone"
                   :verified="verified"
                   :text="text"

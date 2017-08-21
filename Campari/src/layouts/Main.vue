@@ -59,6 +59,7 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
+    @import "../stylesheets/vd.scss";
     @import "../stylesheets/common.scss";
     @import "../stylesheets/animate.min.css";
     .fadeInDown.animated,
