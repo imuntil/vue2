@@ -3,6 +3,7 @@
     <p>the about page</p>
     <a href="javascript:;">{{about}}</a>
     <p>lalala</p>
+    <p>nakkkkkkk</p>
   </div>
 </template>
 <script>
