@@ -2,6 +2,7 @@
   <div>
     <p>the about page</p>
     <a href="javascript:;">{{about}}</a>
+    <p>lalala</p>
   </div>
 </template>
 <script>
