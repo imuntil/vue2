@@ -109,5 +109,4 @@ node_modules
 jspm_packages
 dist
 
-.gitignore
 .DS_Store
