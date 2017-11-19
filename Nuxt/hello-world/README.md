@@ -1,4 +1,4 @@
-# start
+# hello-world
 
 > Nuxt.js project
 
