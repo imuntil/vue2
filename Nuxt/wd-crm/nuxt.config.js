@@ -3,7 +3,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'hello-world',
+    title: 'wd-crm',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -33,12 +33,6 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-    },
-    vendor: ['vue-notifications'],
-    analyze: true
-  },
-  plugins: ['~plugins/vue-notifications'],
-  css: [
-    'assets/main.css'
-  ]
+    }
+  }
 }
