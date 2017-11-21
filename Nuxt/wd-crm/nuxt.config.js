@@ -11,8 +11,7 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', type: 'text/css', href: '/css/reset.css' },
-      { rel: 'stylesheet', type: 'text/css', href: '/css/base.css' }
+      { rel: 'stylesheet', type: 'text/css', href: '/css/reset.css' }
     ]
   },
   /*
@@ -38,6 +37,7 @@ module.exports = {
     }
   },
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    'element-ui/lib/theme-chalk/index.css',
+    { src: '~assets/style/base.scss', lang: 'scss' }
   ]
 }

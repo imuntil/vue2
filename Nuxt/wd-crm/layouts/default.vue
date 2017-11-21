@@ -1,15 +1,19 @@
 <template>
   <el-container class="main-body">
-    <el-header>
-      <m-header />
+    <el-header class="zh-top">
+      <m-header :isCollapse.sync="isCollapse" />
     </el-header>
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
-      <el-container>
-        <el-main>
-          <nuxt />
+      <el-aside class="zh-aside" :width="asideWidth">
+        <zh-aside :isCollapse="isCollapse" />
+      </el-aside>
+      <el-container direction="vertical">
+        <el-main class="zh-main">
+          <div class="nuxt-box">
+            <nuxt />
+          </div>
+          <zh-footer />
         </el-main>
-        <el-footer>Footer</el-footer>
       </el-container>
     </el-container>
   </el-container>
@@ -17,6 +21,8 @@
 <script>
   import { Header, Footer, Aside, Container, Main } from 'element-ui'
   import MHeader from '~/components/layouts/MHeader'
+  import ZhAside from '~/components/layouts/ZhAside'
+  import ZhFooter from '~/components/layouts/ZhFooter'
   export default {
     components: {
       ElHeader: Header,
@@ -24,56 +30,89 @@
       ElAside: Aside,
       ElContainer: Container,
       ElMain: Main,
-      MHeader
+      MHeader,
+      ZhAside,
+      ZhFooter
+    },
+    data () {
+      return {
+        isCollapse: false
+      }
+    },
+    computed: {
+      asideWidth () {
+        return this.isCollapse ? '70px' : '210px'
+      }
     }
   }
 </script>
-<style>
-html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
+<style type="text/scss" lang="scss">
+  @import "../assets/style/decoration";
 
-*, *:before, *:after {
-  box-sizing: border-box;
-  margin: 0;
-}
+  html {
+    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    word-spacing: 1px;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+  }
 
-.main-body {
-  min-height: 100vh;
-}
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
+  *, *:before, *:after {
+    box-sizing: border-box;
+    margin: 0;
+  }
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
+  .main-body {
+    height: 100vh;
+  }
+  .zh-top {
+    background-color: $bb1color;
+    border-bottom: 1px solid $bb1color;
+    /*
+      box-shadow: inset 0 1px 8px $bb1color;
+    */
+  }
+  .zh-aside {
+    width: 210px;
+    background-color: #545c64;
+    transition: width 500ms;
+    overflow: hidden;
+  }
+  .zh-main {
+    padding: 0;
+  }
+  .zh-main > div {
+    padding: 20px;
+  }
+  .button--green {
+    display: inline-block;
+    border-radius: 4px;
+    border: 1px solid #3b8070;
+    color: #3b8070;
+    text-decoration: none;
+    padding: 10px 30px;
+  }
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
+  .button--green:hover {
+    color: #fff;
+    background-color: #3b8070;
+  }
 
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
+  .button--grey {
+    display: inline-block;
+    border-radius: 4px;
+    border: 1px solid #35495e;
+    color: #35495e;
+    text-decoration: none;
+    padding: 10px 30px;
+    margin-left: 15px;
+  }
+
+  .button--grey:hover {
+    color: #fff;
+    background-color: #35495e;
+  }
 </style>
