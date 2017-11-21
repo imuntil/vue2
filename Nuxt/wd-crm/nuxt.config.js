@@ -11,7 +11,8 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', type: 'text/css', href: 'https://unpkg.com/spectre.css/dist/spectre.min.css' }
+      { rel: 'stylesheet', type: 'text/css', href: '/css/reset.css' },
+      { rel: 'stylesheet', type: 'text/css', href: '/css/base.css' }
     ]
   },
   /*
@@ -35,5 +36,8 @@ module.exports = {
         })
       }
     }
-  }
+  },
+  css: [
+    'element-ui/lib/theme-chalk/index.css'
+  ]
 }

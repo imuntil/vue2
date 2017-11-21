@@ -1,9 +1,33 @@
 <template>
-  <div>
-    <nuxt/>
-  </div>
+  <el-container class="main-body">
+    <el-header>
+      <m-header />
+    </el-header>
+    <el-container>
+      <el-aside width="200px">Aside</el-aside>
+      <el-container>
+        <el-main>
+          <nuxt />
+        </el-main>
+        <el-footer>Footer</el-footer>
+      </el-container>
+    </el-container>
+  </el-container>
 </template>
-
+<script>
+  import { Header, Footer, Aside, Container, Main } from 'element-ui'
+  import MHeader from '~/components/layouts/MHeader'
+  export default {
+    components: {
+      ElHeader: Header,
+      ElFooter: Footer,
+      ElAside: Aside,
+      ElContainer: Container,
+      ElMain: Main,
+      MHeader
+    }
+  }
+</script>
 <style>
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -21,6 +45,9 @@ html {
   margin: 0;
 }
 
+.main-body {
+  min-height: 100vh;
+}
 .button--green {
   display: inline-block;
   border-radius: 4px;

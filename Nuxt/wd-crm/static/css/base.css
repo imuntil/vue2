@@ -1,0 +1,8 @@
+div, span, p {
+  color: #333333;
+  font-size: inherit;
+}
+a {
+  text-decoration: none;
+  color: #3366ee;
+}
