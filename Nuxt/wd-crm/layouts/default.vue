@@ -9,6 +9,7 @@
       </el-aside>
       <el-container direction="vertical">
         <el-main class="zh-main">
+          <zh-breadcrumb />
           <div class="nuxt-box">
             <nuxt />
           </div>
@@ -23,7 +24,9 @@
   import MHeader from '~/components/layouts/MHeader'
   import ZhAside from '~/components/layouts/ZhAside'
   import ZhFooter from '~/components/layouts/ZhFooter'
+  import ZhBreadcrumb from '~/components/layouts/ZhBreadcrumb'
   export default {
+//    transition: 'page',
     components: {
       ElHeader: Header,
       ElFooter: Footer,
@@ -32,7 +35,8 @@
       ElMain: Main,
       MHeader,
       ZhAside,
-      ZhFooter
+      ZhFooter,
+      ZhBreadcrumb
     },
     data () {
       return {

@@ -20,7 +20,7 @@
   import Logo from '~/components/Logo.vue'
 
   export default {
-    transition: 'page',
+//    transition: 'page',
     components: {
       Logo
     }

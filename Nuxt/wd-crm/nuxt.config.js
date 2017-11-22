@@ -10,7 +10,8 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', type: 'text/css', href: '/reset.css' }
     ]
   },
   /*
@@ -36,8 +37,14 @@ module.exports = {
     }
   },
   css: [
-    'element-ui/lib/theme-chalk/index.css',
-    '~assets/style/reset.css',
+    'element-ui/lib/theme-default/index.css',
     { src: '~assets/style/base.scss', lang: 'scss' }
-  ]
+  ],
+  transition: {
+    name: 'page',
+    mode: 'out-in',
+    beforeEnter (e) {
+      console.log('----------------------------------before')
+    }
+  }
 }

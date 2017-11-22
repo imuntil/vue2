@@ -22,6 +22,7 @@
   import { delay } from '~/assets/lib/common-tools'
   export default {
     layout: 'login',
+//    transition: 'page',
     components: {
       Card, ElForm: Form, ElFormItem: FormItem, ElInput: Input, ElButton: Button
     },

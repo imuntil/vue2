@@ -4,7 +4,9 @@
   </div>
 </template>
 <script>
-
+  export default {
+//    transition: 'page'
+  }
 </script>
 <style type="text/scss" lang="scss" rel="stylesheet/scss" scoped>
   .main-body {
