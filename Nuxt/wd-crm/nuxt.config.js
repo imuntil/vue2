@@ -10,8 +10,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', type: 'text/css', href: '/css/reset.css' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
   /*
@@ -38,6 +37,7 @@ module.exports = {
   },
   css: [
     'element-ui/lib/theme-chalk/index.css',
+    '~assets/style/reset.css',
     { src: '~assets/style/base.scss', lang: 'scss' }
   ]
 }

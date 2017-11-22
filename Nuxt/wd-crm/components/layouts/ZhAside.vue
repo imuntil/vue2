@@ -6,7 +6,7 @@
            class="el-menu-vertical-demo"
            @open="handleOpen"
            @close="handleClose"
-           menu-trigger="click"
+           style="position: absolute;"
            :collapse="isCollapse">
     <el-submenu index="1">
       <template slot="title">
