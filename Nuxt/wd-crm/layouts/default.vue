@@ -1,27 +1,25 @@
 <template>
-  <el-container class="main-body">
-    <el-header class="zh-top">
-      <m-header :isCollapse.sync="isCollapse" />
-    </el-header>
-    <el-container>
-      <el-aside class="zh-aside" :width="asideWidth">
+  <div class="main-body">
+    <zh-header class="zh-top" :isCollapse.sync="isCollapse"></zh-header>
+    <div class="main-container out" :class="{ 'is-close': isCollapse }">
+      <aside class="zh-aside">
         <zh-aside :isCollapse="isCollapse" />
-      </el-aside>
-      <el-container direction="vertical">
-        <el-main class="zh-main">
+      </aside>
+      <div class="vertical main-container">
+        <main class="zh-main">
           <zh-breadcrumb />
           <div class="nuxt-box">
             <nuxt />
           </div>
           <zh-footer />
-        </el-main>
-      </el-container>
-    </el-container>
-  </el-container>
+        </main>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
   import { Header, Footer, Aside, Container, Main } from 'element-ui'
-  import MHeader from '~/components/layouts/MHeader'
+  import ZhHeader from '~/components/layouts/ZhHeader'
   import ZhAside from '~/components/layouts/ZhAside'
   import ZhFooter from '~/components/layouts/ZhFooter'
   import ZhBreadcrumb from '~/components/layouts/ZhBreadcrumb'
@@ -33,7 +31,7 @@
       ElAside: Aside,
       ElContainer: Container,
       ElMain: Main,
-      MHeader,
+      ZhHeader,
       ZhAside,
       ZhFooter,
       ZhBreadcrumb
@@ -52,22 +50,55 @@
 </script>
 <style type="text/scss" lang="scss">
   @import "../assets/style/decoration";
-
+  .main-body {
+    height: 100vh;
+    min-width: 1000px;
+    display: flex;
+    flex-direction: column;
+  }
+  .main-container {
+    display: flex;
+    &.out {
+      flex: 1;
+    }
+    &.vertical {
+      flex-direction: column;
+      flex: 1;
+      width: calc(100% - 210px);
+    }
+    &.out.is-close {
+      .zh-aside {
+        width: 70px;
+      }
+      .main-container {
+        width: calc(100% - 70px);
+      }
+    }
+  }
   .zh-top {
     background-color: $bb1color;
     border-bottom: 1px solid $bb1color;
+    height: 60px;
   }
   .zh-aside {
     width: 210px;
-    background-color: #545c64;
+    height: 100%;
+    background-color: #324157;
     transition: width 300ms cubic-bezier(.58,.31,.6,1);
     overflow: hidden;
   }
   .zh-main {
     padding: 0;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
   .zh-main > div {
     padding: 20px;
+  }
+  .nuxt-box {
+    flex: 1;
   }
   .button--green {
     display: inline-block;

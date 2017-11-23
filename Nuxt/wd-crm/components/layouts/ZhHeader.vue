@@ -1,5 +1,5 @@
 <template>
-  <div class="zh-header">
+  <header class="zh-header">
     <p class="title">
       <span>WD CRM System</span>
       <a href="javascript:;" class="zh-menu" @click="handleClick">
@@ -9,7 +9,7 @@
     <p class="user">
       <a href="javascript:;">admin</a>
     </p>
-  </div>
+  </header>
 </template>
 <script>
   export default {
@@ -25,7 +25,7 @@
   @import "../../assets/style/decoration";
   .zh-header {
     width: 100%;
-    padding: 20px 0;
+    padding: 20px;
     display: flex;
     justify-content: space-between;
     height: 60px;
