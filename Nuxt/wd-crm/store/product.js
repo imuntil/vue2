@@ -16,6 +16,7 @@ export const mutations = {
 
 export const actions = {
   async [product.FETCH_PRODUCT_LIST] ({ commit, state }, payload) {
+    if (state.list.length) return true
     const { err, fail, data } = await fetchProList()
     if (err || fail) return false
     commit({ type: product.SAVE_PRODUCT_LIST, list: data.data })

@@ -70,9 +70,9 @@
       .zh-aside {
         width: 70px;
       }
-      .main-container {
-        width: calc(100% - 70px);
-      }
+      /*.main-container {*/
+        /*width: calc(100% - 70px);*/
+      /*}*/
     }
   }
   .zh-top {

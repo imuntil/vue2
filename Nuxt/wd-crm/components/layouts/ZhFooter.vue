@@ -1,7 +1,7 @@
 <template>
   <footer>
     <p class="zh-footer">
-      技术支持 <a href="https://imuntil.com" target="_blank">imuntil.com</a>
+      技术支持 <a href="https://imuntil.com" target="_blank">&nbsp; imuntil.com</a>
     </p>
   </footer>
 </template>

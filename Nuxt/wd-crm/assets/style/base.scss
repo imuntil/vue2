@@ -22,7 +22,7 @@ body, div, p, span, em, i {
 
 a {
   text-decoration: none;
-  color: #3366ee;
+  color: #20a0ff;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -59,9 +59,13 @@ h6 {
   text-align: right;
 }
 
+.color--red {
+  color: #ff4949;
+}
 .page-enter-active, .page-leave-active {
   transition: opacity .4s;
 }
 .page-enter, .page-leave-active {
   opacity: 0;
 }
+

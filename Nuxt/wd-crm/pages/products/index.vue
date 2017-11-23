@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <el-table :data="list" stripe width="100%"
+    <el-table :data="list" stripe class="pro-list-table"
               :default-sort="{prop: 'sku', order: 'ascending'}">
       <el-table-column type="index" width="30"></el-table-column>
       <el-table-column prop="sku" label="SKU" sortable width="100"></el-table-column>
@@ -11,9 +11,9 @@
       <el-table-column prop="like" label="收藏" sortable></el-table-column>
       <el-table-column label="操作" width="150">
         <template scope="scope">
-          <el-button type="text">查看</el-button>
-          <el-button type="text">编辑</el-button>
-          <el-button type="text">删除</el-button>
+          <router-link class="list-link" :to="{ path: `/products/${scope.row.sku}` }">查看</router-link>
+          <router-link class="list-link" :to="{ path: `/products/edit?sku=${scope.row.sku}` }">编辑</router-link>
+          <el-button plain type="danger" size="mini">删除</el-button>
         </template>
       </el-table-column>
       <el-table-column
@@ -75,12 +75,19 @@
     }
   }
 </script>
-<style type="text/scss" lang="scss" rel="stylesheet/scss" scoped>
-  @media screen and (min-width: 768px) {
-
-  }
-
-  @media screen and (max-width: 767px) {
-
+<style type="text/scss" lang="scss" rel="stylesheet/scss">
+  .pro-list-table {
+    margin-left: auto;
+    margin-right: auto;
+    .el-table__header,
+    .el-table__body {
+      transition: width 100ms cubic-bezier(.06,.88,.53,1);
+    }
+    .el-table__body-wrapper {
+      overflow: hidden;
+    }
+    .list-link {
+      margin-right: 5px;
+    }
   }
 </style>

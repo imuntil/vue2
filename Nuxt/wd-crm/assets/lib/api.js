@@ -20,6 +20,11 @@ export async function request (url, options) {
 
 const url = 'http://localhost:3001/api/'
 
+// 获取产品列表
 export function fetchProList () {
   return request(`${url}pros`)
+}
+// 获取产品详细
+export function fetchProDetail ({ sku }) {
+  return request(`${url}pros/${sku.toUpperCase()}`)
 }
