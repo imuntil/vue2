@@ -23,6 +23,8 @@
   import ZhAside from '~/components/layouts/ZhAside'
   import ZhFooter from '~/components/layouts/ZhFooter'
   import ZhBreadcrumb from '~/components/layouts/ZhBreadcrumb'
+  import { fetchConfig } from '~/assets/lib/api'
+  import { config } from '~/assets/lib/constant'
   export default {
 //    transition: 'page',
     components: {
@@ -45,6 +47,16 @@
       asideWidth () {
         return this.isCollapse ? '70px' : '210px'
       }
+    },
+    methods: {
+      async setConfig () {
+        const { data } = await fetchConfig()
+        console.log(data)
+        this.$store.commit(`config/${config.SAVE_CONFIG}`, { data })
+      }
+    },
+    created () {
+      this.setConfig()
     }
   }
 </script>

@@ -1,6 +1,6 @@
 <template>
-  <section class="container">
-    <el-table :data="list" stripe class="pro-list-table"
+  <section class="container product-index">
+    <el-table :data="currentList" stripe class="pro-list-table"
               :default-sort="{prop: 'sku', order: 'ascending'}">
       <el-table-column type="index" width="30"></el-table-column>
       <el-table-column prop="sku" label="SKU" sortable width="100"></el-table-column>
@@ -30,10 +30,16 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination layout="prev, pager, next"
+                   class="text--right"
+                   style="margin-top: 20px; padding-right: 0;"
+                   :total="lists.length" :page-size="1"
+                   @current-change="handlePageChange"
+                   :current-page="currentPage"></el-pagination>
   </section>
 </template>
 <script>
-  import { Table, TableColumn, Button } from 'element-ui'
+  import { Table, TableColumn, Button, Pagination } from 'element-ui'
   import { mapState } from 'vuex'
   import { product } from '~/assets/lib/constant'
   import ZhTag from '~/components/common/ZhTag'
@@ -42,6 +48,7 @@
       ElTable: Table,
       ElTableColumn: TableColumn,
       ElButton: Button,
+      ElPagination: Pagination,
       ZhTag
     },
     data () {
@@ -49,17 +56,22 @@
         filter: [
           { text: '白酒', value: 1 },
           { text: '红酒', value: 2 },
-          { text: '啤酒', value: 3 }
+          { text: '啤酒', value: 3 },
+          { text: '葡萄酒', value: 4 }
         ],
         types: {
           1: { v: '白酒', c: 'gray' },
           2: { v: '红酒', c: 'danger' },
-          3: { v: '啤酒', c: 'warning' }
+          3: { v: '啤酒', c: 'warning' },
+          4: { v: '葡萄酒', c: 'success' }
         }
       }
     },
     computed: {
-      ...mapState('product', ['list'])
+      ...mapState('product', ['lists', 'itemPerPage', 'currentPage']),
+      currentList () {
+        return this.lists.length ? this.lists[this.currentPage - 1] : []
+      }
     },
     methods: {
       filterTag (value, row) {
@@ -67,6 +79,12 @@
       },
       handleClick (scope) {
         console.log(scope)
+      },
+      handlePageChange (v) {
+        this.$store.commit({
+          type: `product/${product.UPDATE_PRO_LIST_PAGE}`,
+          currentPage: v
+        })
       }
     },
     async fetch ({ store }) {
@@ -76,6 +94,9 @@
   }
 </script>
 <style type="text/scss" lang="scss" rel="stylesheet/scss">
+  .product-index {
+    display: block;
+  }
   .pro-list-table {
     margin-left: auto;
     margin-right: auto;

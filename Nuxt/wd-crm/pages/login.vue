@@ -46,13 +46,13 @@
   }
 </script>
 <style type="text/scss" lang="scss" rel="stylesheet/scss" scoped>
-  .container {
+/*  .container {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
+  }*/
   .login-box {
     /*width: 480px;*/
     padding: 40px 50px 0;

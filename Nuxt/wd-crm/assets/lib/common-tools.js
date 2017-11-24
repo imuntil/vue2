@@ -209,7 +209,7 @@ export function thirdPartyTools (name, src, expose) {
 export const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 export function moneyFormat (money) {
-  const _money = ~~money
+  const _money = +money || 0
   if (_money < 1000) return _money.toFixed(2)
   const integer = Math.floor(_money)
   const decimal = (_money - integer).toFixed(2).toString().slice(1)
