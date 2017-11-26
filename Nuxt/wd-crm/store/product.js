@@ -8,13 +8,15 @@ import { schema, normalize } from 'normalizr'
 export const state = () => ({
   lists: [],
   currentPage: 1,
-  itemPerPage: 6
+  itemPerPage: 6,
+  expired: false
 })
 
 export const mutations = {
   [product.SAVE_PRODUCT_LIST] (state, payload) {
     state.lists = _.chunk(payload.lists, state.itemPerPage)
     state.currentPage = 1
+    state.expired = false
   },
   [product.UPDATE_PRO_LIST_PAGE] (state, payload) {
     state.currentPage = payload.currentPage

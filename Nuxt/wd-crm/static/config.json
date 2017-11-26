@@ -1,6 +1,11 @@
-[
-  { "text": "白酒", "value": 1, "color": "gray", "label": "白酒" },
-  { "text": "红酒", "value": 2, "color": "danger", "label": "红酒" },
-  { "text": "啤酒", "value": 3, "color": "warning", "label": "啤酒" },
-  { "text": "葡萄酒", "value": 4, "color": "success", "label": "葡萄酒" }
-]
+{
+  "types": [
+    { "text": "白酒", "value": 1, "color": "gray" },
+    { "text": "红酒", "value": 2, "color": "danger" },
+    { "text": "啤酒", "value": 3, "color": "warning" },
+    { "text": "葡萄酒", "value": 4, "color": "success" }
+  ],
+  "origins": [
+    "美国", "法国", "意大利", "德国", "中国", "西班牙", "日本", "加拿大", "英国"
+  ]
+}

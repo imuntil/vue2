@@ -18,7 +18,7 @@ export async function request (url, options) {
   return { data }
 }
 
-const url = 'http://localhost:3001/api/'
+export const url = 'http://localhost:3001/api/'
 
 // 获取配置信息
 export function fetchConfig () {

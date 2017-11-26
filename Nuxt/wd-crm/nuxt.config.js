@@ -34,7 +34,14 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
-    }
+    },
+    vendor: [
+      'element-ui',
+      'isomorphic-fetch',
+      'lodash',
+      'normalizr',
+      'vuex'
+    ]
   },
   css: [
     'element-ui/lib/theme-default/index.css',
