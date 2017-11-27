@@ -39,7 +39,8 @@ module.exports = {
       'element-ui',
       'isomorphic-fetch',
       'lodash',
-      'normalizr'
+      'normalizr',
+      'vue-quill-editor'
     ]
   },
   css: [
@@ -53,5 +54,9 @@ module.exports = {
       console.log('----------------------------------before')
     }
   },
-  plugins: ['~plugins/notifications']
+  plugins: [
+    '~plugins/notifications',
+    '~plugins/some-config',
+    '~plugins/vue-quill-editor'
+  ]
 }

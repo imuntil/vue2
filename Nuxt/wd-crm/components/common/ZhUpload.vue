@@ -1,7 +1,7 @@
 <template>
   <el-upload class="product-upload" :action="action"
              :file-list="files" list-type="picture"
-             accept="image/*" name="file" multiple
+             accept="image/jpeg, image/png" name="file" multiple
              :before-upload="handleBefore"
              :on-remove="handleRemove"
              :on-success="handleSuccess">
@@ -28,11 +28,6 @@
         d: null
       }
     },
-//    computed: {
-//      files () {
-//
-//      }
-//    },
     methods: {
       handleRemove (file, fl) {
         this.files = fl
@@ -50,16 +45,23 @@
         }
         this.d()
       },
+      handleBefore (file) {
+        if (file.size > 300 * 1024) {
+          this.$notify({ title: '消息', message: '配图不得超过300k', type: 'warning' })
+          return false
+        }
+        if (this.files.length >= 5) {
+          this.$notify({ title: '消息', message: '每个产品最多只能上传5张配图, 超出的配图不会被保存', type: 'warning' })
+          return false
+        }
+      },
       watchFiles (v) {
         const urls = this.files.map(f =>
           f.response
             ? f.response.data
-            : f.url.match(/(\/images\/.+\.(jpg|png)$)/)[0]
+            : f.url.match(/(\/images\/.+\.(jpg|png)$)/i)[0]
         )
         this.$emit('update:images', urls)
-      },
-      handleBefore (file) {
-//        if (this.files.length > 5) return false
       }
     },
     created () {

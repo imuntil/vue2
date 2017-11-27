@@ -1,6 +1,6 @@
 <template>
   <section class="container product-edit">
-    <el-form class="edit-form" label-width="80px">
+    <el-form class="edit-form" label-width="120px">
       <el-form-item label="SKU">
         <el-input disabled v-model="form.sku"></el-input>
       </el-form-item>
@@ -39,13 +39,13 @@
       <el-form-item label="真实售价">
         <el-input disabled :value="`￥${mf(truePrice)}`"></el-input>
       </el-form-item>
-      <el-form-item label="酒精度">
+      <el-form-item label="酒精度(°)">
         <el-input-number v-model="form.alcoholic" :controls="false" :max="100"></el-input-number>
       </el-form-item>
-      <el-form-item label="净含量">
+      <el-form-item label="净含量(ml)">
         <el-input-number v-model="form.content" :controls="false"></el-input-number>
       </el-form-item>
-      <el-form-item label="重量">
+      <el-form-item label="重量(g)">
         <el-input-number v-model="form.weight" :controls="false"></el-input-number>
       </el-form-item>
       <el-form-item label="产地">
@@ -71,7 +71,9 @@
       <el-form-item label="上次更新">
         <el-input :value="form.update" disabled></el-input>
       </el-form-item>
-      <el-form-item label="产品介绍"></el-form-item>
+      <el-form-item label="产品介绍">
+        <quill-editor></quill-editor>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="save">保存</el-button>
         <el-button @click="cancel">取消</el-button>
@@ -95,6 +97,7 @@
     Button
   } from 'element-ui'
   import ZhUpload from '~/components/common/ZhUpload'
+  import QuillEditor from '~/components/common/QuillEditor'
   import { fetchProDetail, modifyProDetail } from '~/assets/lib/api'
   import { mapState } from 'vuex'
   import { moneyFormat } from '~/assets/lib/common-tools'
@@ -120,7 +123,8 @@
       ElSelect: Select,
       ElOption: Option,
       ElButton: Button,
-      ZhUpload
+      ZhUpload,
+      QuillEditor
     },
     data () {
       return {
@@ -152,6 +156,7 @@
           message: '提交成功',
           type: 'success'
         })
+        this.$router.go(-1)
       },
       cancel () {
         this.$router.go(-1)
@@ -164,10 +169,11 @@
     display: block;
   }
   .edit-form {
-    width: 700px;
+    width: 900px;
     display: block;
     padding: 15px;
     margin: auto;
+    position: relative;
   }
 </style>
 <style type="text/scss" lang="scss">
@@ -184,5 +190,11 @@
         font-weight: 600;
       }
     }
+  }
+  .ql-picker-label::before {
+    vertical-align: top;
+  }
+  .ql-picker-label > svg {
+    vertical-align: top;
   }
 </style>

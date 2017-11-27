@@ -23,7 +23,15 @@
       </section>
       <section class="group split-2">
         <span class="field text--right">图片&nbsp;:</span>
-        <span class="value"></span>
+        <div class="value">
+          <ul class="gallery">
+            <li v-for="i in data.images" :key="i">
+              <a href="javascript:;" @click="handleClick(i)">
+                <img :src="`${$staticURL}${i}`" :alt="i.slice(-17)">
+              </a>
+            </li>
+          </ul>
+        </div>
       </section>
       <section class="group split-2">
         <span class="field text--right">价格&nbsp;:</span>
@@ -59,19 +67,19 @@
       </section>
       <section class="group split-2">
         <span class="field text--right">销量&nbsp;:</span>
-        <span class="value">{{data.sales}}</span>
+        <span class="value">{{data.sales || 0}}</span>
       </section>
       <section class="group split-2">
         <span class="field text--right">收藏数&nbsp;:</span>
-        <span class="value">{{data.like}}</span>
+        <span class="value">{{data.like || 0}}</span>
       </section>
       <section class="group split-2">
         <span class="field text--right">入车数&nbsp;:</span>
-        <span class="value">{{data.cart}}</span>
+        <span class="value">{{data.cart || 0}}</span>
       </section>
       <section class="group split-2">
         <span class="field text--right">库存&nbsp;:</span>
-        <span class="value">{{data.stock}}</span>
+        <span class="value">{{data.stock || 0}}</span>
       </section>
       <section class="group split-2">
         <span class="field text--right">创建时间&nbsp;:</span>
@@ -86,13 +94,22 @@
         <span class="value">{{data.introduce}}</span>
       </section>
     </div>
+    <el-dialog :visible.sync="visible">
+      <div class="current-box">
+        <img :src="`${$staticURL}${current}`" alt="" style="width: 100%;">
+      </div>
+    </el-dialog>
   </section>
 </template>
 <script>
   import { fetchProDetail } from '~/assets/lib/api'
   import { moneyFormat } from '~/assets/lib/common-tools'
+  import { Dialog } from 'element-ui'
 
   export default {
+    components: {
+      ElDialog: Dialog
+    },
     validate ({ params }) {
       return /^[A-z]-\d{3,4}$/.test(params.sku)
     },
@@ -101,8 +118,18 @@
       if (err || fail) throw new Error(err || fail)
       return { data: data.data }
     },
+    data () {
+      return {
+        visible: false,
+        current: ''
+      }
+    },
     methods: {
-      mf: moneyFormat
+      mf: moneyFormat,
+      handleClick (i) {
+        this.current = i
+        this.visible = true
+      }
     }
   }
 </script>
@@ -145,6 +172,34 @@
       flex: 1;
       padding-left: 15px;
       font-size: 1.2rem;
+    }
+  }
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style-type: none;
+    padding: 10px;
+    li {
+      width: 22%;
+      border-radius: 5px;
+      box-shadow: 1px 1px 4px 1px #999;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    a {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      outline: none;
+      line-height: 1;
+    }
+    img {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      outline: none;
     }
   }
 </style>
