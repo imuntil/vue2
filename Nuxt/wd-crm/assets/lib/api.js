@@ -19,6 +19,7 @@ export async function request (url, options) {
 }
 
 export const url = 'http://localhost:3001/api/'
+export const staticUrl = 'http://localhost:3001'
 
 // 获取配置信息
 export function fetchConfig () {
@@ -32,4 +33,14 @@ export function fetchProList () {
 // 获取产品详细
 export function fetchProDetail ({ sku }) {
   return request(`${url}pros/${sku.toUpperCase()}`)
+}
+// 更新产品信息
+export function modifyProDetail ({ body }) {
+  return request(`${url}pros/${body.sku}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  })
 }

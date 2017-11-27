@@ -51,7 +51,7 @@
     methods: {
       async setConfig () {
         const { data } = await fetchConfig()
-        console.log(data)
+        if (!data) return
         this.$store.commit(`config/${config.SAVE_CONFIG}`, { data })
       }
     },

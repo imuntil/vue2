@@ -39,8 +39,7 @@ module.exports = {
       'element-ui',
       'isomorphic-fetch',
       'lodash',
-      'normalizr',
-      'vuex'
+      'normalizr'
     ]
   },
   css: [
@@ -53,5 +52,6 @@ module.exports = {
     beforeEnter (e) {
       console.log('----------------------------------before')
     }
-  }
+  },
+  plugins: ['~plugins/notifications']
 }

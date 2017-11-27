@@ -17,7 +17,7 @@
         <el-input v-model="form.en"></el-input>
       </el-form-item>
       <el-form-item label="图片">
-        <zh-upload></zh-upload>
+        <zh-upload :sku="sku" :images.sync="form.images"></zh-upload>
       </el-form-item>
       <el-form-item label="价格">
         <el-input-number v-model="form.price" :controls="false"></el-input-number>
@@ -95,7 +95,7 @@
     Button
   } from 'element-ui'
   import ZhUpload from '~/components/common/ZhUpload'
-  import { fetchProDetail } from '~/assets/lib/api'
+  import { fetchProDetail, modifyProDetail } from '~/assets/lib/api'
   import { mapState } from 'vuex'
   import { moneyFormat } from '~/assets/lib/common-tools'
   export default {
@@ -105,7 +105,7 @@
     async asyncData ({ params, query }) {
       const { err, fail, data } = await fetchProDetail({ sku: params.sku })
       if (err || fail) throw new Error(err || fail)
-      return { form: data.data, editing: ~~query.status === 1 }
+      return { form: data.data, editing: ~~query.status === 1, sku: params.sku }
     },
     components: {
       ElForm: Form,
@@ -145,9 +145,13 @@
     },
     methods: {
       mf: moneyFormat,
-      save () {
-        // x
-        console.log(this.form)
+      async save () {
+        const { err, fail } = await modifyProDetail({ body: this.form })
+        if (err || fail) return false
+        this.$message({
+          message: '提交成功',
+          type: 'success'
+        })
       },
       cancel () {
         this.$router.go(-1)
