@@ -65,7 +65,7 @@
       }
     },
     created () {
-      this.files = this.images.map(i => ({
+      this.files = this.images && this.images.map(i => ({
         name: i.slice(-17),
         url: `${staticUrl}${i}`
       }))

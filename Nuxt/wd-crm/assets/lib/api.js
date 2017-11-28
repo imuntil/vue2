@@ -44,3 +44,10 @@ export function modifyProDetail ({ body }) {
     body: JSON.stringify(body)
   })
 }
+// 上传图片
+export function uploadImage ({ fd, sku }) {
+  return request(`${url}pros/${sku}/upload`, {
+    method: 'POST',
+    body: fd
+  })
+}

@@ -72,7 +72,7 @@
         <el-input :value="form.update" disabled></el-input>
       </el-form-item>
       <el-form-item label="产品介绍">
-        <quill-editor></quill-editor>
+        <quill-editor :content.sync="form.introduce" :sku="sku"></quill-editor>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="save">保存</el-button>
@@ -98,17 +98,20 @@
   } from 'element-ui'
   import ZhUpload from '~/components/common/ZhUpload'
   import QuillEditor from '~/components/common/QuillEditor'
-  import { fetchProDetail, modifyProDetail } from '~/assets/lib/api'
-  import { mapState } from 'vuex'
+//  import { modifyProDetail } from '~/assets/lib/api'
+  import { mapState, mapActions } from 'vuex'
   import { moneyFormat } from '~/assets/lib/common-tools'
+  import { product } from '~/assets/lib/constant'
+
   export default {
     validate ({ params }) {
       return !params.sku || /^[A-z]-\d{3,4}$/.test(params.sku)
     },
     async asyncData ({ params, query }) {
-      const { err, fail, data } = await fetchProDetail({ sku: params.sku })
-      if (err || fail) throw new Error(err || fail)
-      return { form: data.data, editing: ~~query.status === 1, sku: params.sku }
+      return { editing: ~~query.status === 1, sku: params.sku }
+    },
+    async fetch ({ store }) {
+      await store.dispatch({ type: `product/${product.FETCH_PRODUCT_LIST}` })
     },
     components: {
       ElForm: Form,
@@ -126,13 +129,9 @@
       ZhUpload,
       QuillEditor
     },
-    data () {
-      return {
-        form: {}
-      }
-    },
     computed: {
       ...mapState('config', ['originTypes', 'origins']),
+      ...mapState('product', ['store']),
       truePrice () {
         const { setToSales, discounted, off, price } = this.form
         switch (setToSales) {
@@ -145,17 +144,35 @@
           default:
             return price
         }
+      },
+      form () {
+        return {...this.store[this.sku]}
       }
     },
     methods: {
       mf: moneyFormat,
+      ...mapActions('product', {
+        modifyProDetail: product.MODIFY_PRO_DETAIL_A
+      }),
       async save () {
-        const { err, fail } = await modifyProDetail({ body: this.form })
-        if (err || fail) return false
-        this.$message({
-          message: '提交成功',
-          type: 'success'
-        })
+//        const { err, fail, data } = await modifyProDetail({ body: this.form })
+//        if (err || fail) return false
+//        this.$message({
+//          message: '提交成功',
+//          type: 'success'
+//        })
+//        this.$store.commit({
+//          type: `product/${product.SAVE_PRO_DETAIL}`,
+//          data: data.data,
+//          sku: this.sku
+//        })
+        const res = await this.modifyProDetail({ body: this.form, sku: this.sku })
+        if (res) {
+          this.$message({
+            message: '提交成功',
+            type: 'success'
+          })
+        }
         this.$router.go(-1)
       },
       cancel () {

@@ -5,14 +5,41 @@
       <el-table-column type="index" width="30"></el-table-column>
       <el-table-column prop="sku" label="SKU" sortable width="100"></el-table-column>
       <el-table-column prop="cn" label="产品名"></el-table-column>
-      <el-table-column prop="price" label="价格" sortable></el-table-column>
+      <el-table-column prop="price" label="价格" sortable>
+        <template scope="scope">
+          {{scope.row.price | currency('￥')}}
+        </template>
+      </el-table-column>
+      <el-table-column label="是否打折">
+        <template scope="scope">
+          {{scope.row.setToSales === 0 ? '否' : '是'}}
+        </template>
+      </el-table-column>
+      <el-table-column porp="truePrice" label="真实售价" sortable>
+        <template scope="scope">
+          {{scope.row.truePrice | currency('￥')}}
+        </template>
+      </el-table-column>
       <el-table-column prop="sales" label="销量" sortable></el-table-column>
-      <el-table-column prop="cart" label="入车" sortable></el-table-column>
-      <el-table-column prop="like" label="收藏" sortable></el-table-column>
+      <el-table-column prop="cart" label="入车" sortable>
+        <template scope="scope">
+          {{scope.row.cart || 0}}
+        </template>
+      </el-table-column>
+      <el-table-column prop="like" label="收藏" sortable>
+        <template scope="scope">
+          {{scope.row.like || 0}}
+        </template>
+      </el-table-column>
+      <el-table-column prop="stock" label="库存" sortable>
+        <template scope="scope">
+          <span :class="{'color--red': scope.row.stock < 10}">{{scope.row.stock}}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="150">
         <template scope="scope">
           <router-link class="list-link" :to="{ path: `/products/${scope.row.sku}` }">查看</router-link>
-          <router-link class="list-link" :to="{ path: `/products/edit?sku=${scope.row.sku}` }">编辑</router-link>
+          <router-link class="list-link" :to="{ path: `/products/${scope.row.sku}/edit` }">编辑</router-link>
           <el-button plain type="danger" size="mini">删除</el-button>
         </template>
       </el-table-column>
@@ -20,7 +47,7 @@
         prop="tag"
         label="品类"
         width="100"
-        :filters="filter"
+        :filters="originTypes"
         :filter-method="filterTag"
         filter-placement="bottom-end">
         <template scope="scope">
@@ -68,9 +95,10 @@
       }
     },
     computed: {
-      ...mapState('product', ['lists', 'itemPerPage', 'currentPage']),
+      ...mapState('product', ['lists', 'itemPerPage', 'currentPage', 'skuList', 'store']),
+      ...mapState('config', ['originTypes']),
       currentList () {
-        return this.lists.length ? this.lists[this.currentPage - 1] : []
+        return this.lists.length ? this.lists[this.currentPage - 1].map(sku => this.store[sku]) : []
       }
     },
     methods: {
@@ -88,8 +116,7 @@
       }
     },
     async fetch ({ store }) {
-      const res = await store.dispatch({ type: `product/${product.FETCH_PRODUCT_LIST}` })
-      console.log(res)
+      await store.dispatch({ type: `product/${product.FETCH_PRODUCT_LIST}` })
     }
   }
 </script>

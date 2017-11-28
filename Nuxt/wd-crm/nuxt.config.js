@@ -40,7 +40,9 @@ module.exports = {
       'isomorphic-fetch',
       'lodash',
       'normalizr',
-      'vue-quill-editor'
+      'quill',
+      'vue-quill-editor',
+      'vue2-filters'
     ]
   },
   css: [
@@ -57,6 +59,7 @@ module.exports = {
   plugins: [
     '~plugins/notifications',
     '~plugins/some-config',
-    '~plugins/vue-quill-editor'
+    '~plugins/vue-quill-editor',
+    '~plugins/vue2-filters'
   ]
 }

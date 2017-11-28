@@ -47,7 +47,7 @@
       </section>
       <section class="group split-2">
         <span class="field text--right">真实售价&nbsp;:</span>
-        <span class="value color--red">￥{{mf(data.truePrice)}}</span>
+        <span class="value color--red">{{data.truePrice | currency('￥')}}</span>
       </section>
       <section class="group split-2">
         <span class="field text--right">酒精度&nbsp;:</span>
@@ -91,7 +91,8 @@
       </section>
       <section class="group split-2">
         <span class="field text--right">产品介绍&nbsp;:</span>
-        <span class="value">{{data.introduce}}</span>
+        <!--<span class="value">{{data.introduce}}</span>-->
+        <div class="value introduce-value" v-html="data.introduce"></div>
       </section>
     </div>
     <el-dialog :visible.sync="visible">
@@ -102,9 +103,11 @@
   </section>
 </template>
 <script>
-  import { fetchProDetail } from '~/assets/lib/api'
+//  import { fetchProDetail } from '~/assets/lib/api'
   import { moneyFormat } from '~/assets/lib/common-tools'
   import { Dialog } from 'element-ui'
+  import { product } from '~/assets/lib/constant'
+  import { mapState } from 'vuex'
 
   export default {
     components: {
@@ -113,15 +116,22 @@
     validate ({ params }) {
       return /^[A-z]-\d{3,4}$/.test(params.sku)
     },
-    async asyncData ({ params }) {
-      const { err, fail, data } = await fetchProDetail({ sku: params.sku })
-      if (err || fail) throw new Error(err || fail)
-      return { data: data.data }
+    asyncData ({ params }) {
+      return { sku: params.sku }
+    },
+    async fetch ({ store }) {
+      await store.dispatch({ type: `product/${product.FETCH_PRODUCT_LIST}` })
     },
     data () {
       return {
         visible: false,
         current: ''
+      }
+    },
+    computed: {
+      ...mapState('product', ['store']),
+      data () {
+        return this.store[this.sku]
       }
     },
     methods: {
@@ -136,7 +146,7 @@
 <style type="text/scss" lang="scss" rel="stylesheet/scss" scoped>
   @import "../../../assets/style/decoration";
   .detail-area {
-    width: 700px;
+    width: 900px;
     display: block;
     padding: 15px;
     margin: auto;
@@ -172,6 +182,9 @@
       flex: 1;
       padding-left: 15px;
       font-size: 1.2rem;
+    }
+    .introduce-value {
+      overflow: hidden;
     }
   }
   .gallery {
