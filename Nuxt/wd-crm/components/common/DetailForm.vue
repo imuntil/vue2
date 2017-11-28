@@ -1,7 +1,7 @@
 <template>
   <el-form class="edit-form" label-width="120px">
     <el-form-item label="SKU">
-      <el-input disabled v-model="form.sku"></el-input>
+      <el-input :disabled="editing" v-model="form.sku"></el-input>
     </el-form-item>
     <el-form-item label="品类">
       <el-select v-model="form._type">
@@ -52,22 +52,22 @@
         <el-option v-for="o in origins" :key="o" :value="o"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="销量">
+    <el-form-item label="销量" v-if="editing">
       <el-input-number v-model="form.sales" disabled :controls="false"></el-input-number>
     </el-form-item>
-    <el-form-item label="收藏数">
+    <el-form-item label="收藏数" v-if="editing">
       <el-input-number v-model="form.like" disabled :controls="false"></el-input-number>
     </el-form-item>
-    <el-form-item label="入车数">
+    <el-form-item label="入车数" v-if="editing">
       <el-input-number v-model="form.cart" disabled :controls="false"></el-input-number>
     </el-form-item>
     <el-form-item label="库存">
       <el-input-number v-model="form.stock" :controls="false"></el-input-number>
     </el-form-item>
-    <el-form-item label="添加日期">
+    <el-form-item label="添加日期" v-if="editing">
       <el-input :value="form.date" disabled></el-input>
     </el-form-item>
-    <el-form-item label="上次更新">
+    <el-form-item label="上次更新" v-if="editing">
       <el-input :value="form.update" disabled></el-input>
     </el-form-item>
     <el-form-item label="产品介绍">
@@ -96,21 +96,10 @@
   } from 'element-ui'
   import ZhUpload from '~/components/common/ZhUpload'
   import QuillEditor from '~/components/common/QuillEditor'
-  import { modifyProDetail } from '~/assets/lib/api'
   import { mapState } from 'vuex'
   import { moneyFormat } from '~/assets/lib/common-tools'
-  import { product } from '~/assets/lib/constant'
 
   export default {
-//    validate ({ params }) {
-//      return !params.sku || /^[A-z]-\d{3,4}$/.test(params.sku)
-//    },
-//    async asyncData ({ params, query }) {
-//      return { editing: ~~query.status === 1, sku: params.sku }
-//    },
-//    async fetch ({ store }) {
-//      await store.dispatch({ type: `product/${product.FETCH_PRODUCT_LIST}` })
-//    },
     components: {
       ElForm: Form,
       ElInput: Input,
@@ -128,6 +117,11 @@
       QuillEditor
     },
     props: ['editing', 'sku', 'clone-form'],
+    data () {
+      return {
+        form: {}
+      }
+    },
     computed: {
       ...mapState('config', ['originTypes', 'origins']),
       truePrice () {
@@ -142,30 +136,19 @@
           default:
             return price
         }
-      },
-      form () {
-        return { ...this.cloneForm }
       }
     },
     methods: {
       mf: moneyFormat,
-      async save () {
-        const { err, fail, data } = await modifyProDetail({ body: this.form })
-        if (err || fail) return false
-        this.$message({
-          message: '提交成功',
-          type: 'success'
-        })
-        this.$store.commit({
-          type: `product/${product.UPDATE_PRO_DETAIL}`,
-          data: data.data,
-          sku: this.sku
-        })
-        this.$router.go(-1)
+      save () {
+        this.$emit('on-save', { ...this.form })
       },
       cancel () {
-        this.$router.go(-1)
+        this.$emit('on-cancel')
       }
+    },
+    created () {
+      this.form = { ...this.cloneForm }
     }
   }
 </script>

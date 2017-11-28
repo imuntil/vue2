@@ -44,6 +44,16 @@ export function modifyProDetail ({ body }) {
     body: JSON.stringify(body)
   })
 }
+// 新增产品
+export function addNewPro ({ body }) {
+  return request(`${url}pros/add`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  })
+}
 // 上传图片
 export function uploadImage ({ fd, sku }) {
   return request(`${url}pros/${sku}/upload`, {

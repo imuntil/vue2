@@ -1,5 +1,5 @@
 import { product } from '~/assets/lib/constant'
-import { fetchProList, modifyProDetail } from '~/assets/lib/api'
+import { fetchProList, modifyProDetail, addNewPro } from '~/assets/lib/api'
 /* eslint-disable no-unused-vars */
 import { delay } from '~/assets/lib/common-tools'
 import _ from 'lodash'
@@ -32,18 +32,21 @@ export const mutations = {
   [product.SAVE_PRO_DETAIL] (state, payload) {
     const { sku, data } = payload
     state.store = { ...state.store, [sku]: data }
+  },
+  [product.EXPIRE_PRODUCTS] (state, payload) {
+    state.expired = true
   }
 }
 
 export const actions = {
   async [product.FETCH_PRODUCT_LIST] ({ commit, state }, payload) {
-    if (state.lists.length) return true
+    if (!state.expired && state.lists.length) return true
     const { err, fail, data } = await fetchProList()
     if (err || fail) return false
     commit({ type: product.SAVE_PRODUCT_LIST, lists: data.data })
     return true
   },
-  async [product.MODIFY_PRO_DETAIL_A] ({ commit, state }, payload) {
+  async [product.MODIFY_PRO_DETAIL_A] ({ commit }, payload) {
     const { body, sku } = payload
     const { err, fail, data } = await modifyProDetail({ body })
     if (err || fail) return false
@@ -52,6 +55,12 @@ export const actions = {
       data: data.data,
       sku: sku
     })
+    return true
+  },
+  async [product.ADD_PRO_A] ({ commit }, payload) {
+    const { err, fail } = await addNewPro({ body: payload.body })
+    if (err || fail) return false
+    commit({ type: product.EXPIRE_PRODUCTS })
     return true
   }
 }

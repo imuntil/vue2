@@ -4,6 +4,7 @@ const UPDATE_PRO_LIST_PAGE = 'updateProListPage'
 const SAVE_PRO_DETAIL = 'saveProDetail'
 const MODIFY_PRO_DETAIL_A = 'modifyProDetail-A'
 const ADD_PRO_A = 'addPro-A'
+const EXPIRE_PRODUCTS = 'expireProducts'
 
 export const product = {
   FETCH_PRODUCT_LIST,
@@ -11,7 +12,8 @@ export const product = {
   UPDATE_PRO_LIST_PAGE,
   SAVE_PRO_DETAIL,
   MODIFY_PRO_DETAIL_A,
-  ADD_PRO_A
+  ADD_PRO_A,
+  EXPIRE_PRODUCTS
 }
 
 const SAVE_CONFIG = 'saveConfig'

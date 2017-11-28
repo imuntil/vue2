@@ -1,17 +1,44 @@
 <template>
   <section class="container product-add">
-    <detail-form :editing="false" :clone-form="form"></detail-form>
+    <detail-form :editing="false" :clone-form="form" @on-save="save" @on-cancel="cancel"></detail-form>
   </section>
 </template>
 <script>
   import DetailForm from '~/components/common/DetailForm'
+  import { mapActions } from 'vuex'
+  import { product } from '~/assets/lib/constant'
+
   export default {
     components: {
       DetailForm
     },
     data () {
       return {
-        form: {}
+        form: {
+          setToSales: 0,
+          discounted: 0,
+          off: 0.01,
+          _type: '',
+          origin: ''
+        }
+      }
+    },
+    methods: {
+      ...mapActions('product', {
+        addNewPro: product.ADD_PRO_A
+      }),
+      async save (form) {
+        const res = await this.addNewPro({ body: form })
+        if (res) {
+          this.$message({
+            message: '提交成功',
+            type: 'success'
+          })
+          this.$router.push('/products')
+        }
+      },
+      cancel () {
+        this.$router.go(-1)
       }
     }
   }
