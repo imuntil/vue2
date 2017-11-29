@@ -106,7 +106,7 @@
 //  import { fetchProDetail } from '~/assets/lib/api'
   import { moneyFormat } from '~/assets/lib/common-tools'
   import { Dialog } from 'element-ui'
-  import { product } from '~/assets/lib/constant'
+  import { product, breads } from '~/assets/lib/constant'
   import { mapState } from 'vuex'
 
   export default {
@@ -120,6 +120,7 @@
       return { sku: params.sku }
     },
     async fetch ({ store }) {
+      store.commit({ type: `bc/${breads.UPDATE_BREADS}`, bread: 'proDetail' })
       await store.dispatch({ type: `product/${product.FETCH_PRODUCT_LIST}` })
     },
     data () {

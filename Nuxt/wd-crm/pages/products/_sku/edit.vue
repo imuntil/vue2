@@ -7,7 +7,7 @@
 <script>
   import DetailForm from '~/components/common/DetailForm'
   import { mapState, mapActions } from 'vuex'
-  import { product } from '~/assets/lib/constant'
+  import { product, config, breads } from '~/assets/lib/constant'
 
   export default {
     validate ({ params }) {
@@ -17,6 +17,8 @@
       return { sku: params.sku }
     },
     async fetch ({ store }) {
+      store.commit({ type: `bc/${breads.UPDATE_BREADS}`, bread: 'proEdit' })
+      await store.dispatch({ type: `config/${config.FETCH_CONFIG}` })
       await store.dispatch({ type: `product/${product.FETCH_PRODUCT_LIST}` })
     },
     components: {
@@ -33,14 +35,13 @@
         modifyProDetail: product.MODIFY_PRO_DETAIL_A
       }),
       async save (form) {
-        const res = await this.modifyProDetail({ body: form, sku: this.sku })
-        if (res) {
-          this.$message({
-            message: '提交成功',
-            type: 'success'
-          })
+        const { ok, err, fail } = await this.modifyProDetail({ body: form, sku: this.sku })
+        if (ok) {
+          this.$message({ message: '提交成功', type: 'success' })
+          this.$router.push('/products')
+        } else {
+          this.$message({ message: err ? '提交失败' : fail.message, type: 'error' })
         }
-        this.$router.back()
       },
       cancel () {
         console.log('cancel')

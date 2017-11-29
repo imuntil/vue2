@@ -18,9 +18,11 @@
 
 <script>
   import Logo from '~/components/Logo.vue'
-
+  import { breads } from '~/assets/lib/constant'
   export default {
-//    transition: 'page',
+    fetch ({ store }) {
+      store.commit({ type: `bc/${breads.UPDATE_BREADS}`, bread: 'home' })
+    },
     components: {
       Logo
     }
@@ -28,14 +30,6 @@
 </script>
 
 <style type="text/scss" lang="scss" rel="stylesheet/scss" scoped>
-/*  .container {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }*/
-
   .title {
     font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
     display: block;

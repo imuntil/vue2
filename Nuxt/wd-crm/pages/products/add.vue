@@ -6,9 +6,13 @@
 <script>
   import DetailForm from '~/components/common/DetailForm'
   import { mapActions } from 'vuex'
-  import { product } from '~/assets/lib/constant'
+  import { product, config, breads } from '~/assets/lib/constant'
 
   export default {
+    async fetch ({ store }) {
+      store.commit({ type: `bc/${breads.UPDATE_BREADS}`, bread: 'proAdd' })
+      await store.dispatch({ type: `config/${config.FETCH_CONFIG}` })
+    },
     components: {
       DetailForm
     },
@@ -28,13 +32,12 @@
         addNewPro: product.ADD_PRO_A
       }),
       async save (form) {
-        const res = await this.addNewPro({ body: form })
-        if (res) {
-          this.$message({
-            message: '提交成功',
-            type: 'success'
-          })
+        const { ok, err, fail } = await this.addNewPro({ body: form })
+        if (ok) {
+          this.$message({ message: '提交成功', type: 'success' })
           this.$router.push('/products')
+        } else {
+          this.$message({ message: err ? '提交失败' : fail.message, type: 'error' })
         }
       },
       cancel () {

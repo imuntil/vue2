@@ -4,13 +4,11 @@
            background-color="#545c64"
            active-text-color="#ffd04b"
            class="el-menu-vertical-demo"
-           @open="handleOpen"
-           @close="handleClose"
            router
            style="position: absolute;"
            theme="dark"
            :collapse="isCollapse">
-    <el-menu-item index="0" :route="{ path: '/' }">
+    <el-menu-item index="/">
       <i class="el-icon-menu"></i>
       <span slot="title">系统首页</span>
     </el-menu-item>
@@ -19,7 +17,7 @@
         <i class="el-icon-menu"></i>
         <span slot="title">产品管理</span>
       </template>
-      <el-menu-item index="1-1" :route="{ path: '/products' }">产品列表</el-menu-item>
+      <el-menu-item index="/products">产品列表</el-menu-item>
       <el-menu-item index="/products/add">添加产品</el-menu-item>
     </el-submenu>
     <el-menu-item index="2">
@@ -53,14 +51,6 @@
     data () {
       return {
         // x
-      }
-    },
-    methods: {
-      handleOpen (key, keyPath) {
-        console.log(key)
-      },
-      handleClose (key, keyPath) {
-        console.log(key)
       }
     }
   }

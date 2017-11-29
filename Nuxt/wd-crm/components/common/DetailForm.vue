@@ -42,10 +42,10 @@
       <el-input-number v-model="form.alcoholic" :controls="false" :max="100"></el-input-number>
     </el-form-item>
     <el-form-item label="净含量(ml)">
-      <el-input-number v-model="form.content" :controls="false"></el-input-number>
+      <el-input-number v-model="form.content" :controls="false" :min="1"></el-input-number>
     </el-form-item>
     <el-form-item label="重量(g)">
-      <el-input-number v-model="form.weight" :controls="false"></el-input-number>
+      <el-input-number v-model="form.weight" :controls="false" :min="1"></el-input-number>
     </el-form-item>
     <el-form-item label="产地">
       <el-select v-model="form.origin">
