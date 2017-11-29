@@ -6,7 +6,7 @@
     <el-table :data="currentList" stripe class="pro-list-table" width="100%"
               :default-sort="{prop: 'sku', order: 'ascending'}">
       <el-table-column type="index"  fixed="left"></el-table-column>
-      <el-table-column prop="sku" label="SKU" sortable  fixed="left"></el-table-column>
+      <el-table-column prop="sku" label="SKU" sortable  fixed="left" width="120"></el-table-column>
       <el-table-column prop="cn" label="产品名" width="200">
         <template scope="scope">
           <span :title="`${scope.row.cn}——${scope.row.en}`">{{scope.row.cn}}</span>
