@@ -6,11 +6,10 @@
 <script>
   import DetailForm from '~/components/common/DetailForm'
   import { mapActions } from 'vuex'
-  import { product, config, breads } from '~/assets/lib/constant'
+  import { product, config } from '~/assets/lib/constant'
 
   export default {
     async fetch ({ store }) {
-      store.commit({ type: `bc/${breads.UPDATE_BREADS}`, bread: 'proAdd' })
       await store.dispatch({ type: `config/${config.FETCH_CONFIG}` })
     },
     components: {

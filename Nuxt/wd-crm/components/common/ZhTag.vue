@@ -4,10 +4,10 @@
   </el-tag>
 </template>
 <script>
-  import { Tag } from 'element-ui'
+//  import { Tag } from 'element-ui'
   export default {
     props: ['type'],
-    components: { ElTag: Tag },
+//    components: { ElTag: Tag },
     data () {
       return {
         types: ['primary', 'gray', 'success', 'warning', 'danger']

@@ -5,13 +5,16 @@ import { delay } from '~/assets/lib/common-tools'
 import _ from 'lodash'
 import { schema, normalize } from 'normalizr'
 
+const perPage = 10
 export const state = () => ({
   lists: [],
   currentPage: 1,
-  itemPerPage: 6,
+  itemPerPage: perPage,
   expired: false,
   skuList: [],
-  store: {}
+  store: {},
+  onePage: false,
+  search: ''
 })
 
 export const mutations = {
@@ -27,8 +30,27 @@ export const mutations = {
     if (resetPage) state.currentPage = 1
     state.expired = false
   },
+  [product.SAVE_FILTER_RESULTS] (state, payload) {
+    const { lists } = payload
+    state.lists = _.chunk(lists, state.itemPerPage)
+    state.currentPage = 1
+  },
   [product.UPDATE_PRO_LIST_PAGE] (state, payload) {
     state.currentPage = payload.currentPage
+  },
+  // 修改item per page(切换为单页显示全部)
+  [product.CHANGE_ITEM_PER_PAGE] (state, payload) {
+    const { onePage, lists, skuList } = state
+    state.currentPage = 1
+    if (!onePage) {
+      state.onePage = true
+      state.itemPerPage = skuList.length
+      state.lists = [_.flatten(lists)]
+    } else {
+      state.onePage = false
+      state.itemPerPage = perPage
+      state.lists = _.chunk(lists[0], perPage)
+    }
   },
   [product.SAVE_PRO_DETAIL] (state, payload) {
     const { sku, data } = payload
@@ -36,6 +58,9 @@ export const mutations = {
   },
   [product.EXPIRE_PRODUCTS] (state, payload) {
     state.expired = true
+  },
+  [product.SET_SEARCH] (state, payload) {
+    state.search = payload
   }
 }
 

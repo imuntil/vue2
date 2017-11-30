@@ -18,11 +18,7 @@
 
 <script>
   import Logo from '~/components/Logo.vue'
-  import { breads } from '~/assets/lib/constant'
   export default {
-    fetch ({ store }) {
-      store.commit({ type: `bc/${breads.UPDATE_BREADS}`, bread: 'home' })
-    },
     components: {
       Logo
     }

@@ -47,6 +47,7 @@ module.exports = {
   },
   css: [
     'element-ui/lib/theme-default/index.css',
+    '~assets/style/font.less',
     { src: '~assets/style/base.scss', lang: 'scss' }
   ],
   transition: {
@@ -57,9 +58,12 @@ module.exports = {
     }
   },
   plugins: [
-    '~plugins/notifications',
+    '~plugins/element-ui',
     '~plugins/some-config',
     '~plugins/vue-quill-editor',
     '~plugins/vue2-filters'
-  ]
+  ],
+  router: {
+    middleware: 'bread'
+  }
 }

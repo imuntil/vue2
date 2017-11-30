@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-  import { Header, Footer, Aside, Container, Main } from 'element-ui'
+//  import { Header, Footer, Aside, Container, Main } from 'element-ui'
   import ZhHeader from '~/components/layouts/ZhHeader'
   import ZhAside from '~/components/layouts/ZhAside'
   import ZhFooter from '~/components/layouts/ZhFooter'
@@ -27,11 +27,11 @@
   export default {
 //    transition: 'page',
     components: {
-      ElHeader: Header,
-      ElFooter: Footer,
-      ElAside: Aside,
-      ElContainer: Container,
-      ElMain: Main,
+//      ElHeader: Header,
+//      ElFooter: Footer,
+//      ElAside: Aside,
+//      ElContainer: Container,
+//      ElMain: Main,
       ZhHeader,
       ZhAside,
       ZhFooter,

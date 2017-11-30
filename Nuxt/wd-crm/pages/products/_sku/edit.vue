@@ -7,7 +7,7 @@
 <script>
   import DetailForm from '~/components/common/DetailForm'
   import { mapState, mapActions } from 'vuex'
-  import { product, config, breads } from '~/assets/lib/constant'
+  import { product, config } from '~/assets/lib/constant'
 
   export default {
     validate ({ params }) {
@@ -17,7 +17,6 @@
       return { sku: params.sku }
     },
     async fetch ({ store }) {
-      store.commit({ type: `bc/${breads.UPDATE_BREADS}`, bread: 'proEdit' })
       await store.dispatch({ type: `config/${config.FETCH_CONFIG}` })
       await store.dispatch({ type: `product/${product.FETCH_PRODUCT_LIST}` })
     },

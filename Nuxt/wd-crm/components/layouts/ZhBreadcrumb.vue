@@ -6,12 +6,12 @@
   </el-breadcrumb>
 </template>
 <script>
-  import { Breadcrumb, BreadcrumbItem } from 'element-ui'
+//  import { Breadcrumb, BreadcrumbItem } from 'element-ui'
   import { mapState } from 'vuex'
   export default {
     components: {
-      ElBreadcrumb: Breadcrumb,
-      ElBreadcrumbItem: BreadcrumbItem
+//      ElBreadcrumb: Breadcrumb,
+//      ElBreadcrumbItem: BreadcrumbItem
     },
     computed: {
       ...mapState('bc', ['breads'])

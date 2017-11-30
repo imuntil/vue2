@@ -1,18 +1,25 @@
 <template>
-  <el-autocomplete v-model="search" :trigger-on-focus="false"
-                   custom-item="candidate" placeholder="输入SKU或产品名"
-                   @select="handleSelect" @keyup.native.enter="handleEnter"
-                   :fetch-suggestions="querySearch">
-    <el-button slot="append" icon="search" @click="handleClick"></el-button>
-  </el-autocomplete>
+  <div class="search-area">
+    <el-autocomplete v-model="search" :trigger-on-focus="false"
+                     icon="circle-close" :on-icon-click="handleIconClick"
+                     custom-item="candidate" placeholder="输入SKU或产品名"
+                     @select="handleSelect" @keyup.native.enter="handleEnter"
+                     @keyup.native.delete="handleDelete"
+                     :props="{ value: field, label: field }"
+                     :fetch-suggestions="querySearch">
+      <el-button slot="append" icon="search" @click="handleClick"></el-button>
+    </el-autocomplete>
+    <el-button type="primary" style="margin-left: 20px;" @click="handleIconClick">重置</el-button>
+  </div>
 </template>
 <script>
-  import { mapState } from 'vuex'
+  import { mapState, mapMutations } from 'vuex'
+  import { product } from '~/assets/lib/constant'
   import Vue from 'vue'
-  import {
-    Button,
-    Autocomplete
-  } from 'element-ui'
+//  import {
+//    Button,
+//    Autocomplete
+//  } from 'element-ui'
   Vue.component('candidate', {
     functional: true,
     render (h, ctx) {
@@ -29,46 +36,58 @@
   })
   export default {
     components: {
-      ElButton: Button,
-      ElAutocomplete: Autocomplete
+//      ElButton: Button,
+//      ElAutocomplete: Autocomplete
     },
     data () {
       return {
-        search: '',
-        options: [
-          { label: '-', value: 0 },
-          { label: 'sku', value: 1 },
-          { label: '产品名', value: 2 }
-        ]
+//        search: '',
+        field: ''
       }
     },
     computed: {
       ...mapState('product', ['skuList', 'store']),
       products () {
         return Object.values(this.store)
+      },
+      search: {
+        get () {
+          return this.$store.state.product.search
+        },
+        set (v) {
+          this.setSearch(v)
+        }
       }
     },
     methods: {
+      ...mapMutations('product', {
+        saveFilterProducts: product.SAVE_FILTER_RESULTS,
+        setSearch: product.SET_SEARCH
+      }),
       querySearch (queryString, cb) {
         cb(this.filterResult(queryString))
       },
       createFilter (queryString) {
-        const filed = this.field(queryString)
+        const field = this.getField(queryString)
+        this.field = field
         return pro => {
-          return pro[filed].indexOf(filed === 'sku' ? queryString.toUpperCase() : queryString) >= 0
+          return pro[field].indexOf(field === 'sku' ? queryString.toUpperCase() : queryString) >= 0
         }
       },
       filterResult (queryString) {
         const pros = this.products
         return queryString ? pros.filter(this.createFilter(queryString)) : pros
       },
-      field (queryString) {
+      getField (queryString) {
         if (/[\u4e00-\u9fa5]/.test(queryString)) return 'cn'
-        else if (/^[A-z]{1}-?|\d+$/.test(queryString)) return 'sku'
+        else if (/^[A-z]{1}-?$|^\d+$/.test(queryString)) return 'sku'
         return 'en'
       },
       filterProducts () {
-        console.log(this.filterResult(this.search))
+        const lists = this.search.trim()
+          ? this.filterResult(this.search.trim()).map(i => i.sku)
+          : [...this.skuList]
+        this.saveFilterProducts({ lists })
       },
       handleSelect (v) {
         this.$router.push(`/products/${v.sku}`)
@@ -78,14 +97,31 @@
       },
       handleEnter () {
         this.filterProducts()
+      },
+      handleDelete () {
+        if (this.search === '') {
+          this.filterProducts()
+        }
+      },
+      handleIconClick () {
+        this.search = ''
+        this.filterProducts()
       }
     }
   }
 </script>
 <style type="text/scss" lang="scss" rel="stylesheet/scss">
   @import "../../assets/style/decoration";
-  .el-autocomplete .el-input__inner {
-    width: 300px;
+  .search-area {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: flex-start;
+    .el-autocomplete .el-input__inner {
+      width: 300px;
+    }
+    .el-input__icon.el-icon-circle-close.is-clickable {
+      right: 50px;
+    }
   }
   .candidate {
     text-align: right;

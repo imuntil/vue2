@@ -1,23 +1,22 @@
 <template>
   <section class="container product-index">
-    <div class="search-area">
-      <search-area></search-area>
-    </div>
-    <el-table :data="currentList" stripe class="pro-list-table" width="100%"
-              :default-sort="{prop: 'sku', order: 'ascending'}">
+    <search-area></search-area>
+    <el-table :data="currentList" stripe class="pro-list-table" width="100%">
       <el-table-column type="index"  fixed="left"></el-table-column>
-      <el-table-column prop="sku" label="SKU" sortable  fixed="left" width="120"></el-table-column>
+      <el-table-column prop="sku" label="SKU" :sortable="true"
+                       :sort-method="skuSort"
+                       fixed="left" width="120"></el-table-column>
       <el-table-column prop="cn" label="产品名" width="200">
         <template scope="scope">
           <span :title="`${scope.row.cn}——${scope.row.en}`">{{scope.row.cn}}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="price" label="价格" sortable width="150">
+      <el-table-column prop="price" label="价格" sortable min-width="150">
         <template scope="scope">
           {{scope.row.price | currency('￥')}}
         </template>
       </el-table-column>
-      <el-table-column label="是否打折" >
+      <el-table-column label="是否打折" min-width="100">
         <template scope="scope">
           {{scope.row.setToSales === 0 ? '否' : '是'}}
         </template>
@@ -27,18 +26,18 @@
           {{scope.row.truePrice | currency('￥')}}
         </template>
       </el-table-column>
-      <el-table-column prop="sales" label="销量" sortable ></el-table-column>
-      <el-table-column prop="cart" label="入车" sortable >
+      <el-table-column prop="sales" label="销量" sortable min-width="100"></el-table-column>
+      <el-table-column prop="cart" label="入车" sortable min-width="100">
         <template scope="scope">
           {{scope.row.cart || 0}}
         </template>
       </el-table-column>
-      <el-table-column prop="like" label="收藏" sortable >
+      <el-table-column prop="like" label="收藏" sortable min-width="100">
         <template scope="scope">
           {{scope.row.like || 0}}
         </template>
       </el-table-column>
-      <el-table-column prop="stock" label="库存" sortable >
+      <el-table-column prop="stock" label="库存" sortable min-width="100">
         <template scope="scope">
           <span :class="{'color--red': scope.row.stock < 10}">{{scope.row.stock}}</span>
         </template>
@@ -51,9 +50,9 @@
         </template>
       </el-table-column>
       <el-table-column
+        min-width="100"
         prop="tag"
         label="品类"
-
         :filters="originTypes"
         :filter-method="filterTag"
         filter-placement="bottom-end">
@@ -64,56 +63,68 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination layout="prev, pager, next"
-                   class="text--right"
-                   style="margin-top: 20px; padding-right: 0;"
-                   :total="lists.length" :page-size="1"
-                   @current-change="handlePageChange"
-                   :current-page="currentPage"></el-pagination>
+    <div class="sub-pager">
+      <el-pagination layout="prev, pager, next"
+                     style="display: inline-block; padding-right: 20px;"
+                     :total="lists.length" :page-size="1"
+                     @current-change="handlePageChange"
+                     :current-page="currentPage"></el-pagination>
+      <el-button type="primary" size="small" @click="viewInOne">
+        {{ onePage ? '分页显示' : '在一页中显示全部' }}
+      </el-button>
+    </div>
   </section>
 </template>
 <script>
-  import { Table, TableColumn, Button, Pagination, Tooltip } from 'element-ui'
-  import { mapState } from 'vuex'
+  import { mapState, mapMutations } from 'vuex'
   /* eslint-disable no-unused-vars */
-  import { product, config, breads } from '~/assets/lib/constant'
+  import { product, config } from '~/assets/lib/constant'
   import ZhTag from '~/components/common/ZhTag'
   import SearchArea from '~/components/common/SearchArea'
+
   export default {
     async fetch ({ store }) {
-      store.commit({ type: `bc/${breads.UPDATE_BREADS}`, bread: 'proList' })
       await store.dispatch({ type: `config/${config.FETCH_CONFIG}` })
       await store.dispatch({ type: `product/${product.FETCH_PRODUCT_LIST}` })
     },
     components: {
-      ElTable: Table,
-      ElTableColumn: TableColumn,
-      ElButton: Button,
-      ElPagination: Pagination,
-      ElTooltip: Tooltip,
       ZhTag,
       SearchArea
     },
     computed: {
-      ...mapState('product', ['lists', 'itemPerPage', 'currentPage', 'skuList', 'store']),
+      ...mapState('product', [
+        'lists', 'itemPerPage', 'currentPage', 'skuList', 'store', 'onePage'
+      ]),
       ...mapState('config', ['originTypes', 'types']),
       currentList () {
         return this.lists.length ? this.lists[this.currentPage - 1].map(sku => this.store[sku]) : []
       }
     },
     methods: {
+      ...mapMutations('product', {
+        changeItemPerPage: product.CHANGE_ITEM_PER_PAGE
+      }),
       filterTag (value, row) {
         return row._type === value
       },
       handleClick (scope) {
         console.log(scope)
       },
+      skuSort (a, b) {
+        return +(+a.sku.replace(/[A-z]{1}-0+/, '') > +b.sku.replace(/[A-z]{1}-0+/, ''))
+      },
+      // 翻页
       handlePageChange (v) {
         this.$store.commit({
           type: `product/${product.UPDATE_PRO_LIST_PAGE}`,
           currentPage: v
         })
       },
+      // 单页/多页切换
+      viewInOne () {
+        this.changeItemPerPage()
+      },
+      // 请求删除条目
       async deleteRequest (sku) {
         const res = await this.$confirm('确认删除该商品么,此操作不可撤销', '警告', {
           confirmButtonText: '确定',
@@ -139,9 +150,10 @@
   .product-index {
     display: block;
     padding-top: 25px;
-    .search-area {
-      width: 400px;
-      margin-bottom: 25px;
+    .sub-pager {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
     }
   }
   .pro-list-table {

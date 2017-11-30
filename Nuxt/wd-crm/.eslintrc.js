@@ -15,7 +15,8 @@ module.exports = {
     'arrow-parens': 0,
     // allow async-await
     'generator-star-spacing': 0,
-    'indent': 0
+    'indent': 0,
+    'no-debugger': 0
   },
   globals: {}
 }

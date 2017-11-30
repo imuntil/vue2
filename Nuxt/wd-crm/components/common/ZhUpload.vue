@@ -10,7 +10,7 @@
   </el-upload>
 </template>
 <script>
-  import { Upload, Button } from 'element-ui'
+//  import { Upload, Button } from 'element-ui'
   import { url, staticUrl } from '~/assets/lib/api'
   /* eslint-disable no-unused-vars */
   import { delay } from '~/assets/lib/common-tools'
@@ -18,8 +18,8 @@
   export default {
     props: ['sku', 'images'],
     components: {
-      ElUpload: Upload,
-      ElButton: Button
+//      ElUpload: Upload,
+//      ElButton: Button
     },
     data () {
       return {

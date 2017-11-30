@@ -80,20 +80,20 @@
   </el-form>
 </template>
 <script>
-  import {
-    Form,
-    Input,
-    InputNumber,
-    FormItem,
-    Switch,
-    Radio,
-    RadioGroup,
-    Slider,
-    Upload,
-    Select,
-    Option,
-    Button
-  } from 'element-ui'
+//  import {
+//    Form,
+//    Input,
+//    InputNumber,
+//    FormItem,
+//    Switch,
+//    Radio,
+//    RadioGroup,
+//    Slider,
+//    Upload,
+//    Select,
+//    Option,
+//    Button
+//  } from 'element-ui'
   import ZhUpload from '~/components/common/ZhUpload'
   import QuillEditor from '~/components/common/QuillEditor'
   import { mapState } from 'vuex'
@@ -101,18 +101,18 @@
 
   export default {
     components: {
-      ElForm: Form,
-      ElInput: Input,
-      ElInputNumber: InputNumber,
-      ElSwitch: Switch,
-      ElRadio: Radio,
-      ElRadioGroup: RadioGroup,
-      ElSlider: Slider,
-      ElUpload: Upload,
-      ElFormItem: FormItem,
-      ElSelect: Select,
-      ElOption: Option,
-      ElButton: Button,
+//      ElForm: Form,
+//      ElInput: Input,
+//      ElInputNumber: InputNumber,
+//      ElSwitch: Switch,
+//      ElRadio: Radio,
+//      ElRadioGroup: RadioGroup,
+//      ElSlider: Slider,
+//      ElUpload: Upload,
+//      ElFormItem: FormItem,
+//      ElSelect: Select,
+//      ElOption: Option,
+//      ElButton: Button,
       ZhUpload,
       QuillEditor
     },

@@ -7,6 +7,9 @@ const ADD_PRO_A = 'addPro-A'
 const EXPIRE_PRODUCTS = 'expireProducts'
 const DELETE_PRODUCT_A = 'deleteProduct-A'
 const DELETE_PRODUCT_M = 'deleteProduct-M'
+const SAVE_FILTER_RESULTS = 'saveFilterResults'
+const CHANGE_ITEM_PER_PAGE = 'changeItemPerPage'
+const SET_SEARCH = 'setSearch'
 
 export const product = {
   FETCH_PRODUCT_LIST,
@@ -17,7 +20,10 @@ export const product = {
   ADD_PRO_A,
   EXPIRE_PRODUCTS,
   DELETE_PRODUCT_A,
-  DELETE_PRODUCT_M
+  DELETE_PRODUCT_M,
+  SAVE_FILTER_RESULTS,
+  CHANGE_ITEM_PER_PAGE,
+  SET_SEARCH
 }
 
 const SAVE_CONFIG = 'saveConfig'
