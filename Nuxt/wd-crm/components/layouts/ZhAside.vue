@@ -12,7 +12,7 @@
       <i class="el-icon-fa-home"></i>
       <span slot="title">系统首页</span>
     </el-menu-item>
-    <el-submenu>
+    <el-submenu index="1">
       <template slot="title">
         <i class="el-icon-menu"></i>
         <span slot="title">产品管理</span>
@@ -28,7 +28,7 @@
       <i class="el-icon-fa-list"></i>
       <span slot="title">订单管理</span>
     </el-menu-item>
-    <el-submenu>
+    <el-submenu index="4">
       <template slot="title">
         <i class="el-icon-fa-cog"></i>
         <span slot="title">其他</span>

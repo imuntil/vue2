@@ -14,7 +14,7 @@ export async function request (url, options) {
   return { data }
 }
 
-export const url = 'http://localhost:3001/api/'
+export const url = 'http://localhost:3001/api/s/'
 export const staticUrl = 'http://localhost:3001'
 export const configUrl = 'http://localhost:3000'
 
