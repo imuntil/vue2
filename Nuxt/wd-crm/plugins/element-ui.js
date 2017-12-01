@@ -28,7 +28,8 @@ import {
   MenuItemGroup,
   Breadcrumb,
   BreadcrumbItem,
-  Dialog
+  Dialog,
+  Card
 } from 'element-ui'
 
 Vue.use(Loading.directive)
@@ -56,6 +57,7 @@ Vue.use(MenuItemGroup)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
 Vue.use(Dialog)
+Vue.use(Card)
 Vue.prototype.$message = Message
 Vue.prototype.$loading = Loading.service
 Vue.prototype.$notify = Notification

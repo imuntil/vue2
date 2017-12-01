@@ -39,3 +39,11 @@ const UPDATE_BREADS = 'updateBreads'
 export const breads = {
   UPDATE_BREADS
 }
+
+const FETCH_USER_LIST = 'fetchUserList-A'
+const SAVE_USER_LIST = 'saveUserList'
+
+export const user = {
+  FETCH_USER_LIST,
+  SAVE_USER_LIST
+}

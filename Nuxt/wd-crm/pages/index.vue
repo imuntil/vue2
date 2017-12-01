@@ -11,6 +11,7 @@
       <div class="links">
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
+        <a href="javascript:;" @click="test">test</a>
       </div>
     </div>
   </section>
@@ -18,9 +19,18 @@
 
 <script>
   import Logo from '~/components/Logo.vue'
+  import { fetchProList } from '~/assets/lib/api'
   export default {
     components: {
       Logo
+    },
+    methods: {
+      test () {
+        fetchProList()
+          .then((res) => {
+            console.log(res)
+          })
+      }
     }
   }
 </script>

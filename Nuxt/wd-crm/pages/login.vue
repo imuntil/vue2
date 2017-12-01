@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <card class="login-box">
+    <el-card class="login-box">
       <h2 class="text--center">WD CRM System</h2>
       <el-form label-position="right" label-width="80px" :model="form">
         <el-form-item label="账号:">
@@ -14,18 +14,20 @@
           <el-button @click="resetForm('ruleForm2')">重置</el-button>
         </el-form-item>
       </el-form>
-    </card>
+    </el-card>
   </section>
 </template>
 <script>
-  import { Card, Form, FormItem, Input, Button } from 'element-ui'
+//  import { Card, Form, FormItem, Input, Button } from 'element-ui'
+  /* eslint-disable no-unused-vars */
   import { delay } from '~/assets/lib/common-tools'
+  import { login } from '~/assets/lib/api'
   export default {
     layout: 'login',
 //    transition: 'page',
-    components: {
-      Card, ElForm: Form, ElFormItem: FormItem, ElInput: Input, ElButton: Button
-    },
+//    components: {
+//      Card, ElForm: Form, ElFormItem: FormItem, ElInput: Input, ElButton: Button
+//    },
     data () {
       return {
         form: { name: '', password: '' },
@@ -35,8 +37,15 @@
     methods: {
       async submitForm () {
         this.loading = true
-        await delay(400)
+        const { data, fail } = await login({ account: this.form.name, password: this.form.password })
+        await delay(200)
         this.loading = false
+        if (data) {
+          this.$message({ type: 'success', message: '登录成功' })
+        } else {
+          this.$message({ type: 'error', message: (fail && fail.message) || '登录失败' })
+          return false
+        }
         this.$router.push('/')
       },
       resetForm () {
