@@ -11,7 +11,8 @@
       <div class="links">
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
-        <a href="javascript:;" @click="test">test</a>
+        <a href="javascript:;" @click="test">debounce</a>
+        <a href="javascript:;" @click="test2">throttle</a>
       </div>
     </div>
   </section>
@@ -19,17 +20,35 @@
 
 <script>
   import Logo from '~/components/Logo.vue'
-  import { fetchProList } from '~/assets/lib/api'
+  import _ from 'lodash'
   export default {
     components: {
       Logo
     },
+    data () {
+      return {
+        d: null,
+        t: null
+      }
+    },
     methods: {
       test () {
-        fetchProList()
-          .then((res) => {
-            console.log(res)
-          })
+        if (!this.d) {
+          this.d = _.debounce(() => {
+            console.log('x')
+            this.d = null
+          }, 500)
+        }
+        this.d()
+      },
+      test2 () {
+        if (!this.t) {
+          this.t = _.throttle(() => {
+            console.log('t')
+            this.t = null
+          }, 500, { trailing: true })
+        }
+        this.t()
       }
     }
   }

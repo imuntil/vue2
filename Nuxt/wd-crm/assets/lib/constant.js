@@ -42,8 +42,24 @@ export const breads = {
 
 const FETCH_USER_LIST = 'fetchUserList-A'
 const SAVE_USER_LIST = 'saveUserList'
+const UPDATE_USER_LIST_CURRENT_PAGE = 'updateUserListCurrentPage'
+const FETCH_CURRENT_PAGE_DATA_A = 'fetchCurrentPageData-A'
 
 export const user = {
   FETCH_USER_LIST,
-  SAVE_USER_LIST
+  SAVE_USER_LIST,
+  UPDATE_USER_LIST_CURRENT_PAGE,
+  FETCH_CURRENT_PAGE_DATA_A
+}
+
+const FETCH_ORDER_LIST = 'fetchOrderList-A'
+const SAVE_ORDER_LIST = 'saveOrderList'
+const UPDATE_ORDER_LIST_CURRENT_PAGE = 'updateOrderListCurrentPage'
+const FETCH_CURRENT_PAGE_ORDER_A = 'fetchCurrentPageData-A'
+
+export const order = {
+  FETCH_CURRENT_PAGE_ORDER_A,
+  FETCH_ORDER_LIST,
+  SAVE_ORDER_LIST,
+  UPDATE_ORDER_LIST_CURRENT_PAGE
 }

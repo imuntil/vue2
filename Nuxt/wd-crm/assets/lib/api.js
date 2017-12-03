@@ -80,6 +80,15 @@ export function uploadImage ({ fd, sku }) {
 // ——————————————————————————————————————————————用户————————————————————————————————————
 
 // 获取用户列表
-export function fetchUserList () {
-  return request(`${url}users/sys`)
+export function fetchUserList ({ size = 20, page = 1 }) {
+  return request(`${url}users/sys?size=${size}&page=${page}`)
+}
+// 根据phone检索用户
+export function filterUserByPhone ({ phoneStr }) {
+  return request(`${url}users/sys/filter?ps=${phoneStr}`)
+}
+
+// ——————————————————————————————————————————————订单————————————————————————————————————
+export function fetchOrderList ({ size = 20, page = 1 }) {
+  return request(`${url}sys/orders?size=${size}&page=${page}`)
 }

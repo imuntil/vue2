@@ -16,10 +16,6 @@
   import { mapState, mapMutations } from 'vuex'
   import { product } from '~/assets/lib/constant'
   import Vue from 'vue'
-//  import {
-//    Button,
-//    Autocomplete
-//  } from 'element-ui'
   Vue.component('candidate', {
     functional: true,
     render (h, ctx) {
@@ -35,10 +31,6 @@
     }
   })
   export default {
-    components: {
-//      ElButton: Button,
-//      ElAutocomplete: Autocomplete
-    },
     data () {
       return {
 //        search: '',

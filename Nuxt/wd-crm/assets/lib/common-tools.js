@@ -226,6 +226,19 @@ export function moneyFormat (money) {
   return front ? `${front},${part}` : part
 }
 
+export function dateFormat (date, separator = '-') {
+  try {
+    const _d = new Date(date)
+    const y = _d.getFullYear()
+    const m = _d.getMonth()
+    const mm = m >= 9 ? m + 1 : `0${m + 1}`
+    const d = _d.getDate()
+    const dd = d >= 9 ? d + 1 : `0${d + 1}`
+    return `${y}${separator}${mm}${separator}${dd}`
+  } catch (e) {
+    throw e
+  }
+}
 // function curry (fn) {
 //   let args = Array.prototype.slice.call(arguments, 1)
 //   console.log(args)

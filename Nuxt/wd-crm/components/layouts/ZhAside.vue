@@ -24,10 +24,14 @@
       <i class="el-icon-fa-user-o"></i>
       <span slot="title">用户管理</span>
     </el-menu-item>
-    <el-menu-item index="/order">
-      <i class="el-icon-fa-list"></i>
-      <span slot="title">订单管理</span>
-    </el-menu-item>
+    <el-submenu index="3">
+      <template slot="title">
+        <i class="el-icon-fa-list"></i>
+        <span slot="title">订单管理</span>
+      </template>
+      <el-menu-item index="/orders">全部订单</el-menu-item>
+      <el-menu-item index="/orders/to-send">待发货</el-menu-item>
+    </el-submenu>
     <el-submenu index="4">
       <template slot="title">
         <i class="el-icon-fa-cog"></i>
@@ -40,9 +44,12 @@
 </template>
 <script>
 //  import { Menu, Submenu, MenuItem, MenuItemGroup } from 'element-ui'
-  export default {
+  import ElSubmenu from '../../node_modules/element-ui/packages/menu/src/submenu.vue'
+
+export default {
     props: ['isCollapse'],
     components: {
+      ElSubmenu
 //      ElMenu: Menu,
 //      ElSubmenu: Submenu,
 //      ElMenuItem: MenuItem,
