@@ -12,7 +12,7 @@
   import OrderTable from '~/components/common/OrderTable'
   export default {
     async fetch ({ store }) {
-      store.dispatch({ type: `order/${order.FETCH_ORDER_LIST}` })
+      store.dispatch({ type: `order/${order.FETCH_ORDER_LIST}`, page: 1 })
     },
     components: {
       OrderTable
@@ -25,7 +25,7 @@
         fetchOrderList: order.FETCH_ORDER_LIST
       }),
       handleCurrentChange (v) {
-        this.fetchOrderList({ currentPage: v })
+        this.fetchOrderList({ page: v })
       }
     }
   }

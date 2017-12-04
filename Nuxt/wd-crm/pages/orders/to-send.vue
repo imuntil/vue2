@@ -3,42 +3,48 @@
     <order-table :current-list="currentList"
                  :current-page="currentPage"
                  @current-change="handleCurrentChange"
+                 @deliver-goods="handleDeliverGoods"
                  :os="1"
                  :total-pages="totalPages"></order-table>
   </section>
 </template>
 <script>
   import OrderTable from '~/components/common/OrderTable'
-  import { fetchOrderList } from '~/assets/lib/api'
-  const f = async function (page = 1) {
-    const { err, data, fail } = await fetchOrderList({ status: 1, size: 20, page })
-    if (err || fail) return { currentList: [] }
-    const { total, count, orders, current } = data.data
-    return { currentList: orders, currentPage: ~~current, totalPages: total, count }
-  }
+  import { deliverGoods } from '~/assets/lib/api'
+  import { order } from '~/assets/lib/constant'
+  import { mapActions, mapState, mapMutations } from 'vuex'
   export default {
-    async asyncData () {
-      const res = await f()
-      return res
+    async fetch ({ store }) {
+      store.dispatch({ type: `order/${order.FETCH_ORDER_LIST}`, status: 1, page: 1 })
     },
     components: {
       OrderTable
     },
-    data () {
-      return {
-        currentList: [],
-        currentPage: 1,
-        count: 0,
-        totalPages: 0
-      }
+    computed: {
+      ...mapState('order', ['count', 'totalPages', 'currentPage', 'currentList'])
     },
     methods: {
-      async handleCurrentChange (v) {
-        const { currentList, currentPage, count, totalPages } = await f(v)
-        this.currentList = currentList
-        this.currentPage = currentPage
-        this.count = count
-        this.totalPages = totalPages
+      ...mapActions('order', {
+        fetchOrderList: order.FETCH_ORDER_LIST
+      }),
+      ...mapMutations('order', {
+        updateOrderList: order.UPDATE_ORDER_LIST
+      }),
+      handleCurrentChange (v) {
+        this.fetchOrderList({ page: v, status: 1 })
+      },
+      async handleDeliverGoods ({ orderNumber, index }) {
+        const { err, fail } = await deliverGoods({ orderNumber })
+        if (err) {
+          this.$message({ type: 'error', message: '操作失败' })
+          return false
+        }
+        if (fail) {
+          this.$message({ type: 'warning', message: fail.message })
+          return false
+        }
+        this.$message({ type: 'success', message: '操作成功' })
+        this.updateOrderList({ index })
       }
     }
   }

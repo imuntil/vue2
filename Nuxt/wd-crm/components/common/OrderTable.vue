@@ -1,8 +1,9 @@
 <template>
   <div>
+    <order-search></order-search>
     <el-table :data="currentList" class="order-list-table" stripe width="100%">
       <el-table-column type="index" fixed="left"></el-table-column>
-      <el-table-column fixed="left" width="165" label="订单号" prop="orderNumber"></el-table-column>
+      <el-table-column fixed="left" width="190" label="订单号" prop="orderNumber"></el-table-column>
       <el-table-column label="下单用户" prop="_ownerNick" min-width="120"></el-table-column>
       <el-table-column label="用户手机号码" width="150">
         <template scope="scope">
@@ -51,9 +52,11 @@
       <el-table-column label="操作" fixed="right" :width="os ? 200 : 100">
         <template scope="scope">
           <el-button type="primary" size="mini" @click="showDetail(scope.row)">查看详细</el-button>
-          <el-button v-if="os === 1" type="warning"
-                     @click="deliverGoods(scope.row)"
+          <el-button v-if="os === 1 && scope.row.status === 1" type="warning"
+                     @click="deliverGoods(scope.row, scope.$index)"
                      size="mini">确认发货</el-button>
+          <el-button v-if="os === 1 && scope.row.status === 2"
+                     size="mini" type="success">已发货</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -72,10 +75,12 @@
 <script>
   import { dateFormat } from '~/assets/lib/common-tools'
   import OrderDialog from '~/components/common/OrderDialog'
+  import OrderSearch from './SearchOrder.vue'
   export default {
     props: ['currentList', 'totalPages', 'currentPage', 'os'],
     components: {
-      OrderDialog
+      OrderDialog,
+      OrderSearch
     },
     data () {
       return {
@@ -93,8 +98,8 @@
         this.order = order
         this.visible = true
       },
-      deliverGoods (order) {
-        console.log(order)
+      deliverGoods ({ orderNumber }, index) {
+        this.$emit('deliver-goods', { orderNumber, index })
       }
     }
   }

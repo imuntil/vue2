@@ -1,7 +1,7 @@
 import fetch from './request'
 
 export async function request (url, options) {
-  const { err, data } = await fetch(url, options)
+  const { err, data } = await fetch(encodeURI(url), options)
   if (err) {
     // commit && commit('nt/error', { code: -1, msg: '未知错误' }, { root: true })
     console.log(err)
@@ -100,3 +100,6 @@ export function fetchOrderList (params) {
   return request(`${url}sys/orders?${s.slice(0, -1)}`)
 }
 // 确认发货
+export function deliverGoods ({ orderNumber }) {
+  return request(`${url}sys/orders/${orderNumber}/deliver-goods`, { method: 'PUT' })
+}

@@ -54,12 +54,12 @@ export const user = {
 
 const FETCH_ORDER_LIST = 'fetchOrderList-A'
 const SAVE_ORDER_LIST = 'saveOrderList'
-const UPDATE_ORDER_LIST_CURRENT_PAGE = 'updateOrderListCurrentPage'
-const FETCH_CURRENT_PAGE_ORDER_A = 'fetchCurrentPageData-A'
+const UPDATE_ORDER_LIST = 'updateOrderList'
+const SEARCH_ORDERS_A = 'searchOrders-A'
 
 export const order = {
-  FETCH_CURRENT_PAGE_ORDER_A,
   FETCH_ORDER_LIST,
   SAVE_ORDER_LIST,
-  UPDATE_ORDER_LIST_CURRENT_PAGE
+  UPDATE_ORDER_LIST,
+  SEARCH_ORDERS_A
 }
