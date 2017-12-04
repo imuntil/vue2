@@ -3,35 +3,28 @@
     <zh-header class="zh-top" :isCollapse.sync="isCollapse"></zh-header>
     <div class="main-container out" :class="{ 'is-close': isCollapse }">
       <aside class="zh-aside">
-        <zh-aside :isCollapse="isCollapse" />
+        <zh-aside :isCollapse="isCollapse"></zh-aside>
       </aside>
       <div class="vertical main-container">
         <main class="zh-main">
-          <zh-breadcrumb />
+          <zh-breadcrumb></zh-breadcrumb>
           <div class="nuxt-box">
             <nuxt />
           </div>
-          <zh-footer />
+          <zh-footer></zh-footer>
         </main>
       </div>
     </div>
   </div>
 </template>
 <script>
-//  import { Header, Footer, Aside, Container, Main } from 'element-ui'
   import ZhHeader from '~/components/layouts/ZhHeader'
   import ZhAside from '~/components/layouts/ZhAside'
   import ZhFooter from '~/components/layouts/ZhFooter'
   import ZhBreadcrumb from '~/components/layouts/ZhBreadcrumb'
   import { mapState } from 'vuex'
   export default {
-//    transition: 'page',
     components: {
-//      ElHeader: Header,
-//      ElFooter: Footer,
-//      ElAside: Aside,
-//      ElContainer: Container,
-//      ElMain: Main,
       ZhHeader,
       ZhAside,
       ZhFooter,

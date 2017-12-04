@@ -11,7 +11,8 @@ const routes = {
   'products-sku-edit': [gen('产品列表', '/products'), gen('产品编辑')],
   'products-add': [gen('添加产品')],
   user: [gen('用户列表')],
-  order: [gen('订单列表')]
+  orders: [gen('订单列表')],
+  'orders-to-send': [gen('订单列表', '/orders'), gen('待发货')]
 }
 
 export const state = () => ({

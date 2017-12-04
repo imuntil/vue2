@@ -89,6 +89,14 @@ export function filterUserByPhone ({ phoneStr }) {
 }
 
 // ——————————————————————————————————————————————订单————————————————————————————————————
-export function fetchOrderList ({ size = 20, page = 1 }) {
-  return request(`${url}sys/orders?size=${size}&page=${page}`)
+// 获取订单列表
+export function fetchOrderList (params) {
+  let s = ''
+  for (let k in params) {
+    if (k && params[k] !== undefined) {
+      s += `${k}=${params[k]}&`
+    }
+  }
+  return request(`${url}sys/orders?${s.slice(0, -1)}`)
 }
+// 确认发货

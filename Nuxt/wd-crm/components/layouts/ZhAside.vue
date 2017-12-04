@@ -43,23 +43,8 @@
   </el-menu>
 </template>
 <script>
-//  import { Menu, Submenu, MenuItem, MenuItemGroup } from 'element-ui'
-  import ElSubmenu from '../../node_modules/element-ui/packages/menu/src/submenu.vue'
-
-export default {
-    props: ['isCollapse'],
-    components: {
-      ElSubmenu
-//      ElMenu: Menu,
-//      ElSubmenu: Submenu,
-//      ElMenuItem: MenuItem,
-//      ElMenuItemGroup: MenuItemGroup
-    },
-    data () {
-      return {
-        // x
-      }
-    }
+  export default {
+    props: ['isCollapse']
   }
 </script>
 <style type="text/scss" lang="scss" rel="stylesheet/scss" scoped>
