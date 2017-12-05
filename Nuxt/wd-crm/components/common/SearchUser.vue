@@ -75,12 +75,5 @@
   }
 </script>
 <style type="text/scss" lang="scss" rel="stylesheet/scss">
-  .user-search {
-    margin-bottom: 25px;
-    display: flex;
-    justify-content: flex-start;
-    .el-input__icon.el-icon-circle-close.is-clickable {
-      right: 50px;
-    }
-  }
+
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <order-search></order-search>
+    <order-search :os="os"></order-search>
     <el-table :data="currentList" class="order-list-table" stripe width="100%">
       <el-table-column type="index" fixed="left"></el-table-column>
       <el-table-column fixed="left" width="190" label="订单号" prop="orderNumber"></el-table-column>

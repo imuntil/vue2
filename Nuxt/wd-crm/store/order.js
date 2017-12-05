@@ -45,6 +45,6 @@ export const actions = {
   async [order.SEARCH_ORDERS_A] ({ commit, state }, payload) {
     const { err, fail, data } = await fetchOrderList({ page: 1, ...payload, size: perPage })
     if (err || fail) return false
-    return data
+    return data.data
   }
 }

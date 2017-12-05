@@ -22,8 +22,8 @@
       const item = ctx.props.item
       const _class = ctx.data.class
       return h('li', { ...ctx.data, class: { ..._class, candidate: true } }, [
-        h('div', { attrs: { class: 'candidate-sku' } }, [item.sku]),
-        h('span', { attrs: { class: 'candidate-cn' } }, [`${item.cn} | ${item.en}`])
+        h('div', { attrs: { class: 'candidate-body' } }, [item.sku]),
+        h('span', { attrs: { class: 'candidate-footer' } }, [`${item.cn} | ${item.en}`])
       ])
     },
     props: {
@@ -103,39 +103,5 @@
   }
 </script>
 <style type="text/scss" lang="scss" rel="stylesheet/scss">
-  @import "../../assets/style/decoration";
-  .search-area {
-    margin-bottom: 25px;
-    display: flex;
-    justify-content: flex-start;
-    .el-autocomplete .el-input__inner {
-      width: 300px;
-    }
-    .el-input__icon.el-icon-circle-close.is-clickable {
-      right: 50px;
-    }
-  }
-  .candidate {
-    text-align: right;
-    padding-top: 6px !important;
-    padding-bottom: 6px !important;
-    line-height: 1.5 !important;
-    .candidate-sku {
-      width: 100%;
-      text-align: left;
-      line-height: 1.2;
-    }
-    .candidate-cn {
-      width: 90%;
-      text-align: right;
-      font-size: .8rem;
-      display: inline-block;
-      color: $font3color;
-      overflow: hidden;
-      line-height: 1;
-    }
-  }
-  .candidate:not(:last-child) {
-    border-bottom: 1px solid $bb2color;
-  }
+
 </style>
