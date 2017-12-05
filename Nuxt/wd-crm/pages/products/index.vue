@@ -143,6 +143,9 @@
           this.$message({ type: 'success', message: '删除完成' })
         }
       }
+    },
+    created () {
+//      this.$store.dispatch({ type: `product/${product.FETCH_PRODUCT_LIST}` })
     }
   }
 </script>

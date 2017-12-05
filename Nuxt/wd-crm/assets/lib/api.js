@@ -15,9 +15,9 @@ export async function request (url, options) {
   return { data }
 }
 
-export const url = 'http://localhost:3001/api/'
+export const url = 'http://localhost:29999/api/'
 export const staticUrl = 'http://localhost:3001'
-export const configUrl = 'http://localhost:3000'
+export const configUrl = 'http://localhost:29999'
 
 // 登录
 export function login ({ account, password }) {
