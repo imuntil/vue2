@@ -11,7 +11,7 @@
   import { order } from '~/assets/lib/constant'
   import OrderTable from '~/components/common/OrderTable'
   export default {
-    async fetch ({ store }) {
+    async fetch ({ store, isServer, req }) {
       store.dispatch({ type: `order/${order.FETCH_ORDER_LIST}`, page: 1 })
     },
     components: {

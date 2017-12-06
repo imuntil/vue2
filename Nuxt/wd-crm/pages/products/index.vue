@@ -83,9 +83,11 @@
   import SearchArea from '~/components/common/SearchArea'
 
   export default {
-    async fetch ({ store }) {
-      await store.dispatch({ type: `config/${config.FETCH_CONFIG}` })
-      await store.dispatch({ type: `product/${product.FETCH_PRODUCT_LIST}` })
+    async fetch ({ store, req, isServer }) {
+      await Promise.all([
+        store.dispatch({ type: `config/${config.FETCH_CONFIG}` }),
+        store.dispatch({ type: `product/${product.FETCH_PRODUCT_LIST}` })
+      ])
     },
     components: {
       ZhTag,

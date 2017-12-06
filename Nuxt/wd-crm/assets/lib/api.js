@@ -1,6 +1,10 @@
 import fetch from './request'
+import header from '~/utils/header'
 
-export async function request (url, options) {
+export async function request (url, options = {}) {
+  if (header.isServer) {
+    options.headers = { ...options.headers, cookie: header.cookie }
+  }
   const { err, data } = await fetch(encodeURI(url), options)
   if (err) {
     // commit && commit('nt/error', { code: -1, msg: '未知错误' }, { root: true })
@@ -36,8 +40,8 @@ export function fetchConfig () {
 }
 // ——————————————————————————————————————————————产品————————————————————————————————————
 // 获取产品列表
-export function fetchProList () {
-  return request(`${url}pros/sys`)
+export function fetchProList (payload) {
+  return request(`${url}pros/sys`, payload)
 }
 // 获取产品详细
 export function fetchProDetail ({ sku }) {

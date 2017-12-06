@@ -37,7 +37,7 @@
   import { mapState } from 'vuex'
   import SearchUser from '~/components/common/SearchUser'
   export default {
-    async fetch ({ store }) {
+    async fetch ({ store, isServer, req }) {
       store.dispatch({ type: `user/${user.FETCH_USER_LIST}` })
     },
     components: {

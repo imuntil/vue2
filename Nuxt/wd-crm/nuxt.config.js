@@ -64,6 +64,6 @@ module.exports = {
     '~plugins/vue2-filters'
   ],
   router: {
-    middleware: 'bread'
+    middleware: ['check-auth', 'bread']
   }
 }
