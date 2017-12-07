@@ -2,6 +2,7 @@ import { order } from '~/assets/lib/constant'
 import {
   fetchOrderList
 } from '~/assets/lib/api'
+import _ from 'lodash'
 
 const perPage = 2
 
@@ -37,13 +38,13 @@ export const mutations = {
 
 export const actions = {
   async [order.FETCH_ORDER_LIST] ({ commit, state }, payload) {
-    const { err, fail, data } = await fetchOrderList({ ...payload, size: perPage })
+    const { err, fail, data } = await fetchOrderList({ ..._.omit(payload, 'type'), size: perPage })
     if (err || fail) return false
     commit({ type: order.SAVE_ORDER_LIST, ...data.data })
     return true
   },
   async [order.SEARCH_ORDERS_A] ({ commit, state }, payload) {
-    const { err, fail, data } = await fetchOrderList({ page: 1, ...payload, size: perPage })
+    const { err, fail, data } = await fetchOrderList({ page: 1, ..._.omit(payload, 'type'), size: perPage })
     if (err || fail) return false
     return data.data
   }

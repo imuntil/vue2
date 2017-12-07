@@ -1,8 +1,18 @@
 import header from '~/utils/header'
 
-export default function ({ isServer, req }) {
+function existCookie (cookie) {
+  const st = cookie.split(';').find(c => c.trim().startsWith('_st='))
+  return !!st
+}
+
+export default function ({ isServer, req, redirect }) {
   if (isServer && req) {
-    header.cookie = req.headers.cookie
+    const cookie = req.headers.cookie
+    const is = existCookie(cookie)
+    if (!is) {
+      return redirect('/login')
+    }
+    header.cookie = cookie
     header.isServer = true
   } else {
     header.isServer = false

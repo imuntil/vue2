@@ -21,12 +21,10 @@ function checkStatus (response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request (url, options) {
-  console.log(url)
-  console.log('_______________________________________')
   return fetch(url, {
     ...options,
-    credentials: 'same-origin'
-    // credentials: 'include'
+    // credentials: 'same-origin'
+    credentials: 'include'
   })
     .then(checkStatus)
     .then(parseJSON)

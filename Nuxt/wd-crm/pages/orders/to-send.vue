@@ -15,7 +15,7 @@
   import { mapActions, mapState, mapMutations } from 'vuex'
   export default {
     async fetch ({ store, isServer, req }) {
-      store.dispatch({ type: `order/${order.FETCH_ORDER_LIST}`, status: 1, page: 1 })
+      await store.dispatch({ type: `order/${order.FETCH_ORDER_LIST}`, status: 1, page: 1 })
     },
     components: {
       OrderTable

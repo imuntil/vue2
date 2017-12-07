@@ -5,7 +5,8 @@
   "author": "imuntil <imuntil@qq.com>",
   "private": true,
   "scripts": {
-    "dev": "HOST=0.0.0.0 PORT=30000 nuxt",
+    "dev": "nuxt",
+    "dev2": "HOST=0.0.0.0 PORT=30000 nuxt",
     "build": "nuxt build",
     "start": "HOST=0.0.0.0 PORT=30000 nuxt start",
     "generate": "nuxt generate",

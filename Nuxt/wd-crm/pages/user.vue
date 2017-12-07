@@ -37,8 +37,8 @@
   import { mapState } from 'vuex'
   import SearchUser from '~/components/common/SearchUser'
   export default {
-    async fetch ({ store, isServer, req }) {
-      store.dispatch({ type: `user/${user.FETCH_USER_LIST}` })
+    async fetch ({ store }) {
+      await store.dispatch({ type: `user/${user.FETCH_USER_LIST}` })
     },
     components: {
       SearchUser
@@ -51,18 +51,15 @@
     },
     computed: {
       ...mapState('user', [
-        'pageStore', 'itemPerPage', 'currentPage', 'totalPages'
-      ]),
-      currentList () {
-        return this.pageStore[this.currentPage - 1]
-      }
+        'currentList', 'itemPerPage', 'currentPage', 'totalPages'
+      ])
     },
     methods: {
       date: dateFormat,
       handlePageChange (v) {
         console.log(v)
         this.$store.dispatch({
-          type: `user/${user.FETCH_CURRENT_PAGE_DATA_A}`,
+          type: `user/${user.FETCH_USER_LIST}`,
           currentPage: v
         })
       },
