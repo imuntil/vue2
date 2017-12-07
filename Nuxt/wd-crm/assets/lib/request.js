@@ -24,7 +24,8 @@ export default function request (url, options) {
   return fetch(url, {
     ...options,
     // credentials: 'same-origin'
-    credentials: 'include'
+    credentials: 'include',
+    rejectUnauthorized: false
   })
     .then(checkStatus)
     .then(parseJSON)

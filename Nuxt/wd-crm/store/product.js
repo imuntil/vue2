@@ -66,6 +66,7 @@ export const mutations = {
 
 export const actions = {
   async [product.FETCH_PRODUCT_LIST] ({ commit, state }, payload) {
+    console.log('fetch product list --------------------------------------')
     if (!state.expired && state.lists.length) return true
     const { err, fail, data } = await fetchProList()
     if (err || fail) return false

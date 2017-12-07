@@ -8,7 +8,9 @@ export async function request (url, options = {}) {
   const { err, data } = await fetch(encodeURI(url), options)
   if (err) {
     // commit && commit('nt/error', { code: -1, msg: '未知错误' }, { root: true })
+    console.log('-----+++++++++++++++++++++++++++++++++++')
     console.log(err)
+    console.log('-----+++++++++++++++++++++++++++++++++++')
     return { err: true }
   }
   const { code, message } = data
@@ -19,8 +21,8 @@ export async function request (url, options = {}) {
   return { data }
 }
 
-export const staticUrl = 'http://localhost:3001'
-export const configUrl = 'http://localhost:3000'
+export const staticUrl = 'https://localhost:3002'
+export const configUrl = 'https://localhost'
 export const url = `${staticUrl}/api/`
 
 // 登录
@@ -41,6 +43,7 @@ export function fetchConfig () {
 // ——————————————————————————————————————————————产品————————————————————————————————————
 // 获取产品列表
 export function fetchProList (payload) {
+  console.log('api fetch inggggggggggggggggggggggggggggggggggg')
   return request(`${url}pros/sys`, payload)
 }
 // 获取产品详细
