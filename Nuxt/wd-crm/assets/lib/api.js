@@ -8,9 +8,6 @@ export async function request (url, options = {}) {
   const { err, data } = await fetch(encodeURI(url), options)
   if (err) {
     // commit && commit('nt/error', { code: -1, msg: '未知错误' }, { root: true })
-    console.log('-----+++++++++++++++++++++++++++++++++++')
-    console.log(err)
-    console.log('-----+++++++++++++++++++++++++++++++++++')
     return { err: true }
   }
   const { code, message } = data
@@ -43,7 +40,6 @@ export function fetchConfig () {
 // ——————————————————————————————————————————————产品————————————————————————————————————
 // 获取产品列表
 export function fetchProList (payload) {
-  console.log('api fetch inggggggggggggggggggggggggggggggggggg')
   return request(`${url}pros/sys`, payload)
 }
 // 获取产品详细

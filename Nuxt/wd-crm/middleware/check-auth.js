@@ -7,7 +7,6 @@ function existCookie (cookie) {
 
 export default function ({ isServer, req, redirect }) {
   if (isServer && req) {
-    console.log('middleware: ', req.headers)
     const cookie = req.headers.cookie
     const is = existCookie(cookie)
     if (!is) {
