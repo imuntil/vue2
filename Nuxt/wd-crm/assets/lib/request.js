@@ -23,8 +23,8 @@ function checkStatus (response) {
 export default function request (url, options) {
   return fetch(url, {
     ...options,
-    // credentials: 'same-origin'
-    credentials: 'include',
+    credentials: 'same-origin',
+    // credentials: 'include',
     rejectUnauthorized: false
   })
     .then(checkStatus)

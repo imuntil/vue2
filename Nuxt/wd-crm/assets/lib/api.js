@@ -18,8 +18,10 @@ export async function request (url, options = {}) {
   return { data }
 }
 
-export const staticUrl = 'https://localhost:3002'
-export const configUrl = 'https://localhost'
+export const staticUrl = 'https://localhost'
+export const configUrl = staticUrl
+// export const staticUrl = 'http://localhost:29999'
+// export const configUrl = 'http://localhost:29999'
 export const url = `${staticUrl}/api/`
 
 // 登录
