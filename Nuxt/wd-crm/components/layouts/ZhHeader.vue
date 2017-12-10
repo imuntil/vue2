@@ -6,17 +6,31 @@
         <span></span>
       </a>
     </p>
+    <el-popover ref="logout" placement="bottom" trigger="hover">
+      <p class="text--center">
+        <el-button @click="handleLogout" type="text" size="small">退出登录</el-button>
+      </p>
+    </el-popover>
     <p class="user">
-      <a href="javascript:;">admin</a>
+      <a v-popover:logout href="javascript:;">admin</a>
     </p>
   </header>
 </template>
 <script>
+  import { logout } from '~/assets/lib/api'
   export default {
     props: ['isCollapse'],
     methods: {
       handleClick () {
         this.$emit('update:isCollapse', !this.isCollapse)
+      },
+      async handleLogout () {
+        const { data } = await logout()
+        if (data && data.code === 0) {
+          this.$router.replace({ path: '/login' })
+          this.$store.commit('auth/removeAuth')
+          this.$message({ type: 'info', message: '已退出' })
+        }
       }
     }
   }
@@ -73,6 +87,7 @@
   }
   .user {
     text-align: right;
+    margin-right: 20px;
   }
 
 </style>

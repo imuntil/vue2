@@ -18,16 +18,10 @@
   </section>
 </template>
 <script>
-//  import { Card, Form, FormItem, Input, Button } from 'element-ui'
-  /* eslint-disable no-unused-vars */
   import { delay } from '~/assets/lib/common-tools'
   import { login } from '~/assets/lib/api'
   export default {
     layout: 'login',
-//    transition: 'page',
-//    components: {
-//      Card, ElForm: Form, ElFormItem: FormItem, ElInput: Input, ElButton: Button
-//    },
     data () {
       return {
         form: { name: '', password: '' },
@@ -42,6 +36,7 @@
         this.loading = false
         if (data) {
           this.$message({ type: 'success', message: '登录成功' })
+          this.$store.commit('auth/setAuth')
         } else {
           this.$message({ type: 'error', message: (fail && fail.message) || '登录失败' })
           return false

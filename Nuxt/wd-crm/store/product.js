@@ -68,6 +68,7 @@ export const actions = {
   async [product.FETCH_PRODUCT_LIST] ({ commit, state }, payload) {
     if (!state.expired && state.lists.length) return true
     const { err, fail, data } = await fetchProList()
+    commit({ type: 'xeh/error', err }, { root: true })
     if (err || fail) return false
     commit({ type: product.SAVE_PRODUCT_LIST, lists: data.data, resetPage: true })
     return true
@@ -75,6 +76,7 @@ export const actions = {
   async [product.MODIFY_PRO_DETAIL_A] ({ commit }, payload) {
     const { body, sku } = payload
     const { err, fail, data } = await modifyProDetail({ body })
+    commit({ type: 'xeh/error', err }, { root: true })
     if (err || fail) return { err, fail }
     commit({
       type: product.SAVE_PRO_DETAIL,
@@ -85,12 +87,14 @@ export const actions = {
   },
   async [product.ADD_PRO_A] ({ commit }, payload) {
     const { err, fail } = await addNewPro({ body: payload.body, commit })
+    commit({ type: 'xeh/error', err }, { root: true })
     if (err || fail) return { err, fail }
     commit({ type: product.EXPIRE_PRODUCTS })
     return { ok: true }
   },
   async [product.DELETE_PRODUCT_A] ({ commit, state }, payload) {
     const {err, fail} = await deletePro({sku: payload.sku})
+    commit({ type: 'xeh/error', err }, { root: true })
     if (err || fail) return false
     const { sku } = payload
     const store = { ...state.store }

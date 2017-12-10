@@ -2,13 +2,13 @@ import fetch from './request'
 import header from '~/utils/header'
 
 export async function request (url, options = {}) {
-  if (header.isServer) {
+  if (header.cookie) {
     options.headers = { ...options.headers, cookie: header.cookie }
   }
   const { err, data } = await fetch(encodeURI(url), options)
   if (err) {
     // commit && commit('nt/error', { code: -1, msg: '未知错误' }, { root: true })
-    return { err: true }
+    return { err }
   }
   const { code, message } = data
   if (~~code !== 0) {
@@ -33,6 +33,10 @@ export function login ({ account, password }) {
     },
     body: JSON.stringify({ account, password })
   })
+}
+// 登出
+export function logout () {
+  return request(`${url}sys/logout`)
 }
 
 // 获取配置信息

@@ -1,20 +1,32 @@
 import header from '~/utils/header'
+import decode from 'jwt-decode'
 
 function existCookie (cookie) {
   const st = cookie.split(';').find(c => c.trim().startsWith('_st='))
-  return !!st
+  try {
+    const cookie = st.split('=')[1]
+    if (!cookie) return false
+    return decode(cookie)
+  } catch (e) {
+    console.log(e)
+    return false
+  }
 }
 
-export default function ({ isServer, req, redirect }) {
+export default function ({ isServer, req, redirect, from, route, store }) {
+  console.log('m')
   if (isServer && req) {
     const cookie = req.headers.cookie
     const is = existCookie(cookie)
-    if (!is) {
-      return redirect('/login')
+    if (is) {
+      header.cookie = cookie
+      store.commit('auth/setAuth')
+    } else if (route.name !== 'login') {
+      redirect('/login')
     }
-    header.cookie = cookie
-    header.isServer = true
   } else {
-    header.isServer = false
+    if (route.name !== 'login' && !store.state.auth.auth) {
+      redirect('/login')
+    }
   }
 }

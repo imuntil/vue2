@@ -39,7 +39,17 @@
       asideWidth () {
         return this.isCollapse ? '70px' : '210px'
       },
-      ...mapState('nt', ['error'])
+      ...mapState('xeh', ['unAuth'])
+    },
+    watch: {
+      unAuth: {
+        handler  (e) {
+          if (e) {
+            this.$router.replace('/login')
+          }
+        },
+        immediate: true
+      }
     }
   }
 </script>

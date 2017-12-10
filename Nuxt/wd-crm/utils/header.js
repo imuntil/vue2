@@ -1,4 +1,3 @@
 export default {
-  cookie: '',
-  isServer: false
+  cookie: ''
 }
