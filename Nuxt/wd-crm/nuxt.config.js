@@ -42,9 +42,8 @@ module.exports = {
       'normalizr',
       'quill',
       'vue-quill-editor',
-      'vue2-filters'
-      // ,
-      // 'socket.io'
+      'vue2-filters',
+      'socket.io-client'
     ]
   },
   css: [
@@ -63,9 +62,8 @@ module.exports = {
     '~plugins/element-ui',
     '~plugins/some-config',
     '~plugins/vue-quill-editor',
-    '~plugins/vue2-filters'
-    // ,
-    // '~plugins/socket'
+    '~plugins/vue2-filters',
+    '~plugins/socket'
   ],
   router: {
     middleware: ['check-auth', 'bread']
