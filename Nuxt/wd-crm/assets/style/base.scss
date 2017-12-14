@@ -125,3 +125,18 @@ h6 {
 .candidate:not(:last-child) {
   border-bottom: 1px solid $bb2color;
 }
+
+.slide-enter-active, .slide-leave-active,
+.re-slide-enter-active, .re-slide-leave-active {
+  transition: transform .4s;
+}
+.slide-enter, .slide-leave-to {
+  transform: translate(-100px, 0);
+}
+.re-slide-enter, .re-slide-leave-to {
+  transform: translate(100px, 0);
+}
+.slide-leave, .slide-enter-to,
+.re-slide-enter-to, .re-slide-leave {
+  transform: translate(0, 0);
+}

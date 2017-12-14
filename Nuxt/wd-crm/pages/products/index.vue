@@ -42,11 +42,23 @@
           <span :class="{'color--red': scope.row.stock < 10}">{{scope.row.stock}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="150" fixed="right">
+      <el-table-column label="操作" width="200" fixed="right">
         <template scope="scope">
-          <router-link class="list-link" :to="{ path: `/products/${scope.row.sku}` }">查看</router-link>
-          <router-link class="list-link" :to="{ path: `/products/${scope.row.sku}/edit` }">编辑</router-link>
-          <el-button plain type="danger" size="mini" @click="deleteRequest(scope.row.sku)">删除</el-button>
+          <div class="op-wrapper" :class="{'more-op': index === scope.$index}">
+            <div class="op-container">
+              <p>
+                <router-link class="list-link" :to="{ path: `/products/${scope.row.sku}` }">查看</router-link>
+                <router-link class="list-link" :to="{ path: `/products/${scope.row.sku}/edit` }">编辑</router-link>
+                <el-button plain type="danger" size="mini" @click="deleteRequest(scope.row.sku)">删除</el-button>
+                <el-button plain type="info" size="mini" icon="arrow-right" @click="handleClick(scope.$index)"></el-button>
+              </p>
+              <p>
+                <el-button plain type="info" size="mini" icon="arrow-left" @click="handleClick(-1)"></el-button>
+                <el-button type="success" size="mini">设为推荐</el-button>
+                <el-button type="danger" size="mini">设为热销</el-button>
+              </p>
+            </div>
+          </div>
         </template>
       </el-table-column>
       <el-table-column
@@ -93,6 +105,11 @@
       ZhTag,
       SearchArea
     },
+    data () {
+      return {
+        index: -1
+      }
+    },
     computed: {
       ...mapState('product', [
         'lists', 'itemPerPage', 'currentPage', 'skuList', 'store', 'onePage'
@@ -109,8 +126,8 @@
       filterTag (value, row) {
         return row._type === value
       },
-      handleClick (scope) {
-        console.log(scope)
+      handleClick (i) {
+        this.index = i
       },
       skuSort (a, b) {
         return +(+a.sku.replace(/[A-z]{1}-0+/, '') > +b.sku.replace(/[A-z]{1}-0+/, ''))
@@ -173,6 +190,23 @@
     }
     .el-table__row .cell {
       white-space: nowrap;
+    }
+    .op-wrapper {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      .op-container {
+        width: 200%;
+        display: flex;
+        transition: transform .5s;
+        p {
+          width: 50%;
+          padding-left: 5px;
+        }
+      }
+    }
+    .op-wrapper.more-op .op-container {
+      transform: translate(-50%, 0);
     }
   }
 </style>
