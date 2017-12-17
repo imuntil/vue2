@@ -1,11 +1,17 @@
 <template>
   <section class="container product-index">
     <search-area></search-area>
+    <a-i></a-i>
+    <a-i w="1"></a-i>
+    <a-i w="2"></a-i>
+    <a-i w="3"></a-i>
     <el-table :data="currentList" stripe class="pro-list-table" width="100%">
       <el-table-column type="index"  fixed="left"></el-table-column>
       <el-table-column prop="sku" label="SKU" :sortable="true"
                        :sort-method="skuSort"
-                       fixed="left" width="120"></el-table-column>
+                       fixed="left" width="120">
+
+      </el-table-column>
       <el-table-column prop="cn" label="产品名" width="200">
         <template scope="scope">
           <span :title="`${scope.row.cn}——${scope.row.en}`">{{scope.row.cn}}</span>
@@ -54,8 +60,10 @@
               </p>
               <p>
                 <el-button plain type="info" size="mini" icon="arrow-left" @click="handleClick(-1)"></el-button>
-                <el-button type="success" size="mini">设为推荐</el-button>
-                <el-button type="danger" size="mini">设为热销</el-button>
+                <el-button v-if="!scope.row.hot" type="success" size="mini" @click="set2Hot(scope.row.sku)">设为推荐</el-button>
+                <el-button v-else type="warning" size="mini" @click="set2Hot(scope.row.sku, false)">取消推荐</el-button>
+                <el-button v-if="!scope.row.recommend" type="danger" size="mini" @click="set2Recommend(scope.row.sku)">设为热销</el-button>
+                <el-button v-else type="warning" size="mini" @click="set2Recommend(scope.row.sku)">设为热销</el-button>
               </p>
             </div>
           </div>
@@ -88,11 +96,12 @@
   </section>
 </template>
 <script>
-  import { mapState, mapMutations } from 'vuex'
+  import { mapState, mapMutations, mapActions } from 'vuex'
   /* eslint-disable no-unused-vars */
   import { product, config } from '~/assets/lib/constant'
   import ZhTag from '~/components/common/ZhTag'
   import SearchArea from '~/components/common/SearchArea'
+  import ActivityIcon from '~/components/common/ActivityIcon'
 
   export default {
     async fetch ({ store, req, isServer }) {
@@ -103,7 +112,8 @@
     },
     components: {
       ZhTag,
-      SearchArea
+      SearchArea,
+      AI: ActivityIcon
     },
     data () {
       return {
@@ -122,6 +132,9 @@
     methods: {
       ...mapMutations('product', {
         changeItemPerPage: product.CHANGE_ITEM_PER_PAGE
+      }),
+      ...mapActions('product', {
+        modifyProDetail: product.MODIFY_PRO_DETAIL_A
       }),
       filterTag (value, row) {
         return row._type === value
@@ -161,6 +174,15 @@
         } else {
           this.$message({ type: 'success', message: '删除完成' })
         }
+      },
+      async set2Hot (sku, set = true) {
+        console.log(sku)
+        const { ok, err, fail } = await this.modifyProDetail({ body: { hot: set, sku }, sku })
+        console.log(ok)
+      },
+      async set2Recommend (sku, set = true) {
+        const { ok, err, fail } = await this.modifyProDetail({ body: { recommend: set, sku }, sku })
+        console.log(ok)
       }
     },
     created () {

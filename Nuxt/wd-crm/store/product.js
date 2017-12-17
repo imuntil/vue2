@@ -74,6 +74,7 @@ export const actions = {
     return true
   },
   async [product.MODIFY_PRO_DETAIL_A] ({ commit }, payload) {
+    console.log(payload)
     const { body, sku } = payload
     const { err, fail, data } = await modifyProDetail({ body })
     commit({ type: 'xeh/error', err }, { root: true })
