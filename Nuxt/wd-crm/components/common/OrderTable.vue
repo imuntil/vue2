@@ -3,7 +3,7 @@
     <order-search :os="os"></order-search>
     <el-table :data="currentList" class="order-list-table" stripe width="100%">
       <el-table-column type="index" fixed="left"></el-table-column>
-      <el-table-column fixed="left" width="190" label="订单号" prop="orderNumber"></el-table-column>
+      <el-table-column fixed="left" width="200" label="订单号" prop="orderNumber"></el-table-column>
       <el-table-column label="下单用户" prop="_ownerNick" min-width="120"></el-table-column>
       <el-table-column label="用户手机号码" width="150">
         <template scope="scope">

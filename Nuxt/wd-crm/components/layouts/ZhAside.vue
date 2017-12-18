@@ -32,6 +32,10 @@
       <el-menu-item index="/orders">全部订单</el-menu-item>
       <el-menu-item index="/orders/to-send">待发货</el-menu-item>
     </el-submenu>
+    <el-menu-item index="/coupon">
+      <i class="el-icon-fa-ticket"></i>
+      <span slot="title">优惠券</span>
+    </el-menu-item>
     <el-submenu index="4">
       <template slot="title">
         <i class="el-icon-fa-cog"></i>

@@ -6,7 +6,7 @@
     props: ['w'],
     data () {
       return {
-        icons: ['热', '推', '邮', '惠']
+        icons: ['热', '推', '邮', '券']
       }
     },
     computed: {
@@ -35,9 +35,11 @@
     display: inline-block;
     border: 2px solid;
     padding: 3px;
-    opacity: .5;
+    opacity: .3;
     transform: rotate(30deg);
     font-weight: 600;
+    line-height: 1;
+    transition: all .2s;
     &.icon-recommend {
       color: #0070d0;
       border-color: #0070d0;
@@ -47,12 +49,17 @@
       border-color: #00d05c;
     }
     &.icon-discount {
-      color: #cb7300;
-      border-color: #cb7300;
+      color: #ffc900;
+      border-color: #ffc900;
     }
     &.icon-hot {
       color: #ff0000;
       border-color: #ff0000;
+    }
+    &:hover {
+      opacity: 1;
+      z-index: 10;
+      transform: scale(1.2);
     }
   }
 </style>

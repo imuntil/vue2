@@ -1,16 +1,23 @@
 <template>
   <section class="container product-index">
     <search-area></search-area>
-    <a-i></a-i>
-    <a-i w="1"></a-i>
-    <a-i w="2"></a-i>
-    <a-i w="3"></a-i>
+    <!--<a-i></a-i>-->
+    <!--<a-i w="1"></a-i>-->
+    <!--<a-i w="2"></a-i>-->
+    <!--<a-i w="3"></a-i>-->
     <el-table :data="currentList" stripe class="pro-list-table" width="100%">
       <el-table-column type="index"  fixed="left"></el-table-column>
-      <el-table-column prop="sku" label="SKU" :sortable="true"
+      <el-table-column label="SKU" :sortable="true"
                        :sort-method="skuSort"
                        fixed="left" width="120">
-
+        <template scope="scope">
+          <p class="icons-box">
+            <span class="word">{{scope.row.sku}}</span>
+            <a-i v-if="scope.row.hot"></a-i>
+            <a-i v-if="scope.row.recommend" w="1"></a-i>
+            <a-i v-if="scope.row.onFS" w="2"></a-i>
+          </p>
+        </template>
       </el-table-column>
       <el-table-column prop="cn" label="产品名" width="200">
         <template scope="scope">
@@ -60,10 +67,10 @@
               </p>
               <p>
                 <el-button plain type="info" size="mini" icon="arrow-left" @click="handleClick(-1)"></el-button>
-                <el-button v-if="!scope.row.hot" type="success" size="mini" @click="set2Hot(scope.row.sku)">设为推荐</el-button>
-                <el-button v-else type="warning" size="mini" @click="set2Hot(scope.row.sku, false)">取消推荐</el-button>
-                <el-button v-if="!scope.row.recommend" type="danger" size="mini" @click="set2Recommend(scope.row.sku)">设为热销</el-button>
-                <el-button v-else type="warning" size="mini" @click="set2Recommend(scope.row.sku)">设为热销</el-button>
+                <el-button v-if="!scope.row.hot" type="success" size="mini" @click="set2Hot(scope.row.sku)">设为热销</el-button>
+                <el-button v-else type="warning" size="mini" @click="set2Hot(scope.row.sku, false)">取消热销</el-button>
+                <el-button v-if="!scope.row.recommend" type="danger" size="mini" @click="set2Recommend(scope.row.sku)">设为推荐</el-button>
+                <el-button v-else type="warning" size="mini" @click="set2Recommend(scope.row.sku, false)">取消推荐</el-button>
               </p>
             </div>
           </div>
@@ -229,6 +236,21 @@
     }
     .op-wrapper.more-op .op-container {
       transform: translate(-50%, 0);
+    }
+    .icons-box {
+      position: relative;
+      & > span:not(.word) {
+        position: absolute;
+      }
+      & > span:nth-child(2) {
+        left: 0;
+      }
+      & > span:nth-child(3) {
+        left: 30px;
+      }
+      & > span:nth-child(4) {
+        left: 60px;
+      }
     }
   }
 </style>
