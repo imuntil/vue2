@@ -2,23 +2,38 @@
   <div class="coupon-card">
     <div class="wrapper">
       <div class="main">
-        <p class="cut"><span>￥</span>10</p>
-        <p class="archive">满99元可用</p>
+        <p class="cut"><span>￥</span>{{datas.method.cut}}</p>
+        <p class="archive">满{{datas.method.achieve}}元可用</p>
       </div>
       <div class="detail">
-        <p class="range">全品类可用</p>
-        <p class="date">2017.1.1-2018.1.1</p>
+        <p class="range">
+          <router-link v-for="p in limitBy(datas.apply, 3)"
+                       :key="p" :to="{ path: `/products/${p}` }">{{p}}</router-link>
+          ...等可用
+        </p>
+        <p class="date">{{datas.start | dtf}} — <br> — {{datas.end | dtf}}</p>
         <p class="ope">
-          <a href="javascript:;">查看详细</a>
-          <a href="javascript:;">编辑</a>
+          <a href="javascript:;" @click="handleClick(datas.kid)">查看详细</a>
         </p>
       </div>
-      <a href="javascript:;" class="watermark">过期</a>
+      <a v-if="expired" href="javascript:;" class="watermark">过期</a>
     </div>
   </div>
 </template>
 <script>
-
+  export default {
+    props: ['datas'],
+    computed: {
+      expired () {
+        return new Date() > new Date(this.datas.end)
+      }
+    },
+    methods: {
+      handleClick (kid) {
+        this.$emit('detail', kid)
+      }
+    }
+  }
 </script>
 <style type="text/scss" lang="scss" rel="stylesheet/scss" scoped>
   .coupon-card {
@@ -62,10 +77,13 @@
     .ope {
       align-self: flex-end;
       padding-left: 75px;
+      a {
+        padding: 2px 5px;
+        margin-left: 2px;
+      }
     }
-    a {
-      padding: 2px 5px;
-      margin-left: 2px;
+    .date {
+      font-size: .7rem;
     }
   }
   .watermark {

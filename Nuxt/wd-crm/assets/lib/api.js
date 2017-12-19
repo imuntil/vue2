@@ -112,3 +112,8 @@ export function fetchOrderList (params) {
 export function deliverGoods ({ orderNumber }) {
   return request(`${url}sys/orders/${orderNumber}/deliver-goods`, { method: 'PUT' })
 }
+
+// ——————————————————————————————————————————————优惠券————————————————————————————————————
+export function fetchCouponList () {
+  return request(`${url}sys/coupon`)
+}

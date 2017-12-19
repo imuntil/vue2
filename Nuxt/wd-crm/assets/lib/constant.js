@@ -63,3 +63,11 @@ export const order = {
   UPDATE_ORDER_LIST,
   SEARCH_ORDERS_A
 }
+
+const FETCH_COUPON_LIST = 'fetchCouponList-A'
+const SAVE_COUPON_LIST = 'saveCouponList'
+
+export const coupon = {
+  FETCH_COUPON_LIST,
+  SAVE_COUPON_LIST
+}
