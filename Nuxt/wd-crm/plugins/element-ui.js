@@ -30,7 +30,8 @@ import {
   BreadcrumbItem,
   Dialog,
   Card,
-  Popover
+  Popover,
+  DatePicker
 } from 'element-ui'
 
 Vue.use(Loading.directive)
@@ -60,6 +61,7 @@ Vue.use(BreadcrumbItem)
 Vue.use(Dialog)
 Vue.use(Card)
 Vue.use(Popover)
+Vue.use(DatePicker)
 Vue.prototype.$message = Message
 Vue.prototype.$loading = Loading.service
 Vue.prototype.$notify = Notification

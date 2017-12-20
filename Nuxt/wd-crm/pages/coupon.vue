@@ -9,7 +9,10 @@
           <p class="just-view">{{form.kid}}</p>
         </el-form-item>
         <el-form-item label="可用时间:" label-width="150px">
-          <p v-if="editing"></p>
+          <p v-if="editing">
+            <el-date-picker :editable="false" type="datetimerange"
+                            :clearable="false" v-model="range"></el-date-picker>
+          </p>
           <p v-else class="just-view">
             {{form.start | dtf}} —— {{form.end | dtf}}
           </p>
@@ -22,7 +25,9 @@
           <p v-else class="just-view">满{{form.method.achieve}}减{{form.method.cut}}</p>
         </el-form-item>
         <el-form-item label="适用产品:" label-width="150px">
-
+          <p v-if="editing">
+            <el-button icon="plus" @click="mini = true"></el-button>
+          </p>
         </el-form-item>
         <el-form-item label="余量:" label-width="150px">
           <p v-if="editing">
@@ -52,15 +57,20 @@
         </el-form-item>
       </el-form>
     </el-dialog>
+    <el-dialog :visible.sync="mini">
+      <apc></apc>
+    </el-dialog>
   </section>
 </template>
 <script>
   import Coupon from '~/components/common/Coupon'
+  import Apc from '~/components/common/ApplyProsChosen'
   import { coupon } from '~/assets/lib/constant'
   import { mapState } from 'vuex'
   export default {
     components: {
-      Coupon
+      Coupon,
+      Apc
     },
     async fetch ({ store }) {
       await store.dispatch({ type: `coupon/${coupon.FETCH_COUPON_LIST}` })
@@ -69,16 +79,28 @@
       return {
         form: {},
         visible: false,
-        editing: false
+        editing: false,
+        mini: false
       }
     },
     computed: {
-      ...mapState('coupon', ['idList', 'store'])
+      ...mapState('coupon', ['idList', 'store']),
+      range: {
+        set ([s, e]) {
+          this.form.start = s
+          this.form.end = e
+        },
+        get () {
+          const { start, end } = this.form
+          return start ? [new Date(start), new Date(end)] : []
+        }
+      }
     },
     methods: {
       viewDetail (kid) {
         this.form = { ...this.store[kid] }
-        this.visible = true
+//        this.visible = true
+        this.mini = true
       }
     }
   }
@@ -89,7 +111,7 @@
       padding-top: 25px;
     }
   .just-view {
-    width: 400px;
+    max-width: 400px;
     border-bottom: 1px solid #edeef1;
   }
 </style>
