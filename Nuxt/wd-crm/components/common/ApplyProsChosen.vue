@@ -1,35 +1,44 @@
 <template>
   <div class="apc">
+    <p class="text--right tip">Alt+左键（mac OS option+左键）可以查看产品详细</p>
     <ul>
-      <li v-for="i in 15" :key="i">
+      <li v-for="i in skuList" :key="i">
         <a href="javascript:;" @click="handleClick(i)">
           <span v-show="_in(i)">
             <i class="el-icon-check"></i>
           </span>
           <figure>
             <img src="/tiny.jpg" alt="">
-            <figcaption>
-              P-001 <br>
-              啦啦啦啦
+            <figcaption  @click.alt.stop="handleCtrlClick">
+              {{i}} <br>
+              {{store[i].cn}}
             </figcaption>
           </figure>
         </a>
       </li>
     </ul>
     <p class="text--right footer">
-      <el-button>取消</el-button>
-      <el-button type="primary">确定</el-button>
+      <el-button @click="handleCancelClick">取消</el-button>
+      <el-button type="primary" @click="handleConfirmClick">确定</el-button>
     </p>
   </div>
 </template>
 <script>
+  import { mapState } from 'vuex'
   export default {
     data () {
       return {
         chosen: []
       }
     },
+    computed: {
+      ...mapState('product', [
+        'store', 'skuList'
+      ])
+    },
     methods: {
+      handleCtrlClick () {
+      },
       handleClick (i) {
         if (!this._in(i)) {
           this.chosen.push(i)
@@ -37,6 +46,16 @@
           const index = this.chosen.indexOf(i)
           this.chosen.splice(index, 1)
         }
+      },
+      handleConfirmClick () {
+        this.$emit('confirm', { confirm: true, list: [...this.chosen] })
+        this.chosen = []
+        // x
+      },
+      handleCancelClick () {
+        this.$emit('confirm', { confirm: false })
+        this.chosen = []
+        // x
       },
       _in (i) {
         return this.chosen.includes(i)
@@ -50,7 +69,7 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    max-height: 400px;
+    max-height: 500px;
     overflow: auto;
     li {
       padding: 10px;
@@ -61,6 +80,7 @@
       box-shadow: -1px 1px 4px 1px rgba(0, 0, 0, 0.1);
       padding-bottom: 5px;
       position: relative;
+      width: 150px;
       i {
         color: #7dff79;
         position: absolute;
@@ -82,6 +102,11 @@
       }
     }
   }
+  .tip {
+    margin-top: -15px;
+    margin-bottom: 10px;
+    padding-right: 20px;
+  }
   .footer {
     padding: 15px 10px 0;
   }
@@ -91,5 +116,9 @@
   figcaption {
     text-align: center;
     line-height: 1.4;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+    overflow: hidden;
   }
 </style>

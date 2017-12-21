@@ -14,7 +14,6 @@ function existCookie (cookie) {
 }
 
 export default function ({ isServer, req, redirect, from, route, store }) {
-  console.log('m')
   if (isServer && req) {
     const cookie = req.headers.cookie
     const is = existCookie(cookie)

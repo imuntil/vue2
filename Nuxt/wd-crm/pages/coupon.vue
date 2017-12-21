@@ -58,14 +58,14 @@
       </el-form>
     </el-dialog>
     <el-dialog :visible.sync="mini">
-      <apc></apc>
+      <apc @confirm="handleConfirm"></apc>
     </el-dialog>
   </section>
 </template>
 <script>
   import Coupon from '~/components/common/Coupon'
   import Apc from '~/components/common/ApplyProsChosen'
-  import { coupon } from '~/assets/lib/constant'
+  import { coupon, product } from '~/assets/lib/constant'
   import { mapState } from 'vuex'
   export default {
     components: {
@@ -73,7 +73,11 @@
       Apc
     },
     async fetch ({ store }) {
-      await store.dispatch({ type: `coupon/${coupon.FETCH_COUPON_LIST}` })
+      await Promise.all([
+//        store.dispatch({ type: `config/${config.FETCH_CONFIG}` }),
+        store.dispatch({ type: `product/${product.FETCH_PRODUCT_LIST}` }),
+        store.dispatch({ type: `coupon/${coupon.FETCH_COUPON_LIST}` })
+      ])
     },
     data () {
       return {
@@ -99,8 +103,14 @@
     methods: {
       viewDetail (kid) {
         this.form = { ...this.store[kid] }
-//        this.visible = true
-        this.mini = true
+        this.visible = true
+//        this.mini = true
+      },
+      handleConfirm ({ confirm, list }) {
+        this.mini = false
+        if (confirm) {
+          console.log(list)
+        }
       }
     }
   }
