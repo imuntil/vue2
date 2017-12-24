@@ -66,8 +66,12 @@ export const order = {
 
 const FETCH_COUPON_LIST = 'fetchCouponList-A'
 const SAVE_COUPON_LIST = 'saveCouponList'
+const UPDATE_COUPON_A = 'updateCoupon-A'
+const UPDATE_COUPON_LOCAL = 'updateCouponLocal'
 
 export const coupon = {
   FETCH_COUPON_LIST,
-  SAVE_COUPON_LIST
+  SAVE_COUPON_LIST,
+  UPDATE_COUPON_A,
+  UPDATE_COUPON_LOCAL
 }

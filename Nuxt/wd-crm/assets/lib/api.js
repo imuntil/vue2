@@ -117,3 +117,12 @@ export function deliverGoods ({ orderNumber }) {
 export function fetchCouponList () {
   return request(`${url}sys/coupon`)
 }
+export function updateCoupon ({ _id, ...other }) {
+  return request(`${url}sys/coupon/${_id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(other)
+  })
+}

@@ -7,8 +7,9 @@
       </div>
       <div class="detail">
         <p class="range">
-          <router-link v-for="p in limitBy(datas.apply, 3)"
-                       :key="p" :to="{ path: `/products/${p}` }">{{p}}</router-link>
+          <span v-for="p in limitBy(datas.apply, 3)" :key="p" >
+            <router-link :to="{ path: `/products/${p}` }">{{p}}</router-link>,
+          </span>
           ...等可用
         </p>
         <p class="date">{{datas.start | dtf}} — <br> — {{datas.end | dtf}}</p>

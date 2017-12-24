@@ -140,3 +140,13 @@ h6 {
 .re-slide-enter-to, .re-slide-leave {
   transform: translate(0, 0);
 }
+
+.zh-popover-fade-enter-active, .zh-popover-fade-leave-active {
+  transition: opacity .4s;
+}
+.zh-popover-fade-enter, .zh-popover-fade-leave-to {
+  opacity: 0;
+}
+.zh-popover-fade-leave, .zh-popover-fade-enter-to {
+  opacity: 1;
+}

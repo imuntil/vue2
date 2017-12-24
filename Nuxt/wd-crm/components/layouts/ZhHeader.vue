@@ -8,11 +8,17 @@
     </p>
     <el-popover ref="logout" placement="bottom" trigger="hover">
       <p class="text--center">
-        <el-button @click="handleLogout" type="text" size="small">退出登录</el-button>
+        <el-button @click="handleLogout" type="text" size="small">
+          <i class="el-icon-fa-user-times"></i>
+          退出登录
+        </el-button>
       </p>
     </el-popover>
     <p class="user">
-      <a v-popover:logout href="javascript:;">admin</a>
+      <a v-popover:logout href="javascript:;">
+        <i class="el-icon-fa-user-circle"></i>
+        admin
+      </a>
     </p>
   </header>
 </template>
