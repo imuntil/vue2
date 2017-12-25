@@ -17,7 +17,9 @@ export const state = () => ({
   // 订单总数
   count: 0,
   // 总页数
-  totalPages: 0
+  totalPages: 0,
+  // 待发货订单数量
+  toBeDelevered: 0
 })
 
 export const mutations = {
@@ -33,6 +35,9 @@ export const mutations = {
     const modified = { ...state.currentList[index] }
     modified.status = 2
     state.currentList = [...state.currentList.slice(0, index), modified, ...state.currentList.slice(index + 1)]
+  },
+  [order.SET_TO_BE_DELEVERED] (state, payload) {
+    state.toBeDelevered = payload.count
   }
 }
 

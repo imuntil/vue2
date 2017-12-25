@@ -28,9 +28,13 @@
       <template slot="title">
         <i class="el-icon-fa-list"></i>
         <span slot="title">订单管理</span>
+        <el-badge v-show="!!toBeDelevered" is-dot style="margin-left: 5px;" />
       </template>
       <el-menu-item index="/orders">全部订单</el-menu-item>
-      <el-menu-item index="/orders/to-send">待发货</el-menu-item>
+      <el-menu-item index="/orders/to-send">
+        待发货
+        <el-badge class="mark" :value="toBeDelevered" :max="9" v-show="!!toBeDelevered" />
+      </el-menu-item>
     </el-submenu>
     <el-menu-item index="/coupon">
       <i class="el-icon-fa-ticket"></i>
@@ -47,8 +51,13 @@
   </el-menu>
 </template>
 <script>
+  // import { order } from '~/assets/lib/constant'
+  import { mapState } from 'vuex'
   export default {
-    props: ['isCollapse']
+    props: ['isCollapse'],
+    computed: {
+      ...mapState('order', ['toBeDelevered'])
+    }
   }
 </script>
 <style type="text/scss" lang="scss" rel="stylesheet/scss" scoped>

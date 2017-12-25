@@ -56,12 +56,14 @@ const FETCH_ORDER_LIST = 'fetchOrderList-A'
 const SAVE_ORDER_LIST = 'saveOrderList'
 const UPDATE_ORDER_LIST = 'updateOrderList'
 const SEARCH_ORDERS_A = 'searchOrders-A'
+const SET_TO_BE_DELEVERED = 'setToBeDelevered'
 
 export const order = {
   FETCH_ORDER_LIST,
   SAVE_ORDER_LIST,
   UPDATE_ORDER_LIST,
-  SEARCH_ORDERS_A
+  SEARCH_ORDERS_A,
+  SET_TO_BE_DELEVERED
 }
 
 const FETCH_COUPON_LIST = 'fetchCouponList-A'

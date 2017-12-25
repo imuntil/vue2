@@ -82,7 +82,8 @@
     methods: {
       handleCtrlClick (e, i) {
         const { pageX, pageY } = e
-        this.$zp({ top: pageY, left: pageX })
+        const datas = this.store[i]
+        this.$zp({ top: pageY, left: pageX, datas })
       },
       handleClick (i) {
         if (!this._in(i)) {

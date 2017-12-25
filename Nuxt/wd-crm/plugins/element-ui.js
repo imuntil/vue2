@@ -31,7 +31,8 @@ import {
   Dialog,
   Card,
   Popover,
-  DatePicker
+  DatePicker,
+  Badge
 } from 'element-ui'
 import ZhPopover from '../components/common/ZhPopover'
 
@@ -63,6 +64,7 @@ Vue.use(Dialog)
 Vue.use(Card)
 Vue.use(Popover)
 Vue.use(DatePicker)
+Vue.use(Badge)
 Vue.prototype.$message = Message
 Vue.prototype.$loading = Loading.service
 Vue.prototype.$notify = Notification
