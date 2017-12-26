@@ -57,13 +57,17 @@ const SAVE_ORDER_LIST = 'saveOrderList'
 const UPDATE_ORDER_LIST = 'updateOrderList'
 const SEARCH_ORDERS_A = 'searchOrders-A'
 const SET_TO_BE_DELEVERED = 'setToBeDelevered'
+const REMIND_NEW_ORDER = 'remindNewOrder'
+const UPDATE_REMIND = 'updateRemind'
 
 export const order = {
   FETCH_ORDER_LIST,
   SAVE_ORDER_LIST,
   UPDATE_ORDER_LIST,
   SEARCH_ORDERS_A,
-  SET_TO_BE_DELEVERED
+  SET_TO_BE_DELEVERED,
+  REMIND_NEW_ORDER,
+  UPDATE_REMIND
 }
 
 const FETCH_COUPON_LIST = 'fetchCouponList-A'

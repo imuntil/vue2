@@ -5,7 +5,7 @@ export default ({ store }) => {
   const socket = io('https://localhost/socket')
   socket.on('msg', msg => {
     console.log(msg)
-    if (msg && msg.count) {
+    if (msg && msg.count !== undefined) {
       store.commit({
         type: `order/${order.SET_TO_BE_DELEVERED}`,
         count: msg.count
@@ -14,6 +14,8 @@ export default ({ store }) => {
   })
 // 新的待发货订单
   socket.on('new-order', msg => {
-    console.log(msg)
+    store.dispatch({
+      type: `order/${order.REMIND_NEW_ORDER}`
+    })
   })
 }

@@ -3,7 +3,7 @@
            text-color="#fff"
            background-color="#545c64"
            active-text-color="#ffd04b"
-           class="el-menu-vertical-demo"
+           class="el-menu-vertical"
            router
            style="position: absolute;"
            theme="dark"
@@ -53,15 +53,40 @@
 <script>
   // import { order } from '~/assets/lib/constant'
   import { mapState } from 'vuex'
+  import { AudioCtx } from '~/assets/lib/h5-api'
   export default {
     props: ['isCollapse'],
     computed: {
-      ...mapState('order', ['toBeDelevered'])
+      ...mapState('order', ['toBeDelevered', 'remind'])
+    },
+    methods: {
+      notification () {
+        const message = '有新的待发货订单，请前往查看'
+        this.$message({ message, type: 'info' })
+        AudioCtx.run()
+        if (!('Notification' in window)) return
+        if (Notification.permission === 'granted') {
+          /* eslint-disable no-new */
+          new Notification(message)
+        } else if (Notification.permission !== 'denied') {
+          Notification.requestPermission(permission => {
+            if (permission === 'granted') {
+              /* eslint-disable no-new */
+              new Notification(message)
+            }
+          })
+        }
+      }
+    },
+    watch: {
+      remind (v) {
+        if (v) this.notification()
+      }
     }
   }
 </script>
 <style type="text/scss" lang="scss" rel="stylesheet/scss" scoped>
-  .el-menu-vertical-demo:not(.el-menu--collapse) {
+  .el-menu-vertical:not(.el-menu--collapse) {
     width: 200px;
     min-height: 400px;
   }
@@ -69,3 +94,9 @@
     border-right: none;
   }
 </style>
+<style>
+  .el-menu-vertical .el-badge__content {
+    line-height: 16px;
+  }
+</style>
+

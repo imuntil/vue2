@@ -1,4 +1,5 @@
 import { order } from '~/assets/lib/constant'
+import { delay } from '~/assets/lib/common-tools'
 import {
   fetchOrderList
 } from '~/assets/lib/api'
@@ -19,7 +20,9 @@ export const state = () => ({
   // 总页数
   totalPages: 0,
   // 待发货订单数量
-  toBeDelevered: 0
+  toBeDelevered: 0,
+  // 新付款订单信息
+  remind: false
 })
 
 export const mutations = {
@@ -38,6 +41,9 @@ export const mutations = {
   },
   [order.SET_TO_BE_DELEVERED] (state, payload) {
     state.toBeDelevered = payload.count
+  },
+  [order.UPDATE_REMIND] (state, payload) {
+    state.remind = payload.remind
   }
 }
 
@@ -52,5 +58,10 @@ export const actions = {
     const { err, fail, data } = await fetchOrderList({ page: 1, ..._.omit(payload, 'type'), size: perPage })
     if (err || fail) return false
     return data.data
+  },
+  async [order.REMIND_NEW_ORDER] ({ commit }, payload) {
+    commit({ type: order.UPDATE_REMIND, remind: true })
+    await delay(1000)
+    commit({ type: order.UPDATE_REMIND, remind: false })
   }
 }
