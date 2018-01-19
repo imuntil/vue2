@@ -3,6 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 
+import UploadImage from './components/UploadImage'
+import UploadFile from './components/UploadFile'
+
+Vue.use(UploadImage)
+Vue.use(UploadFile)
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
