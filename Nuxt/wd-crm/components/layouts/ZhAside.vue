@@ -51,31 +51,25 @@
   </el-menu>
 </template>
 <script>
-  // import { order } from '~/assets/lib/constant'
   import { mapState } from 'vuex'
-  import { AudioCtx } from '~/assets/lib/h5-api'
+  import { AudioCtx, notification } from '~/assets/lib/h5-api'
   export default {
     props: ['isCollapse'],
     computed: {
       ...mapState('order', ['toBeDelevered', 'remind'])
     },
+    data () {
+      return {
+        audio: null
+      }
+    },
     methods: {
       notification () {
         const message = '有新的待发货订单，请前往查看'
         this.$message({ message, type: 'info' })
-        AudioCtx.run()
-        if (!('Notification' in window)) return
-        if (Notification.permission === 'granted') {
-          /* eslint-disable no-new */
-          new Notification(message)
-        } else if (Notification.permission !== 'denied') {
-          Notification.requestPermission(permission => {
-            if (permission === 'granted') {
-              /* eslint-disable no-new */
-              new Notification(message)
-            }
-          })
-        }
+        if (!this.audio) this.audio = new AudioCtx()
+        this.audio.run()
+        notification(message)
       }
     },
     watch: {
