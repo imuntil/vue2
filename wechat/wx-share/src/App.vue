@@ -13,10 +13,14 @@ export default class App extends Vue {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import './styles/decoration.scss';
 #app {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  * {
+    @include px2px(font-size, 32);
+  }
 }
 </style>
