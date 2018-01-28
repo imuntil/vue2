@@ -1,0 +1,32 @@
+@import './reset.css';
+@import './base.scss';
+@import './decoration.scss';
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+section.container {
+  height: inherit;
+  position: relative;
+}
+
+/* 页面切换动画 */
+$t: 30px;
+.fade-enter-active, .fade-leave-active {
+  transition: all .3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+.fade-enter {
+  transform: translate(-$t, $t);
+}
+.fade-leave-to {
+  transform: translate($t, $t);
+}
+.fade-leave, .fade-enter-to {
+  opacity: 1;
+  transform: translate(0, 0)
+}
