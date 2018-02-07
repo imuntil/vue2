@@ -2,7 +2,7 @@
   <section class="container">
     <div class="detail-area">
       <h2 class="title text--center">
-        {{data.sku}} &nbsp;&nbsp;  产品详细
+        {{data.sku}} &nbsp;&nbsp; 产品详细
         <router-link :to="{ path: `/products/${data.sku}/edit` }">编辑产品</router-link>
       </h2>
       <section class="group split-2">
@@ -104,115 +104,115 @@
 </template>
 <script>
 //  import { fetchProDetail } from '~/assets/lib/api'
-  import { moneyFormat } from '~/assets/lib/common-tools'
+import { moneyFormat } from '~/assets/lib/common-tools'
 //  import { Dialog } from 'element-ui'
-  import { product } from '~/assets/lib/constant'
-  import { mapState } from 'vuex'
+import { product } from '~/assets/lib/constant'
+import { mapState } from 'vuex'
 
-  export default {
-    components: {
-//      ElDialog: Dialog
-    },
-    validate ({ params }) {
-      return /^[A-z]-\d{3,4}$/.test(params.sku)
-    },
-    asyncData ({ params }) {
-      return { sku: params.sku }
-    },
-    async fetch ({ store }) {
-      await store.dispatch({ type: `product/${product.FETCH_PRODUCT_LIST}` })
-    },
+export default {
+  components: {
+    //      ElDialog: Dialog
+  },
+  validate ({ params }) {
+    return /^[A-z]-\d{3,4}$/.test(params.sku)
+  },
+  asyncData ({ params }) {
+    return { sku: params.sku }
+  },
+  async fetch ({ store }) {
+    await store.dispatch({ type: `product/${product.FETCH_PRODUCT_LIST}` })
+  },
+  data () {
+    return {
+      visible: false,
+      current: ''
+    }
+  },
+  computed: {
+    ...mapState('product', ['store']),
     data () {
-      return {
-        visible: false,
-        current: ''
-      }
-    },
-    computed: {
-      ...mapState('product', ['store']),
-      data () {
-        return this.store[this.sku]
-      }
-    },
-    methods: {
-      mf: moneyFormat,
-      handleClick (i) {
-        this.current = i
-        this.visible = true
-      }
+      return this.store[this.sku]
+    }
+  },
+  methods: {
+    mf: moneyFormat,
+    handleClick (i) {
+      this.current = i
+      this.visible = true
     }
   }
+}
 </script>
 <style type="text/scss" lang="scss" rel="stylesheet/scss" scoped>
-  @import "../../../assets/style/decoration";
-  .detail-area {
-    width: 900px;
-    display: block;
-    padding: 15px;
-    margin: auto;
-    .title {
-      padding: 10px 0 20px;
-      position: relative;
-      margin-bottom: 15px;
-      a {
-        display: inline-block;
-        font-size: .9rem;
-        position: absolute;
-        bottom: 0;
-        right: 10px;
-      }
-    }
-  }
-  .group.split-2 {
-    display: flex;
-    flex-direction: row;
-    padding: 10px;
-    border-bottom: 1px solid $bb3color;
-    &:nth-of-type(odd) {
-      background-color: $bb4color;
-    }
-    .field {
-      flex: 0 0 100px;
-      margin-right: 15px;
-      padding-right: 10px;
-      font-weight: 600;
-      color: $font3color;
-    }
-    .value {
-      flex: 1;
-      padding-left: 15px;
-      font-size: 1.2rem;
-    }
-    .introduce-value {
-      overflow: hidden;
-    }
-  }
-  .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    list-style-type: none;
-    padding: 10px;
-    li {
-      width: 22%;
-      border-radius: 5px;
-      box-shadow: 1px 1px 4px 1px #999;
-      overflow: hidden;
-      margin-bottom: 10px;
-    }
+@import '../../../assets/style/decoration';
+.detail-area {
+  width: 900px;
+  display: block;
+  padding: 15px;
+  margin: auto;
+  .title {
+    padding: 10px 0 20px;
+    position: relative;
+    margin-bottom: 15px;
     a {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      outline: none;
-      line-height: 1;
-    }
-    img {
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      outline: none;
+      display: inline-block;
+      font-size: 0.9rem;
+      position: absolute;
+      bottom: 0;
+      right: 10px;
     }
   }
+}
+.group.split-2 {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  border-bottom: 1px solid $bb3color;
+  &:nth-of-type(odd) {
+    background-color: $bb4color;
+  }
+  .field {
+    flex: 0 0 100px;
+    margin-right: 15px;
+    padding-right: 10px;
+    font-weight: 600;
+    color: $font3color;
+  }
+  .value {
+    flex: 1;
+    padding-left: 15px;
+    font-size: 1.2rem;
+  }
+  .introduce-value {
+    overflow: hidden;
+  }
+}
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style-type: none;
+  padding: 10px;
+  li {
+    width: 22%;
+    border-radius: 5px;
+    box-shadow: 1px 1px 4px 1px #999;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    outline: none;
+    line-height: 1;
+  }
+  img {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    outline: none;
+  }
+}
 </style>

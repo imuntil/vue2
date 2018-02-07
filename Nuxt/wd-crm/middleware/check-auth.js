@@ -1,7 +1,7 @@
 import header from '~/utils/header'
 import decode from 'jwt-decode'
 
-function existCookie (cookie) {
+function existCookie(cookie) {
   const st = cookie.split(';').find(c => c.trim().startsWith('_st='))
   try {
     const cookie = st.split('=')[1]
@@ -13,7 +13,7 @@ function existCookie (cookie) {
   }
 }
 
-export default function ({ isServer, req, redirect, from, route, store }) {
+export default function({ isServer, req, redirect, from, route, store }) {
   if (isServer && req) {
     const cookie = req.headers.cookie
     const is = existCookie(cookie)
