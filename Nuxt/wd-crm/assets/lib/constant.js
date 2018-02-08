@@ -74,10 +74,12 @@ const FETCH_COUPON_LIST = 'fetchCouponList-A'
 const SAVE_COUPON_LIST = 'saveCouponList'
 const UPDATE_COUPON_A = 'updateCoupon-A'
 const UPDATE_COUPON_LOCAL = 'updateCouponLocal'
+const ADD_COUPON_A = 'addCoupon-A'
 
 export const coupon = {
   FETCH_COUPON_LIST,
   SAVE_COUPON_LIST,
   UPDATE_COUPON_A,
-  UPDATE_COUPON_LOCAL
+  UPDATE_COUPON_LOCAL,
+  ADD_COUPON_A
 }

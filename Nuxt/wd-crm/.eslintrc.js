@@ -16,7 +16,8 @@ module.exports = {
     // allow async-await
     'generator-star-spacing': 0,
     'indent': 0,
-    'no-debugger': 0
+    'no-debugger': 0,
+    'space-before-function-paren': 0
   },
   globals: {}
 }
