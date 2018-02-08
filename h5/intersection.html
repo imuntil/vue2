@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    img {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="https://juejin.im/post/5a76bb955188257a79247cbd">现代化懒加载的方式</a>
+  <img src="http://101.37.117.111/static/img/book2.08addc8.jpg" data-src="http://101.37.117.111/static/img/bg_header.3b7dfc4.jpg"
+    alt="">
+  <img src="http://101.37.117.111/static/img/book2.08addc8.jpg" alt="" data-src="http://101.37.117.111/static/img/poster02.1a25326.jpg">
+  <img src="http://101.37.117.111/static/img/book2.08addc8.jpg" alt="" data-src="http://101.37.117.111/static/img/img_catalogue.6a21365.png">
+  <img src="http://101.37.117.111/static/img/book2.08addc8.jpg" alt="" data-src="http://101.37.117.111/static/img/poster01.660e4f2.jpg">
+  <img src="http://101.37.117.111/static/img/book2.08addc8.jpg" alt="" data-src="http://101.37.117.111/static/img/book4.ee0c5fb.jpg">
+  <img src="http://101.37.117.111/static/img/book2.08addc8.jpg" alt="" data-src="http://101.37.117.111/static/img/book1.dafdae0.jpg">
+  <!-- <img src="" alt="" data-src="http://101.37.117.111/static/img/book2.08addc8.jpg"> -->
+  <script>
+    const images = document.querySelectorAll('[data-src]')
+    const config = {
+      rootMargin: '0px',
+      threshold: 0
+    }
+    const observer = new IntersectionObserver((entries, self) => {
+      entries.forEach(entry => {
+        console.log(entry)
+        if (entry.isIntersecting) {
+          preloadImage(entry.target)
+          self.unobserve(entry.target)
+        }
+      })
+    }, config)
+    setTimeout(() => {
+      images.forEach(img => {
+        observer.observe(img)
+      })
+    }, 1000);
+
+    function preloadImage(img) {
+      const src = img.dataset.src
+      if (!src) return
+      img.src = src
+    }
+  </script>
+</body>
+
+</html>
