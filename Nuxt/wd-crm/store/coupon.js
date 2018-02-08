@@ -1,5 +1,5 @@
 import { coupon } from '../assets/lib/constant'
-import { fetchCouponList, updateCoupon } from '../assets/lib/api'
+import { fetchCouponList, updateCoupon, addCoupon } from '../assets/lib/api'
 import { normalize, schema } from 'normalizr'
 
 export const state = () => ({
@@ -15,6 +15,10 @@ export const mutations = {
   [coupon.UPDATE_COUPON_LOCAL] (state, { data }) {
     const { kid } = data
     state.store = { ...state.store, [kid]: data }
+    const idList = state.idList
+    if (idList.indexOf(kid) === -1) {
+      state.idList = [kid, ...idList]
+    }
   }
 }
 
@@ -30,6 +34,13 @@ export const actions = {
   },
   async [coupon.UPDATE_COUPON_A] ({ commit }, payload) {
     const { err, fail, data } = await updateCoupon(payload)
+    if (err || fail) return err || fail
+    commit({ type: coupon.UPDATE_COUPON_LOCAL, data: data.data })
+    return true
+  },
+  /* 新增优惠券 */
+  async [coupon.ADD_COUPON_A] ({ commit }, payload) {
+    const { err, fail, data } = await addCoupon(payload)
     if (err || fail) return err || fail
     commit({ type: coupon.UPDATE_COUPON_LOCAL, data: data.data })
     return true

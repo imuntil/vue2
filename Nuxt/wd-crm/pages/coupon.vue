@@ -1,32 +1,33 @@
 <template>
   <section class="container coupon-index">
+    <el-button type="primary" @click="handleAddCouponClick">添加优惠券</el-button>
     <div>
       <coupon v-for="i in idList" :key="i" :datas="store[i]" @detail="viewDetail"></coupon>
     </div>
     <el-dialog :visible.sync="visible" custom-class="form-dialog">
       <el-form :model="form">
-        <el-form-item label="ID:" label-width="150px">
+        <el-form-item label="ID:" label-width="150px" v-if="!adding">
           <p class="just-view">{{form.kid}}</p>
         </el-form-item>
         <el-form-item label="可用时间:" label-width="150px">
-          <p v-if="editing">
+          <p v-if="editing || adding">
             <el-date-picker :editable="false" type="datetimerange" :clearable="false" v-model="range"></el-date-picker>
           </p>
           <p v-else class="just-view">
             {{form.start | dtf}} —— {{form.end | dtf}}
           </p>
         </el-form-item>
-        <el-form-item label="使用条件:" label-width="150px" v-if="form.method">
-          <p v-if="editing">
+        <el-form-item label="使用条件:" label-width="150px" v-if="form.method || editForm.method">
+          <p v-if="editing || adding">
             满
             <el-input-number v-model="editForm.method.achieve" style="width: 150px;" :controls="false"></el-input-number>
             减
             <el-input-number v-model="editForm.method.cut" style="width: 150px;" :controls="false"></el-input-number>
           </p>
-          <p v-else class="just-view">满{{form.method.achieve}}减{{form.method.cut}}</p>
+          <p v-if="!editing && form.method && form.method.cut" class="just-view">满{{form.method.achieve}}减{{form.method.cut}}</p>
         </el-form-item>
         <el-form-item label="适用产品:" label-width="150px">
-          <p v-if="editing" class="text--right">
+          <p v-if="editing || adding" class="text--right">
             <pro-list :datas="proList"></pro-list>
             <el-button icon="plus" @click="mini = true"></el-button>
           </p>
@@ -35,29 +36,29 @@
           </p>
         </el-form-item>
         <el-form-item label="余量:" label-width="150px">
-          <p v-if="editing">
+          <p v-if="editing || adding">
             <el-input-number v-model="editForm.count" :controls="false"></el-input-number>
           </p>
           <p v-else class="just-view">{{form.count}}</p>
         </el-form-item>
-        <el-form-item label="创建时间:" label-width="150px">
+        <el-form-item label="创建时间:" label-width="150px" v-if="!adding">
           <p class="just-view">{{form.created | dtf}}</p>
         </el-form-item>
         <el-form-item label="名称:" label-width="150px">
-          <p v-if="editing">
+          <p v-if="editing || adding">
             <el-input v-model="editForm.name" style="width: 400px;"></el-input>
           </p>
           <p v-else class="just-view">{{form.name}}</p>
         </el-form-item>
         <el-form-item label="相关描述:" label-width="150px">
-          <p v-if="editing">
+          <p v-if="editing || adding">
             <el-input type="textarea" :row="2" v-model="editForm.detail" style="width: 400px;"></el-input>
           </p>
           <p v-else class="just-view">{{form.detail}}</p>
         </el-form-item>
         <el-form-item class="text--center">
-          <el-button v-if="editing" @click="handleUpdate">更新</el-button>
-          <el-button type="primary" v-if="!editing" @click="editing = true">编辑</el-button>
+          <el-button v-if="editing || adding" @click="handleUpdate">提交</el-button>
+          <el-button type="primary" v-if="!editing && !adding" @click="editing = true">编辑</el-button>
           <el-button type="info" v-if="editing" @click="editing = false">返回</el-button>
         </el-form-item>
       </el-form>
@@ -96,7 +97,9 @@ export default {
       visible: false,
       editing: false,
       mini: false,
-      chosen: null
+      chosen: null,
+      /* add mode */
+      adding: false
     }
   },
   computed: {
@@ -117,7 +120,8 @@ export default {
   },
   methods: {
     ...mapActions('coupon', {
-      updateCouponServer: coupon.UPDATE_COUPON_A
+      updateCouponServer: coupon.UPDATE_COUPON_A,
+      addCouponServer: coupon.ADD_COUPON_A
     }),
     viewDetail (kid) {
       this.form = this.store[kid]
@@ -131,19 +135,29 @@ export default {
       }
     },
     async handleUpdate () {
-      const res = await this.updateCouponServer({ ...this.editForm, apply: this.proList })
+      const payload = { ...this.editForm, apply: this.proList }
+      const res =
+        this.editing
+          ? await this.updateCouponServer(payload)
+          : await this.addCouponServer(payload)
       if (res === true) {
         this.visible = false
-        this.$message({ message: '更新完成', type: 'success' })
+        this.$message({ message: this.editing ? '更新完成' : '新增优惠券成功', type: 'success' })
       } else {
-        const { code, message } = res
-        this.$message({ message: code === 211 ? '更新失败' : message, type: 'error' })
+        const { message } = res
+        this.$message({ message, type: 'error' })
       }
+    },
+    /* 添加优惠券 */
+    handleAddCouponClick () {
+      this.editForm = { apply: [], method: { achieve: '', cut: '' }, start: '', end: '' }
+      this.visible = true
+      this.adding = true
     }
   },
   watch: {
     visible (v) {
-      !v && (this.editing = false)
+      !v && (this.editing = this.adding = false)
     }
   }
 }

@@ -16,7 +16,7 @@ function existCookie(cookie) {
 export default function({ isServer, req, redirect, from, route, store }) {
   if (isServer && req) {
     const cookie = req.headers.cookie
-    const is = existCookie(cookie)
+    const is = cookie && existCookie(cookie)
     if (is) {
       header.cookie = cookie
       store.commit('auth/setAuth')
