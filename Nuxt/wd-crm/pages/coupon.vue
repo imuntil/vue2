@@ -1,6 +1,8 @@
 <template>
   <section class="container coupon-index">
-    <el-button type="primary" @click="handleAddCouponClick">添加优惠券</el-button>
+    <div class="top-bar">
+      <el-button type="primary" @click="handleAddCouponClick" size="small">添加优惠券</el-button>
+    </div>
     <div>
       <coupon v-for="i in idList" :key="i" :datas="store[i]" @detail="viewDetail"></coupon>
     </div>
@@ -170,6 +172,9 @@ export default {
 .just-view {
   max-width: 400px;
   border-bottom: 1px solid #edeef1;
+}
+.top-bar {
+  padding: 10px;
 }
 </style>
 <style>

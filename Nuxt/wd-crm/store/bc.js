@@ -12,7 +12,8 @@ const routes = {
   'products-add': [gen('添加产品')],
   user: [gen('用户列表')],
   orders: [gen('订单列表')],
-  'orders-to-send': [gen('订单列表', '/orders'), gen('待发货')]
+  'orders-to-send': [gen('订单列表', '/orders'), gen('待发货')],
+  coupon: [gen('优惠券')]
 }
 
 export const state = () => ({
