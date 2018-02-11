@@ -13,7 +13,7 @@ console.log(c.__proto__.__proto__ === P.prototype)
 console.log(c.__proto__.__proto__.__proto__ === Object.prototype)
 console.log(C.prototype.constructor === P)
 console.log(P.prototype.constructor === P)
-
+console.log(c.constructor === P)
 console.log('——————————————————test1 end————————————————————————————')
 console.log('——————————————————test2 start————————————————————————————')
 function D () {
@@ -41,6 +41,8 @@ console.log(cc)
 
 console.log(cc.__proto__ === CC.prototype)
 console.log(cc.__proto__.__proto__ === C.prototype) // -> false
+console.log(cc.__proto__.__proto__ === Object.prototype)
+console.log(cc.__proto__.__proto__.__proto__)
 console.log('可见，使用call方法没有继承原型， cc的原型链上没有C ')
 console.log('下面修改')
 CC.prototype = Object.create(C.prototype)
@@ -67,3 +69,7 @@ console.log(y.__proto__.__proto__ === X.prototype)
 console.log(y.__proto__.constructor === Y)
 console.log('使用class extends方式集成，constructor也指向正确')
 console.log('——————————————————test end————————————————————————————')
+
+const pp = new P()
+console.log(pp.constructor === P)
+console.log(pp.__proto__.constructor === P)

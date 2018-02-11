@@ -3,6 +3,7 @@ import decode from 'jwt-decode'
 
 function existCookie(cookie) {
   const st = cookie.split(';').find(c => c.trim().startsWith('_st='))
+  if (!st) return false
   try {
     const cookie = st.split('=')[1]
     if (!cookie) return false
