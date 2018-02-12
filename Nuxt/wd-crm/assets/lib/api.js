@@ -18,7 +18,7 @@ export async function request(url, options = {}) {
   return { data }
 }
 
-export const staticUrl = 'https://localhost'
+export const staticUrl = 'https://imuntil.com'
 export const configUrl = staticUrl
 // export const staticUrl = 'http://localhost:29999'
 // export const configUrl = 'http://localhost:29999'

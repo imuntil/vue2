@@ -2,7 +2,7 @@ import io from 'socket.io-client'
 import { order } from '~/assets/lib/constant'
 
 export default ({ store }) => {
-  const socket = io('https://localhost/socket')
+  const socket = io('https://imuntil.com/socket')
   socket.on('msg', msg => {
     console.log(msg)
     if (msg && msg.count !== undefined) {
