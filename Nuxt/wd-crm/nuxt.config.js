@@ -59,7 +59,7 @@ module.exports = {
     }
   },
   plugins: [
-    { src: '~plugins/element-ui', ssr: false },
+    '~plugins/element-ui',
     '~plugins/some-config',
     '~plugins/vue-quill-editor',
     '~plugins/vue2-filters',
