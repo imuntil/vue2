@@ -12,10 +12,17 @@
 <body>
   <div id="app">
     <span>{{a}}</span>
+    <input type="text" v-model="c.x">
   </div>
   <script>
     const mvvm = new Mvvm({
-      data: { a: 1 },
+      data: {
+        a: 1,
+        b: 'lala',
+        c: {
+          x: 111
+        }
+      },
       el: '#app'
     })
     window.mvvm = mvvm

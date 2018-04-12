@@ -9,7 +9,7 @@ function Mvvm(options = {}) {
       get() {
         return this._data[key]
       },
-      set (v) {
+      set(v) {
         this._data[key] = v
       }
     })
@@ -26,8 +26,9 @@ function Observe(data) {
     observe(val)
     Object.defineProperty(data, key, {
       configurable: true,
-      get () {
+      get() {
         Dep.target && dep.addSub(Dep.target)
+        console.log('key:', key, dep.subs)
         return val
       },
       set(newVal) {
@@ -72,6 +73,31 @@ function Compile(el, vm) {
           node.textContent = txt.replace(reg, newVal).trim()
         })
       }
+      if (node.nodeType === 1) {
+        const nodeAttr = node.attributes
+        Array.from(nodeAttr).forEach(attr => {
+          const { name, value: exp } = attr
+          if (name.includes('v-')) {
+            node.value = exp.split('.').reduce((cvm, v) => cvm[v], vm)
+
+            new Watcher(vm, exp, newVal => {
+              node.value = newVal
+            })
+
+            node.addEventListener(
+              'input',
+              e => {
+                const path = exp.split('.')
+                const last = path.pop()
+                const parent = path.reduce((cvm, v) => cvm[v], vm)
+
+                parent[last] = e.target.value
+              },
+              false
+            )
+          }
+        })
+      }
       if (node.childNodes && node.childNodes.length) {
         replace(node)
       }
@@ -89,12 +115,13 @@ Dep.prototype = {
   addSub(sub) {
     this.subs.push(sub)
   },
-  notify () {
+  notify() {
     this.subs.forEach(sub => sub.update())
   }
 }
 /* 监听函数 */
 function Watcher(vm, exp, fn) {
+  console.log('watch:', exp)
   this.fn = fn
   this.vm = vm
   this.exp = exp
