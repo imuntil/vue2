@@ -1,0 +1,9 @@
+section1
+
+left   615
+right  683
+top    776
+bottom 869
+width  68
+height 93
+scale 68/1080 = 

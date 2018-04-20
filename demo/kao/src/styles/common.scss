@@ -1,0 +1,11 @@
+@import './reset.css';
+@import './base.scss';
+@import './decoration.scss';
+
+html,
+body {
+  @include px2px(font-size, 30);
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+}

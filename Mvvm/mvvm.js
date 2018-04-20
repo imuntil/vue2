@@ -31,7 +31,7 @@ function Observe(data) {
         console.log('key:', key, dep.subs)
         return val
       },
-      set(newVal) {
+      set (newVal) {
         if (val === newVal) return
         val = newVal
         observe(newVal)
@@ -72,6 +72,14 @@ function Compile(el, vm) {
         new Watcher(vm, RegExp.$1, newVal => {
           node.textContent = txt.replace(reg, newVal).trim()
         })
+        // function replaceText() {
+        //   node.textContent = txt.replace(reg, (matched, placeholder) => {
+        //     console.log('placeholder:', placeholder)
+        //     new Watcher(vm, placeholder, replaceText)
+        //     return placeholder.split('.').reduce((val, key) => val[key], vm)
+        //   })
+        // }
+        // replaceText()
       }
       if (node.nodeType === 1) {
         const nodeAttr = node.attributes
