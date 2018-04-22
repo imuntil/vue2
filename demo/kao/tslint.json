@@ -13,7 +13,8 @@
       "space-before-function-paren": false,
       "arrow-parens": false,
       "no-console": false,
-      "no-shadowed-variable": false
+      "no-shadowed-variable": false,
+      "no-var-requires": false
     },
     "rulesDirectory": []
 }

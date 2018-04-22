@@ -40,3 +40,12 @@ $yellow: rgb(210, 235, 35);
 
 // 状态栏高度
 $status-height: 1.7067rem;
+
+@mixin origin($section) {
+  @if $section == 1 {
+    transform-origin: 6.083333rem /* 657/108 */ 7.583333rem /* 819/108 */;
+  }
+  @if $section == 2 {
+    transform-origin: 9.055556rem /* 978/108 */ 2.222222rem /* 240/108 */;
+  }
+}

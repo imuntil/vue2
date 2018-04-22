@@ -29,6 +29,9 @@ module.exports = {
       '@': resolve('src'),
     }
   },
+  externals: {
+    'preloadjs': 'createjs'
+  },
   module: {
     rules: [
       {
