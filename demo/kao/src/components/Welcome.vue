@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <cottons :count="40" />
+    <cottons v-if="canvasVisible" :pause="!petalsRun" :count="40" />
     <words-layer class="welcome" :step="0" />
   </div>
 </template>
 
 <script lang="ts">
-  import { Vue, Component } from 'vue-property-decorator'
+  import { Vue, Component, Prop } from 'vue-property-decorator'
   import WordsLayer from './WordsLayer.vue'
   import Cottons from './Cottons.vue'
   @Component({
@@ -14,6 +14,10 @@
   })
   export default class Welcome extends Vue {
     name: 'welcome'
+    @Prop()
+    petalsRun: boolean
+    @Prop({ default: true })
+    canvasVisible: boolean
   }
 </script>
 

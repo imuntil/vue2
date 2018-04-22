@@ -58,12 +58,14 @@
     }
   }
 
-  @Component
+  @Component({})
   export default class Cottons extends Vue {
     name: 'cottons'
     /* 元素总数量 */
     @Prop({ default: 20 })
     count: number
+    @Prop({ default: false })
+    pause: boolean
     /* 画布 */
     private canvas: HTMLCanvasElement
     private ctx: CanvasRenderingContext2D
@@ -107,7 +109,7 @@
           cs.reset()
         }
       }
-      requestAnimationFrame(this.update.bind(this))
+      !this.pause && requestAnimationFrame(this.update.bind(this))
     }
     private reflex (cs: CottonSprite, realW: number, naturalW: number) {
       if (cs.x < 0 || cs.x + (naturalW + realW) / 2 > CottonSprite.width) {

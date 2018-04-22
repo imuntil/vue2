@@ -91,6 +91,7 @@
     @include px2px(font-size, 28);
   }
   .imgs img {
-    width: 3.657407rem;
+    width: 3.657407rem; /* 395 */
+    height: 2.416667rem; /* 261 */
   }
 </style>

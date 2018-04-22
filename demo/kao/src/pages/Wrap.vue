@@ -5,7 +5,7 @@
         <img src="@/assets/section-2.jpg" :style="{transform: `scale(${g2.out})`}" alt="" class="section-2">
         <div class="step1" :style="{transform: `scale(${g2.in})`}">
           <img src="@/assets/section-1.jpg" :style="{transform: `scale(${g1.out})`}" alt="" class="section-1">
-          <welcome class="section-0" :style="{transform: `scale(${g1.in})`}" />
+          <welcome :canvas-visible="canvasVisible" :petals-run="petalsRun" class="section-0" :style="{transform: `scale(${g1.in})`}" />
         </div>
       </div>
     </div>
@@ -47,6 +47,10 @@
     step: number = 1
     /* 文字浮层 */
     wordsLayer: boolean = false
+    /* 花瓣动画 */
+    petalsRun: boolean = true
+    /* 将canvas从页面删除 */
+    canvasVisible: boolean = true
 
     /* 第一组 */
     g1: Group = {
@@ -78,12 +82,16 @@
       if (out < key!) {
         this.speed = 200
         this.wordsLayer = true
+        /* 停止花瓣动画 */
+        this.petalsRun = false
       }
       cg.out -= (out - inner) / this.speed
       if (cg.out <= 1) {
         cg.out = 1
         /* 下一个step */
         this.step++
+        /* 删除canvas */
+        this.canvasVisible = false
         if (this.step > 2) return
         /* hide words layer */
         this.wordsLayer = false
