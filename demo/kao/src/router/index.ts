@@ -12,8 +12,8 @@ const Loading: AsyncComponent = (): any =>
 Vue.use(Router)
 
 const routes: RouteConfig[] = [
-  { path: '/home', name: 'home', component: Home },
-  { path: '/', name: 'index', component: Wrap },
+  { path: '/', name: 'home', component: Home },
+  { path: '/wrap', name: 'index', component: Wrap },
   { path: '/loading', name: 'loading', component: Loading }
 ]
 
