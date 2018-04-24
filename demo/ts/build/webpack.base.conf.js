@@ -8,6 +8,17 @@ function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
+const createLintingRule = () => ({
+  test: /\.(js|vue)$/,
+  loader: 'eslint-loader',
+  enforce: 'pre',
+  include: [resolve('src'), resolve('test')],
+  options: {
+    formatter: require('eslint-friendly-formatter'),
+    emitWarning: !config.dev.showEslintErrorsInOverlay
+  }
+})
+
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
@@ -22,29 +33,15 @@ module.exports = {
         : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.ts', '.js', '.vue', '.json'],
+    extensions: ['.js', '.vue', '.json', '.ts'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
       '@': resolve('src')
     }
   },
-  externals: {
-    preloadjs: 'createjs'
-  },
   module: {
     rules: [
-      {
-        test: /\.tsx?$/,
-        use: [
-          { loader: 'babel-loader' },
-          {
-            loader: 'ts-loader',
-            options: {
-              appendTsSuffixTo: [/\.vue$/]
-            }
-          }
-        ]
-      },
+      ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -58,6 +55,14 @@ module.exports = {
           resolve('test'),
           resolve('node_modules/webpack-dev-server/client')
         ]
+      },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          appendTsSuffixTo: [/\.vue$/]
+        }
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
