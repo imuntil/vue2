@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <cottons v-if="canvasVisible" :pause="!petalsRun" :count="40" />
+    <cottons v-if="canvasVisible" :pause="!petalsRun" :count="40"
+    />
     <words-layer class="welcome" :step="0" />
   </div>
 </template>

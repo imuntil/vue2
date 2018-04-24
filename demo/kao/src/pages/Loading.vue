@@ -38,12 +38,12 @@
     async onComplete () {
       this.$store.commit({ type: 'loaded' })
       await delay(500)
-      const path = this.$store.state.path
-      if (path) {
-        this.$router.replace(path)
-        return
-      }
-      this.$router.replace('/')
+      // const path = this.$store.state.path
+      // if (path) {
+      //   this.$router.replace(path)
+      //   return
+      // }
+      this.$router.replace('/upload')
     }
 
     start () {

@@ -29,7 +29,6 @@
     public s: number = 0
 
     constructor(src: string) {
-      console.log('con')
       this.reset()
       this.img = new Image()
       this.img.src = src

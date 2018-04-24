@@ -61,7 +61,7 @@
     /* 花瓣动画 */
     petalsRun: boolean = true
     /* 将canvas从页面删除 */
-    canvasVisible: boolean = true
+    canvasVisible: boolean = false
 
     /* 第一组 */
     g1: Group = {
