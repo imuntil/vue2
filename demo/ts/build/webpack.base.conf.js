@@ -39,6 +39,9 @@ module.exports = {
       '@': resolve('src')
     }
   },
+  externals: {
+    preloadjs: 'createjs'
+  },
   module: {
     rules: [
       ...(config.dev.useEslint ? [createLintingRule()] : []),
@@ -58,11 +61,15 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
-        exclude: /node_modules/,
-        options: {
-          appendTsSuffixTo: [/\.vue$/]
-        }
+        use: [
+          { loader: 'babel-loader' },
+          {
+            loader: 'ts-loader',
+            options: {
+              appendTsSuffixTo: [/\.vue$/]
+            }
+          }
+        ]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

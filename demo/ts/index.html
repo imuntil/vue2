@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>ts</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>ts</title>
+  <script>
+    var dpr, rem, scale
+    var docEl = document.documentElement
+    var fontEl = document.createElement('style')
+    var metaEl = document.querySelector('meta[name="viewport"]')
+
+    dpr = (window.devicePixelRatio || 1).toFixed(1)
+    rem = docEl.clientWidth * dpr / 10
+    scale = 1 / dpr
+
+    metaEl.setAttribute('content', 'width=' + dpr * docEl.clientWidth + ',initial-scale=' + scale + ',maximum-scale=' +
+      scale + ', minimum-scale=' + scale + ',user-scalable=no, viewport-fit=contain');
+    docEl.setAttribute('data-dpr', dpr)
+
+    docEl.firstElementChild.appendChild(fontEl)
+    fontEl.innerHTML = 'html{font-size:' + rem + 'px!important;}'
+
+  </script>
+
+  <script src="./static/js/preloadjs-0.6.2.min.js"></script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+
 </html>
