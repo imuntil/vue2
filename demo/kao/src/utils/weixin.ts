@@ -196,9 +196,9 @@ export async function fetchWXInfo() {
   }
   const { code, result } = data
   if (+code !== 200 || !result) {
-    location.href = `${wxPrefix}wxLoginUsr.action?id=2&hurl=${
+    location.href = `${wxPrefix}wxLoginUsr.action?id=2&mid=${mid}&hurl=${
       location.href
-    }&mid=${mid}`
+    }`
   } else {
     return result
   }

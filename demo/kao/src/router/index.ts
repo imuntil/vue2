@@ -29,13 +29,13 @@ const router: Router = new Router({
 })
 
 router.beforeEach((to: Route, from: Route, next) => {
-  const { loaded } = store.state
-  const { name, path } = to
-  if (name !== 'loading' && !loaded) {
-    next({ path: '/loading' })
-    store.commit({ type: 'redirect', path })
-    return
-  }
+  // const { loaded } = store.state
+  // const { name, path } = to
+  // if (name !== 'loading' && !loaded) {
+  //   next({ path: '/loading' })
+  //   store.commit({ type: 'redirect', path })
+  //   return
+  // }
   next()
 })
 

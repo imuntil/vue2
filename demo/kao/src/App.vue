@@ -7,14 +7,16 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component } from 'vue-property-decorator'
-  @Component
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
+
+  @Component({})
   export default class App extends Vue {
-    name: 'App'
+    name: 'app1.0'
   }
 </script>
 
-<style lang="scss" scoped>
+<style>
   #app {
     height: inherit;
     background-color: transparent;

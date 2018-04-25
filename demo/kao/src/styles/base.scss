@@ -83,3 +83,17 @@ ul {
     animation-duration: ($i * 100) * 1ms !important;
   }
 }
+
+a:active {
+  opacity: 0.8;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.flex-right {
+  display: flex;
+  justify-content: flex-end;
+}
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}

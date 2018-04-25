@@ -26,6 +26,11 @@
     step: number
 
     imgs: string[] = imgList[this.step]
+
+    beforeDestroy () {
+      console.log('destroy')
+      this.imgs = []
+    }
   }
 </script>
 
@@ -35,6 +40,7 @@
     top: 0.722222rem; /* 78/108 */
     left: 0.666667rem; /* 72/108 */
     width: 3.935185rem;
+    perspective: 100;
     p {
       float: right;
       width: 0.759259rem;

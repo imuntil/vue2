@@ -18,7 +18,7 @@ body {
 }
 
 /* 页面切换动画 */
-$t: 30px;
+$t: 10px;
 .fade-enter-active,
 .fade-leave-active {
   transition: all 0.2s;
@@ -37,4 +37,17 @@ $t: 30px;
 .fade-enter-to {
   opacity: 1;
   transform: translate(0, 0);
+}
+
+a.btn {
+  @include px2px(font-size, 26);
+  border-radius: 0.092593rem /* 10/108 */;
+  padding: 0.185185rem /* 20/108 */ 0.37037rem /* 40/108 */;
+  display: inline-block;
+}
+
+/* toasted */
+.toasted-container .custom-toasted.toasted {
+  @include px2px(font-size, 28);
+  padding: .185185rem /* 20/108 */ .37037rem /* 40/108 */;
 }

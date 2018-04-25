@@ -1,11 +1,15 @@
 <template>
   <div class="container">
     <div class="box">
-      <p class="imgs">
-        <img v-if="count <= total * 0.444" key="35" src="@/assets/loading/loading-35.png" alt="">
-        <img v-else-if="count <= total * 0.667" key="55" src="@/assets/loading/loading-55.png" alt="">
-        <img v-else key="85" src="@/assets/loading/loading-85.png" alt="">
-      </p>
+      <transition-group tag="p" class="imgs" enter-active-class="animated fadeIn"
+        leave-active-class="animated fadeOut">
+        <img v-if="count <= total * 0.444" key="35" src="@/assets/loading/loading-35.png"
+          alt="">
+        <img v-else-if="count <= total * 0.667" key="55" src="@/assets/loading/loading-55.png"
+          alt="">
+        <img v-else key="85" src="@/assets/loading/loading-85.png"
+          alt="">
+      </transition-group>
       <p class="loading-bar">
         <span class="loaded" :style="{width: percent}"></span>
       </p>
@@ -27,15 +31,15 @@
 
     count: number = 0
     total: number = needLoad.length
-    get percent (): string {
+    get percent(): string {
       return `${Math.floor(this.count / this.total * 100)}%`
     }
 
-    onFileLoad () {
+    onFileLoad() {
       this.count++
     }
 
-    async onComplete () {
+    async onComplete() {
       this.$store.commit({ type: 'loaded' })
       await delay(500)
       // const path = this.$store.state.path
@@ -46,7 +50,7 @@
       this.$router.replace('/upload')
     }
 
-    start () {
+    start() {
       const queue = new createjs.LoadQueue(true)
       queue.on('fileload', this.onFileLoad)
       queue.on('complete', this.onComplete)
@@ -54,7 +58,7 @@
       queue.load()
     }
 
-    mounted () {
+    mounted() {
       this.start()
     }
   }
@@ -90,8 +94,15 @@
     margin-top: 0.185185rem; /* 20 */
     @include px2px(font-size, 28);
   }
-  .imgs img {
+  .imgs {
     width: 3.657407rem; /* 395 */
     height: 2.416667rem; /* 261 */
+    position: relative;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
   }
 </style>
