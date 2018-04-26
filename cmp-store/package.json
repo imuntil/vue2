@@ -13,6 +13,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "canvas-exif-orientation": "^0.4.0",
+    "exif-js": "^2.3.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
     "vue": "^2.5.2",

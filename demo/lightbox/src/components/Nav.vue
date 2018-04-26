@@ -1,13 +1,17 @@
 <template>
   <div class="container">
     <div class="nav">
-      <transition-group tag="p" class="logo-box" mode="out-in" :name="name" v-touch:left.stop.prevent="handlePrev" v-touch:right.stop.prevent="handleNext">
-        <img v-for="i in [0,2,4,6]" v-if="i === current" :key="i" src="@/assets/logo.png" alt="">
+      <transition-group tag="p" class="logo-box" mode="out-in"
+        :name="name" v-touch:left.stop.prevent="handleNext"
+        v-touch:right.stop.prevent="handlePrev">
+        <img v-for="i in [0,2,4,6]" v-show="i === current" :key="i"
+          src="@/assets/logo.png" alt="">
       </transition-group>
       <div class="nav-box">
         <a href="javascript:;" @click="handlePrev"><img src="@/assets/nav-btn-left.png" alt=""></a>
         <ul class="nav-list">
-          <li v-for="(v, i) in nav" :key="i" :class="{active: i === current}" @click="handleClick(i)">
+          <li v-for="(v, i) in nav" :key="i" :class="{active: i === current}"
+            @click="handleClick(i)">
             <a v-if="v" href="javascript:;">{{v}}</a>
           </li>
         </ul>
@@ -18,6 +22,7 @@
 </template>
 
 <script>
+/* dependence vue-directive-touch animate.css */
   const delay = time => new Promise(resolve => setTimeout(() => {
     resolve()
   }, time))
@@ -120,34 +125,33 @@
     display: block;
   }
 </style>
-<style lang="scss">
-/* 页面切换动画 */
-$t: 30px;
-.fade-enter-active,
-.fade-leave-active,
-.fb-enter-active,
-.fb-leave-active {
-  transition: all 0.5s;
-}
-.fade-enter,
-.fade-leave-to,
-.fb-enter,
-.fb-leave-to {
-  opacity: 0;
-}
-.fade-enter,
-.fb-leave-to {
-  transform: translate3d(-$t, $t, 0);
-}
-.fade-leave-to,
-.fb-enter {
-  transform: translate3d($t, $t, 0);
-}
-.fade-leave,
-.fade-enter-to,
-.fb-leave,
-.fb-enter-to {
-  opacity: 1;
-  transform: translate(0, 0);
-}
+<style>
+  /* 页面切换动画 */
+  .fade-enter-active,
+  .fade-leave-active,
+  .fb-enter-active,
+  .fb-leave-active {
+    transition: all 0.5s;
+  }
+  .fade-enter,
+  .fade-leave-to,
+  .fb-enter,
+  .fb-leave-to {
+    opacity: 0;
+  }
+  .fade-enter,
+  .fb-leave-to {
+    transform: translate3d(-30px, 30px, 0);
+  }
+  .fade-leave-to,
+  .fb-enter {
+    transform: translate3d(30px, 30px, 0);
+  }
+  .fade-leave,
+  .fade-enter-to,
+  .fb-leave,
+  .fb-enter-to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
 </style>
