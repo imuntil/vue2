@@ -8,14 +8,14 @@
           src="@/assets/logo.png" alt="">
       </transition-group>
       <div class="nav-box">
-        <a href="javascript:;" @click="handlePrev"><img src="@/assets/nav-btn-left.png" alt=""></a>
+        <a href="javascript:;" @click="handlePrev"><img src="@/assets/nav-btn-left2.png" alt=""></a>
         <ul class="nav-list">
           <li v-for="(v, i) in nav" :key="i" :class="{active: i === current}"
             @click="handleClick(i)">
             <a v-if="v" href="javascript:;">{{v}}</a>
           </li>
         </ul>
-        <a href="javascript:;" @click="handleNext"><img src="@/assets/nav-btn-right.png" alt=""></a>
+        <a href="javascript:;" @click="handleNext"><img src="@/assets/nav-btn-left2.png" alt=""></a>
       </div>
     </div>
   </div>
@@ -63,7 +63,7 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background-color: #000;
+    /* background-color: #000; */
     display: flex;
     justify-content: center;
   }
@@ -84,7 +84,16 @@
   }
   .nav-box > a {
     width: 10%;
-    opacity: 0.5;
+    opacity: 0.9;
+  }
+  .nav-box > a img {
+    animation: scale 2s linear infinite alternate-reverse;
+  }
+  .nav-box > a:last-child {
+    transform: scale(-1);
+  }
+  .nav-box > a:last-child img {
+    animation-delay: 2s;
   }
   .nav-list {
     flex: 1;
@@ -92,13 +101,14 @@
   }
   .nav-list a {
     color: #fff;
+    opacity: .75;;
     text-decoration: none;
     font-size: 12px;
     display: block;
     text-align: center;
     padding: 4px;
     position: relative;
-    transition: font-size 0.25s;
+    transition: all 0.25s;
     white-space: nowrap;
   }
   .nav-list li:empty {
@@ -109,7 +119,9 @@
     display: inline-block;
   }
   .nav-list .active a {
-    font-size: 15px;
+    /* font-size: 15px; */
+    opacity: 1;
+    transform: scale(1.15);
   }
   .logo-box {
     width: 90%;
@@ -123,6 +135,17 @@
     top: 0;
     right: 0;
     display: block;
+  }
+
+  @keyframes scale {
+    from {
+      transform:scale(.85);
+      opacity: .8;
+    }
+    to {
+      transform:scale(1.15);
+      opacity: 1;
+    }
   }
 </style>
 <style>

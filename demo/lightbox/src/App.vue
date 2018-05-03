@@ -1,18 +1,21 @@
 <template>
   <div id="app">
-    <Nav />
+    <!-- <Nav /> -->
+    <trans-page></trans-page>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld'
 import Nav from './components/Nav'
+import TransPage from './components/TransPage'
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    Nav
+    Nav,
+    TransPage
   }
 }
 </script>
