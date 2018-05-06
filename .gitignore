@@ -108,7 +108,8 @@ GitHub.sublime-settings
 node_modules
 jspm_packages
 dist
-github-gif
+iview-admin
 
 .DS_Store
+
 .nuxt
