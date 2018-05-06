@@ -6,6 +6,7 @@ const Home: AsyncComponent = (): any => import(/* webpackChunkName: 'home' */ '@
 const Loading: AsyncComponent = (): any => import(/* webpackChunkName: 'loading' */ '@/pages/Loading.vue')
 const Activity: AsyncComponent = (): any => import(/* webpackChunkName: 'activity' */ '@/pages/Activity.vue')
 const Share: AsyncComponent = (): any => import(/* webpackChunkName: 'share' */ '@/pages/Share.vue')
+const DragPage: AsyncComponent = (): any => import(/* webpackChunkName: 'drag' */ '@/pages/DragPage.vue')
 
 Vue.use(Router)
 
@@ -13,7 +14,8 @@ const routes: RouteConfig[] = [
   { path: '/', name: 'loading', component: Loading },
   { path: '/home', name: 'home', component: Home },
   { path: '/Activity', name: 'activity', component: Activity },
-  { path: '/share', name: 'share', component: Share }
+  { path: '/share', name: 'share', component: Share },
+  { path: '/drag', name: 'drag', component: DragPage }
 ]
 
 const router: Router = new Router({

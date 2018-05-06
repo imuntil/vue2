@@ -2,15 +2,13 @@
   <section class="container">
     <upload-image size="small" :upload="upload" :src="src"></upload-image>
     <br>
-    <upload-avatar />
   </section>
 </template>
 <script lang="ts">
   import { Vue, Component } from 'vue-property-decorator'
-  import UploadImage from '@/components/UploadImage'
-  import UploadAvatar from '../components/Avatar'
+  import UploadImage from '../components/UploadImage'
   @Component({
-    components: { UploadImage, UploadAvatar }
+    components: { UploadImage }
   })
   export default class Home extends Vue {
     name: 'home'
@@ -18,7 +16,7 @@
     private src: string = ''
     private upload(f: File) {
       // 上传至服务器，并更新src
-      console.log(f)
+      console.log()
     }
   }
 </script>
