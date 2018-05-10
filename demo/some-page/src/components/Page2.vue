@@ -91,10 +91,11 @@
 </style>
 <style lang="scss" scoped>
   .container {
-    line-height: 0;
     * {
-      line-height: 1;
       margin: 0;
+    }
+    & > img {
+      display: block;
     }
   }
   .section .content {
@@ -207,16 +208,15 @@
     padding: 70px 0;
     counter-reset: num 0;
     .title {
-      font-size: 12px;
       padding: 20px 10px;
+      line-height: 24px;
       span {
         font-size: 24px;
       }
       i {
         font-style: normal;
-        line-height: 24px;
-        display: inline-block;
-        vertical-align: 0.4ex;
+        vertical-align: top;
+        font-size: 12px;
       }
     }
   }

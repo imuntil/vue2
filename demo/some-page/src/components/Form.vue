@@ -124,8 +124,7 @@
             width="400" alt="">
         </div>
       </div>
-      <p>1381718-1815 (孔思静) E-mail: ksj@shanghaicordblood.org
-        / 136-0179-7353 (邵夏炎) E-mail: sxy@shanghaicordblood.org</p>
+      <p>1381718-1815 (孔思静) E-mail: ksj@shanghaicordblood.org  / 136-0179-7353 (邵夏炎) E-mail: sxy@shanghaicordblood.org</p>
       <a href="javascript:;">提示: 请通过“脐血编号”进行核对、咨询</a>
     </div>
   </div>
