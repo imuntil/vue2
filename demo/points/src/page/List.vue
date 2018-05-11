@@ -22,11 +22,16 @@
         </div>
       </div>
     </div>
+    <pf></pf>
   </div>
 </template>
 
 <script>
+  import Pf from '../components/Footer'
   export default {
+    components: {
+      Pf
+    },
     data () {
       return {
         list: []

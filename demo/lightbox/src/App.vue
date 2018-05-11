@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <!-- <Nav /> -->
-    <trans-page></trans-page>
+    <!-- <trans-page></trans-page> -->
+    <center>
+      
+    </center>
   </div>
 </template>
 
@@ -9,13 +12,15 @@
 import HelloWorld from './components/HelloWorld'
 import Nav from './components/Nav'
 import TransPage from './components/TransPage'
+import Center from './components/Center'
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
     Nav,
-    TransPage
+    TransPage,
+    Center
   }
 }
 </script>
