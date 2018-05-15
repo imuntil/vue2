@@ -1,25 +1,25 @@
 <template>
   <div class="container">
     <div class="right-box">
-      <a href="javascript:;" @touchstart.stop.prevent="handleClick(0)" class="road rr1" :class="{visible: view}">
+      <a href="javascript:;" @touchstart.stop="handleClick(0)" class="road rr1" :class="{visible: view}">
         <img src="../assets/rr1.png" alt="">
         <img src="../assets/rr1-active.png" alt="">
         <span>积分</span>
         <i class="arrow-1"><img src="../assets/nav-btn-left2.png" alt=""></i>
       </a>
-      <a href="javascript:;" @touchstart.stop.prevent="handleClick(1)" class="road rr2" :class="{visible: view}">
+      <a href="javascript:;" @touchstart.stop="handleClick(1)" class="road rr2" :class="{visible: view}">
         <img src="../assets/rr2.png" alt="">
         <img src="../assets/rr2-active.png" alt="">
         <span>排名</span>
         <i class="arrow-2"><img src="../assets/nav-btn-left2.png" alt=""></i>
       </a>
-      <a href="javascript:;" @touchstart.stop.prevent="handleClick(2)" class="road left rl1" :class="{visible: view}">
+      <a href="javascript:;" @touchstart.stop="handleClick(2)" class="road left rl1" :class="{visible: view}">
         <img src="../assets/rl1.png" alt="">
         <img src="../assets/rl1-active.png" alt="">
         <span>称号</span>
         <i class="arrow-3"><img src="../assets/nav-btn-left2.png" alt=""></i>
       </a>
-      <a href="javascript:;" @touchstart.stop.prevent="handleClick(3)" class="road left rl2" :class="{visible: view}">
+      <a href="javascript:;" @touchstart.stop="handleClick(3)" class="road left rl2" :class="{visible: view}">
         <img src="../assets/rl2.png" alt="">
         <img src="../assets/rl2-active.png" alt="">
         <span>指南</span>
@@ -69,6 +69,7 @@
     display: block;
     text-align: right;
     line-height: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
   .road span {
     position: absolute;

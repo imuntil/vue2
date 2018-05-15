@@ -5,6 +5,7 @@
     <touch-bar class="touch-bar"></touch-bar>
     <Radar></Radar>
     <a href="javascript:;" @click="screenshot">screenshot</a>
+    <img :src="shot" width="100%" style="border: 2px solid #fff;" alt="">
   </section>
 </template>
 <script lang="ts">
@@ -20,13 +21,15 @@
     name: 'home'
     /* 图片地址，没有则为空 */
     private src: string = ''
+    private shot: string = ''
     private upload (f: File) {
       // 上传至服务器，并更新src
       console.log()
     }
     screenshot () {
       html2canvas(document.body).then((canvas: HTMLCanvasElement) => {
-        document.body.appendChild(canvas)
+        // document.body.appendChild()
+        this.shot = canvas.toDataURL()
       })
     }
   }
