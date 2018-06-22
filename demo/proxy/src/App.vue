@@ -2,23 +2,34 @@
   <div id="app">
     <img src="./assets/logo.png">
     <HelloWorld/>
+    <div class="parent">
+      <ss>
+        <p slot-scope="props">
+          <span>parent</span> <br>
+          <span>{{props.names}}</span> <br>
+          <span>{{props.age}}</span>
+        </p>
+      </ss>
+    </div>
   </div>
 </template>
 
 <script>
   import HelloWorld from './components/HelloWorld'
+  import SlotScope from './components/SlotScope'
 
   export default {
     name: 'App',
     components: {
-      HelloWorld
+      HelloWorld,
+      Ss: SlotScope
     },
     created () {
-      fetch('/lala/api/user/test').then(v => {
-        v.json().then(res => {
-          console.log(res)
-        })
-      })
+      // fetch('/lala/api/user/test').then(v => {
+      //   v.json().then(res => {
+      //     console.log(res)
+      //   })
+      // })
     }
   }
 </script>
